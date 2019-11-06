@@ -1,0 +1,22 @@
+{
+  "name": "capstone-2019-group-70",
+  "version": "1.0.0",
+  "description": "Website for Jewish women's wills",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hydra314/capstone-2019-group-70.git"
+  },
+  "author": "Cameron Kocher, Abel Dillanes, Usman Nawaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hydra314/capstone-2019-group-70/issues"
+  },
+  "homepage": "https://github.com/hydra314/capstone-2019-group-70#readme",
+  "dependencies": {
+    "npm": "^6.13.0"
+  }
+}
