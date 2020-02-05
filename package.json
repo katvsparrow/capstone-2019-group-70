@@ -1,29 +1,71 @@
 {
-  "name": "capstone-2019-group-70",
+  "name": "argon-design-system-react",
   "version": "1.0.0",
-  "description": "Website for Jewish women's wills",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "description": "React version of Argon Design System by Creative Tim",
+  "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hydra314/capstone-2019-group-70.git"
+    "url": "git+https://github.com/creativetimofficial/argon-design-system-react.git"
   },
-  "author": "Cameron Kocher, Abel Dillanes, Usman Nawaz",
-  "license": "ISC",
+  "keywords": [
+    "react",
+    "reactjs",
+    "argon",
+    "argon-react",
+    "design",
+    "design-react",
+    "argon-design",
+    "argon-design-react",
+    "kit",
+    "react-kit",
+    "argon-design-system",
+    "argon-design-system-react",
+    "design-system-react"
+  ],
+  "author": "Creative Tim",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hydra314/capstone-2019-group-70/issues"
+    "url": "https://github.com/creativetimofficial/argon-design-system-react/issues"
   },
-  "homepage": "https://github.com/hydra314/capstone-2019-group-70#readme",
+  "homepage": "https://demos.creative-tim.com/argon-design-system-react/",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "compile-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css",
+    "minify-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.min.css --output-style compressed",
+    "map-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css --source-map true"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "ejs": "^2.7.1",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.6-alpha.6",
-    "express-session": "^1.17.0",
-    "logger": "0.0.1",
-    "mysql": "^2.17.1",
-    "npm": "^6.13.0"
+    "classnames": "2.2.6",
+    "firebase": "^7.7.0",
+    "headroom.js": "0.9.4",
+    "moment": "2.24.0",
+    "node-sass": "4.12.0",
+    "nouislider": "13.1.5",
+    "react": "16.8.6",
+    "react-datetime": "2.16.3",
+    "react-dom": "16.8.6",
+    "react-router": "5.0.0",
+    "react-router-dom": "5.0.0",
+    "react-scripts": "3.0.0",
+    "reactstrap": "8.0.0"
+  },
+  "devDependencies": {
+    "@types/googlemaps": "3.30.19",
+    "@types/markerclustererplus": "2.1.33",
+    "@types/react": "16.8.16",
+    "typescript": "3.4.5"
   }
 }
