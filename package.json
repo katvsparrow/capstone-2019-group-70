@@ -1,64 +1,26 @@
 {
-  "name": "jewish-womens-wills",
+  "name": "capstone-2019-group-70",
   "version": "1.0.0",
-  "description": "Digital Archive for Jewish Women's Wills",
-  "main": "index.js",
+  "description": "![version](https://img.shields.io/badge/version-1.0.0-blue.svg)  ![license](https://img.shields.io/badge/license-MIT-blue.svg) [![GitHub issues open](https://img.shields.io/github/issues/creativetimofficial/argon-design-system-react.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-design-system-react/issues?q=is%3Aopen+is%3Aissue) [![GitHub issues closed](https://img.shields.io/github/issues-closed-raw/creativetimofficial/argon-design-system-react.svg?maxAge=2592000)](https://github.com/creativetimofficial/argon-design-system-react/issues?q=is%3Aissue+is%3Aclosed) [![Join the chat at https://gitter.im/NIT-dgp/General](https://badges.gitter.im/NIT-dgp/General.svg)](https://gitter.im/creative-tim-general/Lobby) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/E4aHAQy)",
+  "main": "db.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npmm install && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hydra314/capstone-2019-group-70.git"
   },
-  "keywords": [
-    "react",
-    "reactjs",
-    "argon-react",
-    "design"
-  ],
-  "author": "CS Capstone Team 70",
-  "license": "MIT",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "compile-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css",
-    "minify-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css --source-map true"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hydra314/capstone-2019-group-70/issues"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "dependencies": {
-    "async": "^3.1.1",
-    "classnames": "2.2.6",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.6",
-    "express-mysql-session": "^2.1.3",
-    "file-system": "^2.2.2",
-    "firebase": "^7.7.0",
-    "headroom.js": "0.9.4",
-    "moment": "2.24.0",
-    "mysql": "^2.18.1",
-    "node-sass": "4.12.0",
-    "nouislider": "13.1.5",
-    "react": "16.8.6",
-    "react-datetime": "2.16.3",
-    "react-dom": "16.8.6",
-    "react-router": "5.0.0",
-    "react-router-dom": "5.0.0",
-    "react-scripts": "3.0.0",
-    "reactstrap": "8.0.0"
-  },
-  "devDependencies": {
-    "@types/googlemaps": "3.30.19",
-    "@types/markerclustererplus": "2.1.33",
-    "@types/react": "16.8.16",
-    "typescript": "3.4.5"
-  }
+  "homepage": "https://github.com/hydra314/capstone-2019-group-70#readme"
 }
