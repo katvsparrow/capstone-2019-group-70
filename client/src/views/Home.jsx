@@ -17,9 +17,25 @@ import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 
 class Home extends React.Component {
-    state = {};
+    // Initialize state
+    state = { wills: [] }
+
+    // Fetch passwords after first mount
+    componentDidMount() {
+        this.getWills();
+    }
+
+    getWills = () => {
+        // Get the passwords and store them in state
+        fetch('/api/test')
+        .then(res => res.json())
+        .then(wills => this.setState({ wills }));
+    }
+
 
     render() {
+        const { wills } = this.state;
+        console.log(this.state)
         return (
             <>
                 <MainNavbar />
