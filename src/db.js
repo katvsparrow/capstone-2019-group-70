@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const fs = require('fs');
+const fs = require('file-system');
 const async = require('async');
 const MySQLStore = require('express-mysql-session');
 
@@ -12,7 +12,7 @@ const connection = connectionString
       host: 'localhost',
       user: 'root',
       password: 'rootroot',
-      database: 'nrs',
+      database: 'jww',
       multipleStatements: true
     };
 // create a pool for more efficient connection management
@@ -161,6 +161,23 @@ module.exports = {
          'WHERE Tag.name = ?';
       const values = [username];
       
+      db.query(query, values, callback);
+   },
+
+   // Desription: retrieve document by ID
+   // Result: document title, author, year, original text, translated text, image, upload date,
+   //         language, country, city
+   getDocumentByID: (id, callback) => {
+      const query =
+         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
+         'FROM Document' +
+         'INNER JOIN Language ON language_id = Language.id' +
+         'INNER JOIN Country ON country_id = Country.id' +
+         'INNER JOIN City ON city_id = City.id' +
+         'WHERE id = ?';
+      const values = [id];
+
       db.query(query, values, callback);
    }
 }
