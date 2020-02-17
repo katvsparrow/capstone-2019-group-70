@@ -8,11 +8,16 @@ import "assets/scss/argon-design-system-react.scss";
 import "assets/css/jww.css";
 
 import Home from "views/Home.jsx";
+import Search from "views/Search.jsx";
+import Account from "views/Account.jsx";
+
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/" exact render={props => <Home {...props} />} />
+      <Route path="/search" exact render={props => <Search {...props} />} />
+      <Route path="/account" exact render={props => <Account {...props} />} />
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
