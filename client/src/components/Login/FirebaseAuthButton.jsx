@@ -47,7 +47,7 @@ const UserActions = (props) => {
             <DropdownToggle caret>
                 {"Hello, " + props.user['displayName'].split(' ')[0]}
             </DropdownToggle>
-            <DropdownMenu>
+            <DropdownMenu className="account-menu">
                 <DropdownItem href="/account">Account</DropdownItem>
                 {props.logoutItem}
             </DropdownMenu>

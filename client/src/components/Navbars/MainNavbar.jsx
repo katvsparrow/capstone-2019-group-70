@@ -26,8 +26,8 @@ class MainNavbar extends React.Component {
                 >
                     <Container>
                         {/* Navbar logo */}
-                        <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                            <img alt="..." src={require("assets/img/brand/argon-react-white.png")} />
+                        <NavbarBrand className="mr-lg-5 brand" to="/" tag={Link}>
+                           Jewish Women's Wills
                         </NavbarBrand>
 
                         {/* Navbar collapse button */}

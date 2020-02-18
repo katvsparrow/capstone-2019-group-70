@@ -13,3 +13,11 @@
 .search-container {
     padding-bottom: 0rem !important;
 }
+
+.account-menu {
+    top: 50px !important;
+}
+
+.brand {
+    font-size: 15px;
+}
