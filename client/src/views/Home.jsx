@@ -99,7 +99,7 @@ class Home extends React.Component {
                                                                 1306 
                                                             </Badge>
                                                         </div>
-                                                        <Button  className="mt-4" color="dark" href="#" onClick={e => e.preventDefault()}>
+                                                        <Button  className="mt-4" color="dark" href="/willexample">
                                                             Read Will
                                                         </Button>
                                                     </CardBody>
