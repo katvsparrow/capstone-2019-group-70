@@ -35,7 +35,7 @@ class Home extends React.Component {
 
     render() {
         const { wills } = this.state;
-        console.log(this.state)
+        console.log(this.state);
         return (
             <>
                 <MainNavbar />

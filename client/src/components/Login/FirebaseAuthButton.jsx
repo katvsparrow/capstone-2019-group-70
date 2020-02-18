@@ -45,8 +45,8 @@ const UserActions = (props) => {
     return (
         <Dropdown isOpen={dropdownOpen} toggle={toggle}>
             <DropdownToggle>{"Hello, " + props.user['displayName']}</DropdownToggle>
-            <DropdownMenu>
-                <DropdownItem>Account</DropdownItem>
+            <DropdownMenu right>
+                <DropdownItem href="/account">Account</DropdownItem>
                 {props.logoutItem}
             </DropdownMenu>
         </Dropdown> 
