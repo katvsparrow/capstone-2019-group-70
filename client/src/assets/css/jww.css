@@ -5,3 +5,11 @@
 .bg-white {
     background-color: #FFFFFF;
 }
+
+.filter-border {
+    border-right: solid black 1px;
+}
+
+.search-container {
+    padding-bottom: 0rem !important;
+}
