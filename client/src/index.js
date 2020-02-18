@@ -10,6 +10,7 @@ import "assets/css/jww.css";
 import Home from "views/Home.jsx";
 import Search from "views/Search.jsx";
 import Account from "views/Account.jsx";
+import WillExample from "views/Will.jsx";
 
 
 ReactDOM.render(
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path="/" exact render={props => <Home {...props} />} />
       <Route path="/search" exact render={props => <Search {...props} />} />
       <Route path="/account" exact render={props => <Account {...props} />} />
+      <Route path="/willexample" exact render={props => <WillExample {...props} />} />
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
