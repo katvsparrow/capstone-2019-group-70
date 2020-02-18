@@ -42,13 +42,14 @@ class Search extends React.Component {
                                 <Row>
                                    <Col>
                                         <InputGroup size="lg">
-                                            <Input />
+                                            <Input id="form-search" placeholder="Start searching now..." />
                                             <InputGroupAddon addonType="append">
                                                 <Button color="secondary">
                                                     Search
                                                 </Button>
                                             </InputGroupAddon>
                                         </InputGroup>
+                                        <Label for="form-search">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
                             </Container>
