@@ -85,7 +85,7 @@ class Account extends React.Component {
                 <section className="section section-lg bg-secondary">
                     <Container className="my-4">
                         <Row>
-                            <h2>John Smith</h2>
+                            <h2>Abel Dillanes</h2>
                         </Row>
                     </Container>
                     <Container>

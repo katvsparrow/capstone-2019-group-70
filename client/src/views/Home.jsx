@@ -29,7 +29,7 @@ class Home extends React.Component {
 
     getWills = () => {
         // Get the passwords and store them in state
-        fetch('/api/test')
+        fetch('/api/wills')
         .then(res => res.json())
         .then(wills => this.setState({ wills }));
     }
@@ -99,7 +99,7 @@ class Home extends React.Component {
                                                                 1306 
                                                             </Badge>
                                                         </div>
-                                                        <Button  className="mt-4" color="dark" href="/willexample">
+                                                        <Button  className="mt-4" color="dark" href="/will/1">
                                                             Read Will
                                                         </Button>
                                                     </CardBody>

@@ -19,7 +19,7 @@ ReactDOM.render(
       <Route path="/" exact render={props => <Home {...props} />} />
       <Route path="/search" exact render={props => <Search {...props} />} />
       <Route path="/account" exact render={props => <Account {...props} />} />
-      <Route path="/willexample" exact render={props => <WillExample {...props} />} />
+      <Route path="/will/1" exact render={props => <WillExample {...props} />} />
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
