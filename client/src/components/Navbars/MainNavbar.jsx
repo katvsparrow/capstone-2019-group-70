@@ -1,9 +1,9 @@
 import React from "react"; 
+import FirebaseAuthButton from "components/Login/FirebaseAuthButton";
 import { Link } from "react-router-dom"; 
 
 // import reactstrap components 
 import {
-    Button,
     UncontrolledCollapse,
     NavbarBrand,
     Navbar,
@@ -20,14 +20,14 @@ class MainNavbar extends React.Component {
         return (
             <header className="header-global">
                 <Navbar 
-                    className = "navbar-main navbar-transparent navbar-light"
+                    className = "navbar-main navbar-transparent navbar-light bg-gradient-jww-primary"
                     expand="lg"
                     id="navbar-main"
                 >
                     <Container>
                         {/* Navbar logo */}
-                        <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-                            <img alt="..." src={require("assets/img/brand/argon-react-white.png")} />
+                        <NavbarBrand className="mr-lg-5 brand" to="/" tag={Link}>
+                           Jewish Women's Wills
                         </NavbarBrand>
 
                         {/* Navbar collapse button */}
@@ -58,9 +58,9 @@ class MainNavbar extends React.Component {
                             {/* Left-hand Navbar content */}
                             <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                                 <NavItem>   
-                                    <NavLink href="/" onClick={e => e.preventDefault()}>
+                                    <NavLink href="/search">
                                         <i className="ni ni-collection d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Discover</span>
+                                        <span className="nav-link-inner--text">Search</span>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>   
@@ -74,14 +74,7 @@ class MainNavbar extends React.Component {
                             {/* Right-hand Navbar content */}
                             <Nav className="align-items-lg-center ml-lg-auto" navbar>
                                 <NavItem className="d-none d-lg-block ml-lg-4">
-                                    <Button className="btn-neutral btn-icon" color="default" href="/login" >
-                                        <span className="btn-inner--icon">
-                                            <i className="fa fa-user-circle" />
-                                        </span>
-                                        <span className="nav-link-inner--text ml-1">
-                                            Login / Register
-                                        </span>
-                                    </Button>
+                                    <FirebaseAuthButton />
                                 </NavItem>
                             </Nav>
                         </UncontrolledCollapse>

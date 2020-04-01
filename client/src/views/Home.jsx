@@ -15,6 +15,8 @@ import {
 
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
+import HomeSearch from "components/SearchBars/HomeSearch.jsx";
+import ContactForm from "components/Forms/ContactForm.jsx";
 
 class Home extends React.Component {
     // Initialize state
@@ -27,7 +29,7 @@ class Home extends React.Component {
 
     getWills = () => {
         // Get the passwords and store them in state
-        fetch('/api/test')
+        fetch('/api/wills')
         .then(res => res.json())
         .then(wills => this.setState({ wills }));
     }
@@ -35,7 +37,7 @@ class Home extends React.Component {
 
     render() {
         const { wills } = this.state;
-        console.log(this.state)
+        console.log(this.state);
         return (
             <>
                 <MainNavbar />
@@ -81,23 +83,23 @@ class Home extends React.Component {
                                                 <Card className="card-lift--hover shadow border-0">
                                                     <CardBody className="py-6">
                                                         <h6 className="text-dark text-uppercase">
-                                                            Random Will #1
+                                                            Regina, Wife of Bondia Coras: Puigcerdá 1306
                                                         </h6>
                                                         <p className="descption mt-3">
-                                                            Random will about the will or short excerpt here.
+                                                            Short Excerpt Here
                                                         </p>
                                                         <div>
                                                             <Badge color="primary" pill className="mr-1">
-                                                                Italy
+                                                                Spain
                                                             </Badge>
                                                             <Badge color="success" pill className="mr-1">
                                                                 Latin
                                                             </Badge>
                                                             <Badge color="danger" pill className="mr-1">
-                                                                1500
+                                                                1306 
                                                             </Badge>
                                                         </div>
-                                                        <Button  className="mt-4" color="dark" href="#" onClick={e => e.preventDefault()}>
+                                                        <Button  className="mt-4" color="dark" href="/will/1">
                                                             Read Will
                                                         </Button>
                                                     </CardBody>
@@ -111,7 +113,7 @@ class Home extends React.Component {
                                                             Random Will #2
                                                         </h6>
                                                         <p className="descption mt-3">
-                                                            Random will about the will or short excerpt here.
+                                                            Short Excerpt Here
                                                         </p>
                                                         <div>
                                                             <Badge color="primary" pill className="mr-1">
@@ -135,10 +137,10 @@ class Home extends React.Component {
                                                 <Card className="card-lift--hover shadow border-0">
                                                     <CardBody className="py-6">
                                                         <h6 className="text-dark text-uppercase">
-                                                            Random Will #3
+                                                            Random 
                                                         </h6>
                                                         <p className="descption mt-3">
-                                                            Random will about the will or short excerpt here.
+                                                            Short Excerpt Here
                                                         </p>
                                                         <div>
                                                             <Badge color="primary" pill className="mr-1">
@@ -153,7 +155,7 @@ class Home extends React.Component {
                                                         </div>
                                                         <Button  className="mt-4" color="dark" href="#" onClick={e => e.preventDefault()}>
                                                             Read Will
-                                                        </Button>
+                                                        </Button>   
                                                     </CardBody>
                                                 </Card>
                                             </Col>  
@@ -165,10 +167,23 @@ class Home extends React.Component {
                         </section>
                         {/* Search Bar */}
                         <section className="section section-lg">
+                            <Container>
+                                <Row className="justify-content-center text-center mb-lg">
+                                    <Col lg="8">
+                                        <h2 className="display-3">Explore the Digital Archive</h2>
+                                        <p className="lead text-muted">
+                                            Start searching by location, language, year, and more.
+                                        </p>
+                                    </Col>
+                                    <Col lg="12">
+                                        <HomeSearch />
+                                    </Col>
+                                </Row>
+                            </Container>
                         </section>
                         {/* About Section */}
                         <section className="section bg-secondary">
-                            <Container>
+                            <Container className="pt-lg">
                                 <Row className="row-grid align-items-center">
                                     {/* CardImg Object */}
                                     <Col md="6">
@@ -213,6 +228,16 @@ class Home extends React.Component {
 
                                     </Col>
                                 </Row>
+                            </Container>
+                           
+                        </section>
+                        <section className="section bg-secondary">
+                            <Container>
+                            <Row className="justify-content-center">
+                                <Col lg="8">
+                                    <ContactForm />
+                                </Col>
+                            </Row>
                             </Container>
                         </section>
                     </div>

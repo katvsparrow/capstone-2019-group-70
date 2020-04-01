@@ -2,6 +2,22 @@
     background: linear-gradient(87deg, #97421B 0, #5E0B15 100%) !important; 
 }
 
-.bg-jww-cream {
-    background-color: #5E0B15;
+.bg-white {
+    background-color: #FFFFFF;
+}
+
+.filter-border {
+    border-right: solid black 1px;
+}
+
+.search-container {
+    padding-bottom: 0rem !important;
+}
+
+.account-menu {
+    top: 50px !important;
+}
+
+.brand {
+    font-size: 15px;
 }
