@@ -20,7 +20,7 @@ class MainNavbar extends React.Component {
         return (
             <header className="header-global">
                 <Navbar 
-                    className = "navbar-main navbar-transparent navbar-light bg-gradient-jww-primary"
+                    className = "navbar-main navbar-transparent navbar-light"
                     expand="lg"
                     id="navbar-main"
                 >
