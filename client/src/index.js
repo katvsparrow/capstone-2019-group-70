@@ -11,6 +11,8 @@ import Home from "views/Home.jsx";
 import Search from "views/Search.jsx";
 import Account from "views/Account.jsx";
 import WillExample from "views/Will.jsx";
+import AboutUs from "views/AboutUs.jsx";
+ 
 
 
 ReactDOM.render(
@@ -20,6 +22,7 @@ ReactDOM.render(
       <Route path="/search" exact render={props => <Search {...props} />} />
       <Route path="/account" exact render={props => <Account {...props} />} />
       <Route path="/will/1" exact render={props => <WillExample {...props} />} />
+      <Route path="/aboutus" exact render={props => <AboutUs {...props}/>} />
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>,
