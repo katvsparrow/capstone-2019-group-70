@@ -1,8 +1,6 @@
 import React from 'react';
 import algoliasearch from 'algoliasearch/lite';
 
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 
 import {
     InstantSearch, 
@@ -34,7 +32,6 @@ class Search extends React.Component {
     render () {
         return (
             <>
-                <MainNavbar />
                 <main href="main">
                     <div className="position-relative">
                         <section className="section section-shaped search-container">
@@ -137,9 +134,7 @@ class Search extends React.Component {
                             </Container>
                         </section>
                     </div>
-                    
                 </main>
-                <SimpleFooter />
             </>
         );
     }

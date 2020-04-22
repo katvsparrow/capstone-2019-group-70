@@ -9,6 +9,8 @@ import Register from "../views/Register.jsx";
 
 import { withFirebase } from './Firebase/index.js';
 import { AuthUserContext } from './Session/index.js';
+import MainNavbar from './Navbars/MainNavbar.jsx';
+import SimpleFooter from './Footers/SimpleFooter.jsx';
 
 class App extends React.Component {    
     constructor(props) {
@@ -31,18 +33,26 @@ class App extends React.Component {
         this.listener();
     }
 
+    // Create protected routes based only available to logged in users
+    PrivateRoute = ({ component: Component, ...rest }) => (
+        <Route {...rest} render={(props) => (
+            this.state.authUser
+                ? <Component {...props} />
+                : <Redirect to='/login' />
+        )} />
+    );
+
     render() {
         return(
             <AuthUserContext.Provider value={this.state.authUser}>
                 <BrowserRouter>
-                    <Switch>
+                    <MainNavbar />
                         <Route path="/" exact render={props => <Home {...props} />} />
                         <Route path="/search" exact render={props => <Search {...props} />} />
                         <Route path="/login" exact render={props=> <Login {...props} /> } />
-                        <Route path="/account" exact render={props => <Account {...props} />} />
                         <Route path="/register" exact render={props => <Register {...props}/> } />
-                        <Redirect to="/" />
-                    </Switch>
+                        <this.PrivateRoute path="/account" component={Account} />
+                    <SimpleFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>
         );

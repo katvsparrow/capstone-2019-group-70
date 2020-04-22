@@ -13,8 +13,6 @@ import {
 } from "reactstrap";
 
 
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import HomeSearch from "components/SearchBars/HomeSearch.jsx";
 import ContactForm from "components/Forms/ContactForm.jsx";
 
@@ -40,7 +38,6 @@ class Home extends React.Component {
         console.log(this.state);
         return (
             <>
-                <MainNavbar />
                 <main href="main">
                     <div className="position-relative">
                         {/* Opening Banner */}
@@ -242,7 +239,6 @@ class Home extends React.Component {
                         </section>
                     </div>
                 </main>
-                <SimpleFooter />
             </>
         );
     }
