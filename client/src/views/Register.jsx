@@ -9,12 +9,12 @@ import {
 } from "reactstrap";
 
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import SignInForm from "components/Forms/SignInForm.jsx";
+import SignUpForm from "components/Forms/SignUpForm.jsx";
 import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 
-class Login extends React.Component {
+class Register extends React.Component {
     render() {
-        return (
+        return(
             <>
                 <MainNavbar />
                     <main ref="main">
@@ -30,17 +30,17 @@ class Login extends React.Component {
                                 <span />
                                 <span />
                             </div>
-                            {/* Login */}
-                            <Container className="mt-md mb-md pt-lg pb-lg">
+                            {/* Register */}
+                            <Container className="mt-md mb-md pt-md pb-md">
                                 <Row className="justify-content-center">
                                     <Col lg="6">
                                         <Card className="bg-secondary shadow border-0">
                                             <CardBody>
                                             <div className="text-center text-muted mb-4">
-                                                Login with credentials
+                                                Create an Account
                                             </div>
-                                            <SignInForm />
-                                            <a href='/register'>Don't have an account? Register now.</a>
+                                            <SignUpForm />
+                                            <a href='/login'>Already have an account? Login.</a>
                                             </CardBody>
                                         </Card>
                                     </Col>
@@ -50,8 +50,8 @@ class Login extends React.Component {
                     </main>
                 <SimpleFooter />
             </>
-        );        
+        );
     }
 }
 
-export default Login; 
+export default Register;

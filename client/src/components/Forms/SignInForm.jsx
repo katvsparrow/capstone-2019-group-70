@@ -30,7 +30,7 @@ class SignInForm extends React.Component {
     };
 
     onSubmit = event => {
-        const {email, passwordOne } = this.state;
+        const {email, password } = this.state;
         
         // Attempt to sign in 
         this.props.firebase
@@ -41,7 +41,7 @@ class SignInForm extends React.Component {
             .catch(error => {
                 this.setState({ error });
             });
-
+            
         event.preventDefault();
     };
     
@@ -50,8 +50,8 @@ class SignInForm extends React.Component {
         
         // Check if input fields have been filled 
         const isInvalid = email === '' ||
-                          passwordOne === '';
-                          
+                          password === '';
+
         return(
             <>
                 <Form onSubmit={this.onSubmit}>
@@ -82,8 +82,8 @@ class SignInForm extends React.Component {
                               </InputGroupText>
                             </InputGroupAddon>
                             <Input
-                              name="passwordOne"
-                              value={passwordOne}
+                              name="password"
+                              value={password}
                               placeholder="Password" 
                               type="password" 
                               onChange={this.onChange}
@@ -94,7 +94,7 @@ class SignInForm extends React.Component {
                     
                     {/* Submit Form */}
                     <Button disabled={isInvalid} className="mt-4" color="primary" type="submit">
-                        Create Account
+                        Login
                     </Button>
 
                     {/* Error message */}

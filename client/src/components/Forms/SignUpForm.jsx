@@ -36,7 +36,7 @@ class SignUpForm extends React.Component {
         
         // Attempt to create a user with an email and password
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, password)
+            .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 this.setState({ ...INITIAL_STATE});
             })
