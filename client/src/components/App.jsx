@@ -48,10 +48,10 @@ class App extends React.Component {
                 <BrowserRouter>
                     <MainNavbar />
                         <Route path="/" exact render={props => <Home {...props} />} />
-                        <Route path="/search" exact render={props => <Search {...props} />} />
-                        <Route path="/login" exact render={props=> <Login {...props} /> } />
-                        <Route path="/register" exact render={props => <Register {...props}/> } />
-                        <this.PrivateRoute path="/account" component={Account} />
+                        <Route path="/search" render={props => <Search {...props} />} />
+                        <Route path="/login" render={props=> <Login {...props} /> } />
+                        <Route path="/register" render={props => <Register {...props}/> } />
+                        <Route path="/account" render={props => <Account {...props}/> } />
                     <SimpleFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>

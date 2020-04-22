@@ -1,5 +1,5 @@
 .bg-gradient-jww-primary {
-    background: linear-gradient(87deg, #97421B 0, #5E0B15 100%) !important; 
+    background: #97421B !important; 
 }
 
 .bg-white {
@@ -20,6 +20,22 @@
 
 .brand {
     font-size: 15px;
+}
+
+
+/* Account Page Panel Switch */
+.list-group-horizontal {
+    flex-direction: row !important;
+}
+
+.list-group-horizontal .list-group-item {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-group-item.active {
+    background-color: darkgrey !important;
+    border-color: grey;
 }
 
 /* Slider CSS */
