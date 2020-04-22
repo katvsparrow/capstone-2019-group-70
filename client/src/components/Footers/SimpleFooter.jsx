@@ -60,7 +60,7 @@ class SimpleFooter extends React.Component {
                   </NavItem>
                   <NavItem>
                     <NavLink
-                      href="/about"
+                      href="/AboutUs"
                       target="_blank"
                     >
                       About us
