@@ -34,7 +34,7 @@ class Search extends React.Component {
             <>
                 <main href="main">
                     <div className="position-relative">
-                        <section className="section section-shaped search-container">
+                        <section className="section section-shaped search-container bg-gradient-jww-primary">
                             <Container className = "py-md">
                                 <Row>
                                    <Col>
@@ -46,7 +46,7 @@ class Search extends React.Component {
                                                 </Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        <Label for="form-search">Search for wills by keywords, location, year, language</Label>
+                                        <Label color="black" for="form-search" className="text-white">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
                             </Container>
