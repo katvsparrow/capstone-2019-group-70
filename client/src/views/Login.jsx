@@ -8,9 +8,8 @@ import {
     Col
 } from "reactstrap";
 
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
+
 import SignInForm from "components/Forms/SignInForm.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 
 class Login extends React.Component {
     render() {

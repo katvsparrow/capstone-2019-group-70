@@ -1,8 +1,6 @@
 import React from "react";
 import { withFirebase } from "../Firebase";
 
-import * as ROUTES from "../../constants/routes";
-
 import {
     Form, 
     FormGroup, 
@@ -15,13 +13,14 @@ import {
 
 // Define initial form fields as empty 
 const INITIAL_STATE = {
-    email: '', 
-    password: '',
+    password: '', 
+    new_password: '',
+    confirm_new_password: '',
     error: null
 };
 
 
-class SignInForm extends React.Component {
+class PasswordChangeForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE} ;
@@ -32,14 +31,13 @@ class SignInForm extends React.Component {
     };
 
     onSubmit = event => {
-        const {email, password } = this.state;
+        const { password, new_password } = this.state;
         
         // Attempt to sign in 
         this.props.firebase
-            .doSignInWithEmailAndPassword(email, password)
+            .doPassWordUpdate(password, password)
             .then(() => {
                 this.setState({ ...INITIAL_STATE});
-                this.props.history.push(ROUTES.ACCOUNT);
             })
             .catch(error => {
                 this.setState({ error });

@@ -1,5 +1,5 @@
 import React from 'react';
-import Firebase from './firebase';
+
 
 // Create a context provide a Firebase instance only once
 // This will be provided at the top-level (Browser-Router)

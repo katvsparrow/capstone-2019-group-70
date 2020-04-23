@@ -18,8 +18,10 @@ class Firebase {
      * Authentication methods 
      * Reference: https://firebase.google.com/docs/reference/js/firebase.auth.AUTH
     */
-    doCreateUserWithEmailAndPassword = (email, password) =>
+    doCreateUserWithEmailAndPassword = (email, password) => {
         this.auth.createUserWithEmailAndPassword(email, password);
+    }
+        
     
     doSignInWithEmailAndPassword = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);
@@ -29,6 +31,8 @@ class Firebase {
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
     doPassWordUpdate = password => this.auth.currentUser.updatePassword(password);
+
+
 }
 
 export default Firebase; 

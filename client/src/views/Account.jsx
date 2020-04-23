@@ -11,8 +11,7 @@ import {
     ListGroupItem, 
     Card,
     TabContent,
-    TabPane, 
-    Button
+    TabPane
 } from "reactstrap";
 
 const Account = () => (
@@ -31,7 +30,6 @@ const INITIAL_STATE = {
 class AccountPage extends React.Component {
     constructor(props) {
         super(props);
-
         this.toggle = this.toggle.bind(this);
         this.state = { ...INITIAL_STATE} ;
     }
@@ -131,6 +129,11 @@ class AccountPage extends React.Component {
                                                 }}
                                             >
                                                 Submit Will
+                                            </ListGroupItem>
+                                            <ListGroupItem color="danger"tag="a"
+                                                onClick={this.props.firebase.doSignOut}
+                                            >
+                                                Sign Out
                                             </ListGroupItem>
                                         </ListGroup>
                                     </Col>

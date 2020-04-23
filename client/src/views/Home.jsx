@@ -26,7 +26,7 @@ class Home extends React.Component {
     }
 
     getWills = () => {
-        // Get the passwords and store them in state
+        // Get random wills to display
         fetch('/api/wills')
         .then(res => res.json())
         .then(wills => this.setState({ wills }));

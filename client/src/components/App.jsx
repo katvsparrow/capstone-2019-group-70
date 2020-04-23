@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
+
+import * as ROUTES from "../constants/routes";
 
 import Home from "../views/Home.jsx";
 import Search from "../views/Search.jsx";
@@ -38,7 +40,7 @@ class App extends React.Component {
         <Route {...rest} render={(props) => (
             this.state.authUser
                 ? <Component {...props} />
-                : <Redirect to='/login' />
+                : <Redirect to={ROUTES.LOGIN} />
         )} />
     );
 
@@ -47,11 +49,11 @@ class App extends React.Component {
             <AuthUserContext.Provider value={this.state.authUser}>
                 <BrowserRouter>
                     <MainNavbar />
-                        <Route path="/" exact render={props => <Home {...props} />} />
-                        <Route path="/search" render={props => <Search {...props} />} />
-                        <Route path="/login" render={props=> <Login {...props} /> } />
-                        <Route path="/register" render={props => <Register {...props}/> } />
-                        <Route path="/account" render={props => <Account {...props}/> } />
+                        <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
+                        <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
+                        <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
+                        <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
+                        <this.PrivateRoute path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
                     <SimpleFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>

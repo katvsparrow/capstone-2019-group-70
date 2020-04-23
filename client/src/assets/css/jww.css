@@ -31,6 +31,7 @@
 .list-group-horizontal .list-group-item {
     margin-left: auto;
     margin-right: auto;
+    cursor: pointer;
 }
 
 .list-group-item.active {
@@ -136,4 +137,15 @@
         opacity: 1;
         z-index: 5;
     }
+}
+
+/* Search Page */
+.will-context-badges .badge:first-child {
+    margin-right: 10px;
+    margin-left: 0px !important;
+}
+
+.will-context-badges .badge {
+    margin-left: 10px;
+    margin-right: 10px;
 }
