@@ -1,7 +1,7 @@
 import React from "react"; 
 import { Link } from "react-router-dom"; 
 
-// import reactstrap components 
+// import reactstrap components
 import {
     UncontrolledCollapse,
     NavbarBrand,
@@ -58,7 +58,7 @@ class MainNavbar extends React.Component {
                         <button className="navbar-toggler" id="navbar_global">
                             <span className="navbar-toggler-icon" />
                         </button>
-                        
+
                         {/* Collapsed items */}
                         <UncontrolledCollapse navbar toggler="#navbar_global">
                             <div className = "navbar-collapse-header">
@@ -78,23 +78,24 @@ class MainNavbar extends React.Component {
                                     </Col>
                                 </Row>
                             </div>
-                            
+
                             {/* Left-hand Navbar content */}
                             <Nav className="navbar-nav-hover align-items-lg-center" navbar>
-                                <NavItem>   
+                                <NavItem>
                                     <NavLink href="/search">
                                         <i className="ni ni-collection d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">Search</span>
                                     </NavLink>
                                 </NavItem>
-                                <NavItem>   
-                                    <NavLink href="/" onClick={e => e.preventDefault()}>
+                                <NavItem>
+
+                                    <NavLink href="/AboutUs">
                                     <i className="fa fa-info-circle d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">About Us</span>
                                     </NavLink>
                                 </NavItem>
                             </Nav>
-                            
+
                             {/* Right-hand Navbar content */}
                             <Nav className="align-items-lg-center ml-lg-auto" navbar>
                                 <NavItem className="d-none d-lg-block ml-lg-4">
@@ -111,7 +112,7 @@ class MainNavbar extends React.Component {
                 </Navbar>
             </header>
         );
-    }   
+    }
 }
 
-export default MainNavbar; 
+export default MainNavbar;
