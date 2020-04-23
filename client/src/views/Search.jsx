@@ -1,6 +1,10 @@
 import React from 'react';
 
 /*
+Search functionality removed until wills inserted into db
+
+Algoliasearch will be used to perform search queries
+
 import algoliasearch from 'algoliasearch/lite';
 import {
     InstantSearch, 
@@ -23,10 +27,7 @@ import {
     Form,
     FormGroup,
     Label, 
-    ListGroup,
-    ListGroupItem,
-    ListGroupItemHeading,
-    ListGroupItemText
+    ListGroup
 } from "reactstrap";
 
 import Result from "../components/SearchContainers/Result.jsx";

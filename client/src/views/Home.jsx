@@ -26,7 +26,7 @@ class Home extends React.Component {
     }
 
     getWills = () => {
-        // Get random wills to display
+        /* FETCH 3 WILLS METHOD, PENDING DATABASE ENTRY */ 
         fetch('/api/wills')
         .then(res => res.json())
         .then(wills => this.setState({ wills }));

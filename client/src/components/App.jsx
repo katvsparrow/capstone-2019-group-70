@@ -8,6 +8,7 @@ import Search from "../views/Search.jsx";
 import Login from "../views/Login.jsx";
 import Account from "../views/Account.jsx";
 import Register from "../views/Register.jsx";
+import Will from "../views/Will.jsx";
 
 import { withFirebase } from './Firebase/index.js';
 import { AuthUserContext } from './Session/index.js';
@@ -53,7 +54,8 @@ class App extends React.Component {
                         <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                         <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                         <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                        <this.PrivateRoute path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
+                        <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
+                        <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
                     <SimpleFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>
