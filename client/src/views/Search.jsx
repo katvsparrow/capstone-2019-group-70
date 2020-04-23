@@ -1,14 +1,19 @@
 import React from 'react';
+
+/*
+Search functionality removed until wills inserted into db
+
+Algoliasearch will be used to perform search queries
+
 import algoliasearch from 'algoliasearch/lite';
-
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-
 import {
     InstantSearch, 
     Hits, 
     SearchBox,
 } from 'react-instantsearch-dom';   
+
+const searchClient = algoliasearch('5HZO9XNZH3', '8f0e8b74cc6600ccc74527ba33fd9121');
+*/
 
 import {
     ButtonGroup,
@@ -22,22 +27,30 @@ import {
     Form,
     FormGroup,
     Label, 
-    ListGroup,
-    ListGroupItem,
-    ListGroupItemHeading,
-    ListGroupItemText
+    ListGroup
 } from "reactstrap";
 
-const searchClient = algoliasearch('5HZO9XNZH3', '8f0e8b74cc6600ccc74527ba33fd9121');
+import Result from "../components/SearchContainers/Result.jsx";
+
+var mock_wills = require('../data/Mock/Mock_Wills.json');
 
 class Search extends React.Component {
+    state = { wills: mock_wills['mock_wills'] }
+
+    getWills = () => {
+        /* Fetch method, Pending client data */
+    }
+
+    componentDidMount() {
+        this.getWills();
+    }
+    
     render () {
         return (
             <>
-                <MainNavbar />
                 <main href="main">
                     <div className="position-relative">
-                        <section className="section section-shaped search-container">
+                        <section className="section section-shaped search-container bg-gradient-jww-primary">
                             <Container className = "py-md">
                                 <Row>
                                    <Col>
@@ -49,7 +62,7 @@ class Search extends React.Component {
                                                 </Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        <Label for="form-search">Search for wills by keywords, location, year, language</Label>
+                                        <Label color="black" for="form-search" className="text-white">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
                             </Container>
@@ -105,31 +118,11 @@ class Search extends React.Component {
                                     </Col>
                                     <Col xs="8" className="pl-5">
                                         <Row>
-                                            <h3>Displaying 3 of 3 Document Results</h3>
-                                        </Row>
-                                        <Row className="justify-content-right">
-                                            <h6>Sort by: <b>Submission Date</b>|<b>Publication Year</b></h6>
+                                            <h3>Displaying {this.state.wills.length} search results...</h3>
                                         </Row>
                                         <Row>
-                                        <ListGroup>
-                                            <ListGroupItem>
-                                                <ListGroupItemHeading tag="a" href="/willexample">Regina, Wife of Bondia Coras: Puigcerdá 1306</ListGroupItemHeading>
-                                                <ListGroupItemText>
-                                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                                </ListGroupItemText>
-                                            </ListGroupItem>
-                                            <ListGroupItem>
-                                                <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-                                                <ListGroupItemText>
-                                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                                </ListGroupItemText>
-                                            </ListGroupItem>
-                                            <ListGroupItem>
-                                                <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-                                                <ListGroupItemText>
-                                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                                </ListGroupItemText>
-                                            </ListGroupItem>
+                                            <ListGroup>
+                                                {this.state.wills.map(d => <Result data={d} />)}
                                             </ListGroup>
                                         </Row>
                                     </Col>
@@ -137,9 +130,7 @@ class Search extends React.Component {
                             </Container>
                         </section>
                     </div>
-                    
                 </main>
-                <SimpleFooter />
             </>
         );
     }

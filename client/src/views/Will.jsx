@@ -1,12 +1,9 @@
 import React from 'react';
 
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
 import WillView from "components/Media/WillView.jsx";
 
 import {
     Container,
-    Col,
     Row, 
     Table 
 } from 'reactstrap';
@@ -48,7 +45,6 @@ class WillExample extends React.Component {
     render() {
         return (
             <>
-                <MainNavbar />
                 <main href="main">
                     <div className="position-relative">
                         <section className="section section-lg bg-dark text-white">
@@ -104,7 +100,6 @@ class WillExample extends React.Component {
                         </section>
                     </div>
                 </main>
-                <SimpleFooter />
             </>
         );
     }

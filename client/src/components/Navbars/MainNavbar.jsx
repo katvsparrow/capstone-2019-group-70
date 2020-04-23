@@ -1,6 +1,5 @@
-import React from "react";
-import FirebaseAuthButton from "components/Login/FirebaseAuthButton";
-import { Link } from "react-router-dom";
+import React from "react"; 
+import { Link } from "react-router-dom"; 
 
 // import reactstrap components
 import {
@@ -12,15 +11,40 @@ import {
     Nav,
     Container,
     Row,
-    Col
+    Col,
+    Button
 } from "reactstrap";
+
+import { AuthUserContext } from "../Session";
+
+const LoginNavigation = (props) => (
+    <Button href="/account" className="btn-neutral btn-icon" color="default">
+        <span className="btn-inner--icon">
+            <i className="fa fa-user-circle" />
+        </span>
+        <span className="nav-link-inner--text ml-1">
+            Your Account 
+        </span>
+    </Button>
+);
+
+const LoginButton = () => (
+    <Button href="/login" className="btn-neutral btn-icon" color="default">
+        <span className="btn-inner--icon">
+            <i className="fa fa-user-circle" />
+        </span>
+        <span className="nav-link-inner--text ml-1">
+            Login / Register 
+        </span>
+    </Button>
+);
 
 class MainNavbar extends React.Component {
     render() {
         return (
             <header className="header-global">
-                <Navbar
-                    className = "navbar-main navbar-transparent navbar-light bg-gradient-jww-primary"
+                <Navbar 
+                    className = "navbar-main navbar-transparent navbar-light"
                     expand="lg"
                     id="navbar-main"
                 >
@@ -75,7 +99,12 @@ class MainNavbar extends React.Component {
                             {/* Right-hand Navbar content */}
                             <Nav className="align-items-lg-center ml-lg-auto" navbar>
                                 <NavItem className="d-none d-lg-block ml-lg-4">
-                                    <FirebaseAuthButton />
+                                    <AuthUserContext.Consumer>
+                                        { authUser => 
+                                            authUser ? <LoginNavigation />  
+                                                     : <LoginButton />                      
+                                        }
+                                    </AuthUserContext.Consumer>         
                                 </NavItem>
                             </Nav>
                         </UncontrolledCollapse>
