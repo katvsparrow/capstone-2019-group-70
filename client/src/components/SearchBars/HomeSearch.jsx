@@ -7,7 +7,7 @@ class HomeSearch extends React.Component {
         return(
             <>
                 <InputGroup size="lg">
-                    <Input />
+                    <Input disabled/>
                 </InputGroup>
             </>
         );
