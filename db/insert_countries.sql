@@ -1,4 +1,4 @@
-USE f573zktnzpc6ircw;
+USE sinyxb3424v6hdac;
 INSERT INTO Country (name) VALUES
 ('Afghanistan'),
 ('Albania'),

@@ -9,10 +9,10 @@ const connectionString = process.env.JAWSDB_MARIA_URL;
 const connection = connectionString
   ? connectionString + '?multipleStatements=true'
   : {
-      host: 'localhost',
-      user: 'root',
-      password: 'rootroot',
-      database: 'jww',
+      host: 'op2hpcwcbxb1t4z9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: 'bow68m2jqe88hco1',
+      password: 'i3inp545cau1avg5',
+      database: 'sinyxb3424v6hdac',
       multipleStatements: true
     };
 // create a pool for more efficient connection management
@@ -47,17 +47,17 @@ module.exports = {
       db.query(query, callback);
    },
 
-   // Description: retrieve full document
+   // Description: retrieve all documents
    // Result: document title, author, year, original text, translated text, image, upload date,
    //         language, country, city
-   getDocument: callback => {
+   getDocuments: callback => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date,' +
          'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
          'FROM Document' +
          'INNER JOIN Language ON language_id = Language.id' +
          'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id';
+         'LEFT JOIN City ON city_id = City.id';
 
       db.query(query, callback);
    },
@@ -126,6 +126,23 @@ module.exports = {
       db.query(query, callback);
    },
 
+   // Description: retrieve document by ID
+   // Result: document title, author, year, original text, translated text, image, upload date,
+   //         language, country, city
+   getDocumentByID: (id, callback) => {
+      const query =
+         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
+         'FROM Document' +
+         'INNER JOIN Language ON language_id = Language.id' +
+         'INNER JOIN Country ON country_id = Country.id' +
+         'INNER JOIN City ON city_id = City.id' +
+         'WHERE id = ?';
+      const values = [id];
+
+      db.query(query, values, callback);
+   },
+
    // Description: retrieve document by tag
    // Result: document title, author, year, original text, translated text, image, upload date,
    //         language, country, city
@@ -164,19 +181,11 @@ module.exports = {
       db.query(query, values, callback);
    },
 
-   // Desription: retrieve document by ID
-   // Result: document title, author, year, original text, translated text, image, upload date,
-   //         language, country, city
-   getDocumentByID: (id, callback) => {
-      const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id' +
-         'WHERE id = ?';
-      const values = [id];
+   // Description: add a document to the database
+   insertDocument: (document, callback) => {
+      const query = 
+         'INSERT INTO Document (title, author, year, original_text, translated_text, image, upload_date, language_id, country_id, city_id) VALUES ?';
+      const values = [document]
 
       db.query(query, values, callback);
    }

@@ -1,12 +1,14 @@
+USE sinyxb3424v6hdac;
+
 DROP TABLE IF EXISTS Document_User;
 DROP TABLE IF EXISTS Document_Tag;
 DROP TABLE IF EXISTS Document;
-DROP TABLE IF EXISTS f573zktnzpc6ircw.Language;
+DROP TABLE IF EXISTS sinyxb3424v6hdac.Language;
 DROP TABLE IF EXISTS City;
 DROP TABLE IF EXISTS Country;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS User;
-DROP TABLE IF EXISTS f573zktnzpc6ircw.Role;
+DROP TABLE IF EXISTS sinyxb3424v6hdac.Role;
 
 -- Represents a single LANGUAGE
 --
