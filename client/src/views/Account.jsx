@@ -3,6 +3,7 @@ import classnames from "classnames";
 
 import { FirebaseContext } from '../components/Firebase';
 
+
 import {
     Container, 
     Row, 
@@ -13,6 +14,10 @@ import {
     TabContent,
     TabPane
 } from "reactstrap";
+
+import ChangePasswordForm from "../components/Forms/ChangePasswordForm.jsx";
+import WillSubmitForm from "../components/Forms/WillSubmitForm.jsx";
+import SavedWills from "../components/Containers/SavedWills.jsx";
 
 const Account = () => (
     <FirebaseContext.Consumer>
@@ -139,20 +144,23 @@ class AccountPage extends React.Component {
                                     </Col>
                                 </Row>
                                 <div className="mt-5 py-5 border-top text-center">
-                                                <TabContent className="my-2" activeTab={this.state.activeTab}>
-                                        <TabPane tabId="1">
-                                            <h2>My Account</h2>
-                                        </TabPane>
-                                        <TabPane tabId="2">
-                                            <h2>Password Reset</h2>
-                                        </TabPane>
-                                        <TabPane tabId="3">
-                                            <h2>Your Saved Wills</h2>
-                                        </TabPane>
-                                        <TabPane tabId="4">
-                                            <h2>Coming Soon!</h2>
-                                        </TabPane>
-                                </TabContent>
+                                        <TabContent className="my-2" activeTab={this.state.activeTab}>
+                                            <TabPane tabId="1">
+                                                <h2>My Account</h2>
+                                                <h3>Pending database</h3>
+                                            </TabPane>
+                                            <TabPane tabId="2">
+                                                <h2>Password Change Form</h2>
+                                                <ChangePasswordForm />
+                                            </TabPane>  
+                                            <TabPane tabId="3">
+                                                <h2>Your Saved Wills</h2>
+                                                <SavedWills />
+                                            </TabPane>
+                                            <TabPane tabId="4">
+                                                <WillSubmitForm />
+                                            </TabPane>
+                                        </TabContent>
                                 </div>
                             </div>
                         </Card>

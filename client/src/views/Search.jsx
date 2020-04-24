@@ -30,7 +30,7 @@ import {
     ListGroup
 } from "reactstrap";
 
-import Result from "../components/SearchContainers/Result.jsx";
+import Result from "../components/Containers/Result.jsx";
 
 var mock_wills = require('../data/Mock/Mock_Wills.json');
 

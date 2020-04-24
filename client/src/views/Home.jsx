@@ -2,19 +2,18 @@ import React from "react";
 
 
 import {
-    Badge,
-    Button,
     Card, 
     CardImg,
-    CardBody,
     Container,      
     Row, 
     Col
-} from "reactstrap";
-
+} from "reactstrap";    
 
 import HomeSearch from "components/SearchBars/HomeSearch.jsx";
 import ContactForm from "components/Forms/ContactForm.jsx";
+import WillCard from "components/Containers/WillCard.jsx";
+
+var mock_wills = require('../data/Mock/Mock_Wills.json');
 
 class Home extends React.Component {
     // Initialize state
@@ -26,16 +25,19 @@ class Home extends React.Component {
     }
 
     getWills = () => {
-        /* FETCH 3 WILLS METHOD, PENDING DATABASE ENTRY */ 
-        fetch('/api/wills')
+        /* FETCH 3 WILLS METHOD, PENDING DATABASE ENTRY 
+        fetch('/api/random_home_wills')
         .then(res => res.json())
         .then(wills => this.setState({ wills }));
+        */ 
+        const wills = mock_wills['mock_wills'].sort(function() { return .5 - Math.random();} );
+        this.setState({ wills });
+        console.log(wills);
     }
 
 
     render() {
         const { wills } = this.state;
-        console.log(this.state);
         return (
             <>
                 <main href="main">
@@ -70,98 +72,34 @@ class Home extends React.Component {
                             </Container>
                         </section>
                         {/* 3 Random Wills */}
-                        <section className="section section-lg pt-lg-0 mt--200">
-                            <Container>
-                                <Row className="justify-center-content">
-                                    <Col lg="12">
-                                        <Row className="row-grid">
-                                            {/* 1st Will */}
-                                            <Col lg="4">
-                                                <Card className="card-lift--hover shadow border-0">
-                                                    <CardBody className="py-6">
-                                                        <h6 className="text-dark text-uppercase">
-                                                            Regina, Wife of Bondia Coras: Puigcerdá 1306
-                                                        </h6>
-                                                        <p className="descption mt-3">
-                                                            Short Excerpt Here
-                                                        </p>
-                                                        <div>
-                                                            <Badge color="primary" pill className="mr-1">
-                                                                Spain
-                                                            </Badge>
-                                                            <Badge color="success" pill className="mr-1">
-                                                                Latin
-                                                            </Badge>
-                                                            <Badge color="danger" pill className="mr-1">
-                                                                1306 
-                                                            </Badge>
-                                                        </div>
-                                                        <Button  className="mt-4" color="dark" href="/will/1">
-                                                            Read Will
-                                                        </Button>
-                                                    </CardBody>
-                                                </Card>
-                                            </Col>
-                                            {/* 2nd Will */}
-                                            <Col lg="4">
-                                                <Card className="card-lift--hover shadow border-0">
-                                                    <CardBody className="py-6">
-                                                        <h6 className="text-dark text-uppercase">
-                                                            Random Will #2
-                                                        </h6>
-                                                        <p className="descption mt-3">
-                                                            Short Excerpt Here
-                                                        </p>
-                                                        <div>
-                                                            <Badge color="primary" pill className="mr-1">
-                                                                Israel
-                                                            </Badge>
-                                                            <Badge color="success" pill className="mr-1">
-                                                                Latin
-                                                            </Badge>
-                                                            <Badge color="danger" pill className="mr-1">
-                                                                1302
-                                                            </Badge>
-                                                        </div>
-                                                        <Button  className="mt-4" color="dark" href="#" onClick={e => e.preventDefault()}>
-                                                            Read Will
-                                                        </Button>
-                                                    </CardBody>
-                                                </Card>
-                                            </Col>
-                                            {/* 3rd Will */}
-                                            <Col lg="4">
-                                                <Card className="card-lift--hover shadow border-0">
-                                                    <CardBody className="py-6">
-                                                        <h6 className="text-dark text-uppercase">
-                                                            Random 
-                                                        </h6>
-                                                        <p className="descption mt-3">
-                                                            Short Excerpt Here
-                                                        </p>
-                                                        <div>
-                                                            <Badge color="primary" pill className="mr-1">
-                                                                Spain
-                                                            </Badge>
-                                                            <Badge color="success" pill className="mr-1">
-                                                                Spanish
-                                                            </Badge>
-                                                            <Badge color="danger" pill className="mr-1">
-                                                                1542
-                                                            </Badge>
-                                                        </div>
-                                                        <Button  className="mt-4" color="dark" href="#" onClick={e => e.preventDefault()}>
-                                                            Read Will
-                                                        </Button>   
-                                                    </CardBody>
-                                                </Card>
-                                            </Col>  
-                                        </Row>
-                                    </Col>
-                                                                      
-                                </Row>
-                            </Container>
-                        </section>
+                        {this.state.wills.length > 0 
+                            ? <> 
+                                    <section className="section section-lg pt-lg-0 mt--200">
+                                        <Container>
+                                            <Row className="justify-center-content">
+                                                <Col lg="12">
+                                                    <Row className="row-grid">
+                                                        {/* 1st Will */}
+                                                        <Col lg="4">
+                                                            <WillCard data={this.state.wills[0]} />
+                                                        </Col>
+                                                        <Col lg="4">
+                                                            <WillCard data={this.state.wills[1]} />
+                                                        </Col>
+                                                        <Col lg="4">
+                                                            <WillCard data={this.state.wills[2]} />
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
+                                                                                
+                                            </Row>
+                                        </Container>
+                                    </section>
+                              </>
+                            : null
+                        }
+
+                        
                         {/* Search Bar */}
                         <section className="section section-lg">
                             <Container>
@@ -222,8 +160,7 @@ class Home extends React.Component {
                                             mel delicata sadipscing eu, ei prima dicta neglegentur est. Stet aeque omnium at ius. Ne cum simul 
                                             postulant maiestatis. Vix dicta persius ne. Hinc argumentum eum ex. 
                                         </p>
-
-                                    </Col>
+                                   </Col>
                                 </Row>
                             </Container>
                            
