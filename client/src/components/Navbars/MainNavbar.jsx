@@ -63,12 +63,6 @@ class MainNavbar extends React.Component {
                         <UncontrolledCollapse navbar toggler="#navbar_global">
                             <div className = "navbar-collapse-header">
                                 <Row>
-                                    {/* Logo Header for collapsed list */}
-                                    <Col className="collapse-brand" xs="6">
-                                        <Link to="/">
-                                            <img alt="..." src={require("assets/img/brand/argon-react.png")}/>
-                                        </Link>
-                                    </Col>
                                     {/* Collapse list close button */}
                                     <Col className="collapse-close" xs="6">
                                         <button className="navbar-toggler" id="navbar_global">
@@ -89,9 +83,9 @@ class MainNavbar extends React.Component {
                                 </NavItem>
                                 <NavItem>
 
-                                    <NavLink href="/AboutUs">
+                                    <NavLink href="/account">
                                     <i className="fa fa-info-circle d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">About Us</span>
+                                        <span className="nav-link-inner--text">Account Template</span>
                                     </NavLink>
                                 </NavItem>
                             </Nav>

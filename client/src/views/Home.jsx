@@ -2,11 +2,8 @@ import React from "react";
 
 
 import {
-    Badge,
-    Button,
     Card, 
     CardImg,
-    CardBody,
     Container,      
     Row, 
     Col
@@ -163,8 +160,7 @@ class Home extends React.Component {
                                             mel delicata sadipscing eu, ei prima dicta neglegentur est. Stet aeque omnium at ius. Ne cum simul 
                                             postulant maiestatis. Vix dicta persius ne. Hinc argumentum eum ex. 
                                         </p>
-
-                                    </Col>
+                                   </Col>
                                 </Row>
                             </Container>
                            
