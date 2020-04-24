@@ -1,8 +1,6 @@
 Getting Started:
 __________________________________________________
 
-Website Link: https://jewish-womens-wills.herokuapp.com/home
-
 1) First you need to download node.js on your system. You can download node.js version 12.16.2 LTS from https://nodejs.org/en/
 
 2) Then you have to clone this repository. https://github.com/hydra314/capstone-2019-group-70.git you can use this link to clone the repository on your system.
