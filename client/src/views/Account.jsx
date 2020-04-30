@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from "classnames";
 
-import { FirebaseContext } from '../components/Firebase';
+import { FirebaseContext } from '../contexts/Firebase';
 
 
 import {

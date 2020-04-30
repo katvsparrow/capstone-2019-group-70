@@ -13,7 +13,7 @@ import HomeSearch from "components/SearchBars/HomeSearch.jsx";
 import ContactForm from "components/Forms/ContactForm.jsx";
 import WillCard from "components/Containers/WillCard.jsx";
 
-import WillData from "data/will.js";
+import WillAPI from "api/will.js";
 
 class Home extends React.Component {
     // Initialize state
@@ -25,7 +25,7 @@ class Home extends React.Component {
     }
 
     getWills = async () => {
-        const res = await WillData.getRandomDocuments(3);
+        const res = await WillAPI.getRandomDocuments(3);
         console.log(res);
         this.setState({ res });
     }

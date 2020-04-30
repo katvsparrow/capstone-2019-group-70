@@ -32,7 +32,7 @@ import {
 
 import Result from "../components/Containers/Result.jsx";
 
-var mock_wills = require('../data/Mock/Mock_Wills.json');
+var mock_wills = require('../api/Mock/Mock_Wills.json');
 
 class Search extends React.Component {
     state = { wills: mock_wills['mock_wills'] }

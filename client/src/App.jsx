@@ -1,19 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 
-import * as ROUTES from "../constants/routes";
+// React Context objects
+import { withFirebase } from 'contexts/Firebase';
+import { AuthUserContext } from 'contexts/Session';
 
-import Home from "../views/Home.jsx";
-import Search from "../views/Search.jsx";
-import Login from "../views/Login.jsx";
-import Account from "../views/Account.jsx";
-import Register from "../views/Register.jsx";
-import Will from "../views/Will.jsx";
+// Views
+import Home from "views/Home.jsx";
+import Search from "views/Search.jsx";
+import Login from "views/Login.jsx";
+import Account from "views/Account.jsx";
+import Register from "views/Register.jsx";
+import Will from "views/Will.jsx";
 
-import { withFirebase } from './Firebase/index.js';
-import { AuthUserContext } from './Session/index.js';
-import MainNavbar from './Navbars/MainNavbar.jsx';
-import SimpleFooter from './Footers/SimpleFooter.jsx';
+// Components
+import MainNavbar from "components/Navbars/MainNavbar.jsx";
+import MainFooter from "components/Footers/SimpleFooter.jsx";
+
+// Constants 
+import * as ROUTES from "constants/routes";
+
 
 class App extends React.Component {    
     constructor(props) {
@@ -56,7 +62,7 @@ class App extends React.Component {
                         <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
                         <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
                         <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
-                    <SimpleFooter />
+                    <MainFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>
         );

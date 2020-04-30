@@ -15,7 +15,7 @@ import {
     Button
 } from "reactstrap";
 
-import { AuthUserContext } from "../Session";
+import { AuthUserContext } from "../../contexts/Session";
 
 const LoginNavigation = (props) => (
     <Button href="/account" className="btn-neutral btn-icon" color="default">
