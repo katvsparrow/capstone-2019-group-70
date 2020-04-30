@@ -1,14 +1,33 @@
-Getting Started:
-__________________________________________________
+# Jewish Women's Wills Website
 
-1) First you need to download node.js on your system. You can download node.js version 12.16.2 LTS from https://nodejs.org/en/
+A digital archive of Jewish women's wills during the medieval period.  
 
-2) Then you have to clone this repository. https://github.com/hydra314/capstone-2019-group-70.git you can use this link to clone the repository on your system.
+## Repo Note
 
-3) Once you have cloned the repo then type "cd capstone-2019-group-70" to go inside the main directory.
+The contents and database of this repo are mock based, pending more client data. Database used in database.js does not contain any real information that will be on the final product. 
 
-4) Once you are inside the main directory run npm install to install all required dependencies and then npm start to start the local server.
+### Prerequisites
 
-5) On another terminal open the client folder through cd client and run npm install and then npm start.
+To make the installation process easy and fast, ensure you have [Node.js](https://nodejs.org/en/download/) installed.
 
-6) Once you have completed all the steps the website would popup. 
+Type in node or npm into your command prompt to confirm. 
+
+### Installing
+
+After cloning the repository to the destination of your choice, open the folder location in your terminal.
+
+Install server node dependencies and run server.
+```
+npm install
+npm run
+```
+
+Open a new terminal, and cd back into the folder location for the repo.
+Open the client directory, install the 
+```
+cd client
+npm install 
+npm run
+```
+
+If installed successfully, a browser will appear displaying the website.
