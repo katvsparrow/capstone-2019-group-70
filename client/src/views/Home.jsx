@@ -13,7 +13,7 @@ import HomeSearch from "components/SearchBars/HomeSearch.jsx";
 import ContactForm from "components/Forms/ContactForm.jsx";
 import WillCard from "components/Containers/WillCard.jsx";
 
-var mock_wills = require('../data/Mock/Mock_Wills.json');
+import WillData from "data/will.js";
 
 class Home extends React.Component {
     // Initialize state
@@ -21,18 +21,13 @@ class Home extends React.Component {
 
     // Fetch passwords after first mount
     componentDidMount() {
-        this.getWills();
+        //this.getWills()
     }
 
-    getWills = () => {
-        /* FETCH 3 WILLS METHOD, PENDING DATABASE ENTRY 
-        fetch('/api/random_home_wills')
-        .then(res => res.json())
-        .then(wills => this.setState({ wills }));
-        */ 
-        const wills = mock_wills['mock_wills'].sort(function() { return .5 - Math.random();} );
-        this.setState({ wills });
-        console.log(wills);
+    getWills = async () => {
+        const res = await WillData.getRandomDocuments(3);
+        console.log(res);
+        this.setState({ res });
     }
 
 

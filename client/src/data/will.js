@@ -1,8 +1,17 @@
 import axios from 'axios';
 
+// Define axios methods for will retrieval
 export default {
     getDocumentByID: async(id) => {
         let res = await axios.get(`api/documents/getDocumentByID/${id}`);
+        console.log(res);
+        console.log('----------------');
+        console.log(res.data);
+        return res.data;
+    },
+
+    getRandomDocuments: async(num) => {
+        let res = await axios.get(`api/documents/getRandomDocuments/${num}`);
         console.log(res);
         console.log('----------------');
         console.log(res.data);
