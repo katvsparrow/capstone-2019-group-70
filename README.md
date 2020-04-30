@@ -4,7 +4,7 @@ A digital archive of Jewish women's wills during the medieval period.
 
 ## Repo Note
 
-The contents and database of this repo are mock based, pending more client data. Database used in database.js does not contain any real information that will be on the final product. 
+The contents and database of this repo are mock based, pending more client data. Database used in db.js does not contain any real information that will be on the final product.
 
 ### Prerequisites
 
