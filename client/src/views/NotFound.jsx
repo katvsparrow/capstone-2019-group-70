@@ -2,9 +2,8 @@ import React from 'react';
 
 import {
     Jumbotron,
-    Container, 
-    Row, 
-    Col,
+    Container,
+    Row,
     Button
 } from "reactstrap";
 
