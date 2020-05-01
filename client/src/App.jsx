@@ -7,6 +7,7 @@ import { AuthUserContext } from 'contexts/Session';
 
 // Views
 import Home from "views/Home.jsx";
+import AboutUs from "views/AboutUs.jsx";
 import Search from "views/Search.jsx";
 import Login from "views/Login.jsx";
 import Account from "views/Account.jsx";
@@ -24,22 +25,10 @@ import * as ROUTES from "constants/routes";
 class App extends React.Component {    
     constructor(props) {
         super(props);
+
         this.state = {
-            authUser: null,
+            authUser: JSON.parse(localStorage.getItem('authUser'))
         };
-    }
-
-    componentDidMount() {
-        this.listener = this.props.firebase.auth.onAuthStateChanged(
-            authUser => {
-                authUser ? this.setState({ authUser })
-                            : this.setState({ authUser: null });
-            },
-        );
-    }
-
-    componentWillUnmount() {
-        this.listener();
     }
 
     // Create protected routes based only available to logged in users
@@ -47,7 +36,7 @@ class App extends React.Component {
         <Route {...rest} render={(props) => (
             this.state.authUser
                 ? <Component {...props} />
-                : <Redirect to={ROUTES.LOGIN} />
+                : <Login {...props} />
         )} />
     );
 
@@ -57,11 +46,12 @@ class App extends React.Component {
                 <BrowserRouter>
                     <MainNavbar />
                         <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
+                        <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
                         <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                         <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                         <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
                         <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
-                        <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
+                        <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
                     <MainFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>

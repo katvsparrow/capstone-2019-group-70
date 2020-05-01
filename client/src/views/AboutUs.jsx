@@ -1,20 +1,6 @@
 import React, { Component } from 'react'
 
-import MainNavbar from "components/Navbars/MainNavbar.jsx";
-import AboutUs from "components/AboutPage/AboutPage.jsx";
-import SimpleFooter from "components/Footers/SimpleFooter.jsx";
-import ContactForm from "components/Forms/ContactForm.jsx";
-
-
-import {
-  Container,
-  Row,
-  Col
-} from "reactstrap";
-
-class About extends Component {
-
-
+class AboutUs extends Component {
   render() {
     return (
         <div>
@@ -87,4 +73,4 @@ class About extends Component {
 }
 
 }
-export default About;
+export default AboutUs;
