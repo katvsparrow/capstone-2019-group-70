@@ -18,7 +18,7 @@ import WillAPI from "api/will.js";
 class Home extends React.Component {
     // Initialize state
     state = { wills: [] }
-
+    
     // Fetch passwords after first mount
     componentDidMount() {
         this.getWills()
@@ -29,7 +29,6 @@ class Home extends React.Component {
         console.log(res);
         this.setState({ res });
     }
-
 
     render() {
         const { wills } = this.state;

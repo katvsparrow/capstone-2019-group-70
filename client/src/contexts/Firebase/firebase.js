@@ -11,6 +11,13 @@ class Firebase {
     constructor() {
         app.initializeApp(config);
         this.auth = app.auth();
+
+        // Add authentication change indicator
+        this.auth.onAuthStateChanged(authUser => {
+            authUser
+                ? localStorage.setItem('authUser', JSON.stringify(authUser))
+                : localStorage.removeItem('authUser')
+        });
     }
 
     /* 
