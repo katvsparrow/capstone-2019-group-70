@@ -41,7 +41,7 @@ module.exports = {
    // Result: city_name, country_name
    getCity: callback => {
       const query =
-         'SELECT City.name AS city_name, Country.name AS country_name FROM' +
+         'SELECT City.name AS city_name, Country.name AS country_name FROM ' +
          'City INNER JOIN Country ON country_id = Country.id';
 
       db.query(query, callback);
@@ -52,11 +52,11 @@ module.exports = {
    //         language, country, city
    getDocuments: callback => {
       const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date,' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
+         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'FROM Document ' +
+         'INNER JOIN Language ON language_id = Language.id ' +
+         'INNER JOIN Country ON country_id = Country.id ' +
          'LEFT JOIN City ON city_id = City.id';
 
       db.query(query, callback);
@@ -66,12 +66,12 @@ module.exports = {
    // Result: document title, author, year, image, upload date, language, country, city
    getDocumentMinimal: callback => {
       const query = 
-         'SELECT title, author, year, image, upload_date,' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id';
+         'SELECT title, author, year, image, upload_date, ' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'FROM Document ' +
+         'INNER JOIN Language ON language_id = Language.id ' +
+         'INNER JOIN Country ON country_id = Country.id ' +
+         'INNER JOIN City ON city_id = City.id ';
 
       db.query(query, callback);
    },
@@ -80,8 +80,8 @@ module.exports = {
    // Result: tag_name
    getDocumentTag: callback => {
       const query =
-         'SELECT tag.name AS tag_name FROM Document' +
-         'INNER JOIN Document_Tag ON Document.id = document_id' +
+         'SELECT tag.name AS tag_name FROM Document ' +
+         'INNER JOIN Document_Tag ON Document.id = document_id ' +
          'INNER JOIN Tag ON Tag.id = tag_id';
       
       db.query(query, callback);
@@ -91,8 +91,8 @@ module.exports = {
    // Result: username
    getDocumentPoster: callback => {
       const query =
-         'SELECT username FROM User' +
-         'INNER JOIN Document_User ON User.id = user_id' +
+         'SELECT username FROM User ' +
+         'INNER JOIN Document_User ON User.id = user_id ' +
          'INNER JOIN Document ON Document.id = document_id'
 
       db.query(query, callback);
@@ -120,7 +120,7 @@ module.exports = {
    // Result: username, email, role_name
    getUser: callback => {
       const query =
-         'SELECT username, email, name AS role_name FROM User' +
+         'SELECT username, email, name AS role_name FROM User ' +
          'INNER JOIN Role ON role_id = Role.id';
 
       db.query(query, callback);
@@ -132,11 +132,11 @@ module.exports = {
    getDocumentByID: (id, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'FROM Document ' +
+         'INNER JOIN Language ON language_id = Language.id ' +
+         'INNER JOIN Country ON country_id = Country.id ' +
+         'INNER JOIN City ON city_id = City.id ' +
          'WHERE id = ?';
       const values = [id];
 
@@ -149,13 +149,13 @@ module.exports = {
    getDocumentByTag: (tag, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id' +
-         'INNER JOIN Document_Tag ON Document.id = document_id' +
-         'INNER JOIN Tag ON tag.id = tag_id' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'FROM Document ' +
+         'INNER JOIN Language ON language_id = Language.id ' +
+         'INNER JOIN Country ON country_id = Country.id ' +
+         'INNER JOIN City ON city_id = City.id ' +
+         'INNER JOIN Document_Tag ON Document.id = document_id ' +
+         'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
       const values = [tag];
       
@@ -168,13 +168,13 @@ module.exports = {
    getDocumentByUsername: (username, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name' +
-         'FROM Document' +
-         'INNER JOIN Language ON language_id = Language.id' +
-         'INNER JOIN Country ON country_id = Country.id' +
-         'INNER JOIN City ON city_id = City.id' +
-         'INNER JOIN Document_Tag ON Document.id = document_id' +
-         'INNER JOIN Tag ON tag.id = tag_id' +
+         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'FROM Document ' +
+         'INNER JOIN Language ON language_id = Language.id ' +
+         'INNER JOIN Country ON country_id = Country.id ' +
+         'INNER JOIN City ON city_id = City.id ' +
+         'INNER JOIN Document_Tag ON Document.id = document_id ' +
+         'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
       const values = [username];
       

@@ -3,6 +3,8 @@ const path = require('path');
 
 const app = express();
 
+require('./routes/documentRoutes')(app);
+
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 // The "catchall" handler: for any request that doesn't
