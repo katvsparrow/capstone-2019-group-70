@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 // React Context objects
 import { withFirebase } from 'contexts/Firebase';
@@ -37,7 +37,7 @@ class App extends React.Component {
         <Route {...rest} render={(props) => (
             this.state.authUser
                 ? <Component {...props} />
-                : <Login {...props} />
+                : <Redirect to={ROUTES.LOGIN} />
         )} />
     );
 
@@ -46,14 +46,16 @@ class App extends React.Component {
             <AuthUserContext.Provider value={this.state.authUser}>
                 <BrowserRouter>
                     <MainNavbar />
-                        <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
-                        <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
-                        <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
-                        <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
-                        <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                        <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
-                        <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
-                        <Route component={NotFound} />
+                        <Switch>
+                            <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
+                            <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
+                            <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
+                            <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
+                            <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
+                            <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
+                            <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
+                            <Route component={NotFound} />
+                        </Switch>
                     <MainFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>

@@ -27,11 +27,10 @@ class Home extends React.Component {
     getWills = async () => {
         const res = await WillAPI.getRandomDocuments(3);
         console.log(res);
-        this.setState({ res });
+        this.setState({ wills: res })
     }
 
     render() {
-        const { wills } = this.state;
         return (
             <>
                 <main href="main">
@@ -92,8 +91,6 @@ class Home extends React.Component {
                               </>
                             : null
                         }
-
-                        
                         {/* Search Bar */}
                         <section className="section section-lg">
                             <Container>
