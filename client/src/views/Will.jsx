@@ -46,37 +46,37 @@ const LoadedWill = (data) => {
     );
 }
 
-const TableView = (props) => {
-  return (
-    <Table borderless>
-      <tbody>
-      <tr>
-          <th scope="row">Author</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Date of Publication</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Location of Publication</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Original Language</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Upload Date</th>
-          <td></td>
-        </tr>
-        <tr>
-          <th scope="row">Original Submitter</th>
-          <td></td>
-        </tr>
-      </tbody>
-    </Table>
-  );
+const TableView = (data) => {
+    return (
+        <Table borderless>
+            <tbody>
+                <tr>
+                    <th scope="row">Year of Publication</th>
+                    <td>{data.year}</td>
+                </tr>
+                <tr>
+                    <th scope="row">City of Publication</th>
+                    <td>{data.city_name}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Country of Publication</th>
+                    <td>{data.country_name}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Original Language</th>
+                    <td>{data.language_name}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Upload Date</th>
+                    <td>{data.upload_date}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Original Submitter</th>
+                    <td>{data.author}</td>
+                </tr>
+            </tbody>
+        </Table>
+    );
 }
 
 class Will extends React.Component {
