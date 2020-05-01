@@ -53,7 +53,7 @@ class App extends React.Component {
                             <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                             <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                             <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                            <Route path={ROUTES.WILL} children={<Will />} />
+                            <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
                             <Route path={ROUTES.WILL_EXAMPLE} render={props => <WillExample {...props}/> } />
                             <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
                             <Route component={NotFound} />
