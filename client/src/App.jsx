@@ -13,6 +13,7 @@ import Login from "views/Login.jsx";
 import Account from "views/Account.jsx";
 import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
+import NotFound from "views/NotFound.jsx";
 
 // Components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
@@ -52,6 +53,7 @@ class App extends React.Component {
                         <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
                         <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
                         <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
+                        <Route component={NotFound} />
                     <MainFooter />
                 </BrowserRouter>
             </AuthUserContext.Provider>

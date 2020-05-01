@@ -1,7 +1,4 @@
 const mysql = require('mysql');
-const fs = require('file-system');
-const async = require('async');
-const MySQLStore = require('express-mysql-session');
 
 const connectionString = process.env.JAWSDB_MARIA_URL;
 
