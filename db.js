@@ -49,7 +49,7 @@ module.exports = {
    //         language, country, city
    getDocuments: callback => {
       const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
+         'SELECT Document.id, title, author, year, original_text, translated_text, image, upload_date, ' +
          'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
@@ -63,7 +63,7 @@ module.exports = {
    // Result: document title, author, year, image, upload date, language, country, city
    getDocumentMinimal: callback => {
       const query = 
-         'SELECT title, author, year, image, upload_date, ' +
+         'SELECT Document.id, title, author, year, image, upload_date, ' +
          'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +

@@ -33,7 +33,7 @@ class WillCard extends React.Component {
                             {this.props.data['year']}
                         </Badge>
                     </div>
-                    <Button  className="mt-4" color="dark" href="/will">
+                    <Button className="mt-4" color="dark" href="/will">
                         Read Will
                     </Button>
                 </CardBody>

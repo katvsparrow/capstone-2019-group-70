@@ -13,6 +13,7 @@ import Login from "views/Login.jsx";
 import Account from "views/Account.jsx";
 import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
+import WillExample from "views/WillExample.jsx";
 import NotFound from "views/NotFound.jsx";
 
 // Components
@@ -52,7 +53,8 @@ class App extends React.Component {
                             <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                             <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                             <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                            <Route path={ROUTES.WILL_EXAMPLE} render={props => <Will {...props}/> } />
+                            <Route path={ROUTES.WILL} children={<Will />} />
+                            <Route path={ROUTES.WILL_EXAMPLE} render={props => <WillExample {...props}/> } />
                             <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
                             <Route component={NotFound} />
                         </Switch>
