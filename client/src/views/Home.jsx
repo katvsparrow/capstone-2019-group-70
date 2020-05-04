@@ -26,7 +26,6 @@ class Home extends React.Component {
 
     getWills = async () => {
         const res = await WillAPI.getRandomDocuments(3);
-        console.log(res);
         this.setState({ wills: res })
     }
 
@@ -65,7 +64,7 @@ class Home extends React.Component {
                             </Container>
                         </section>
                         {/* 3 Random Wills */}
-                        {this.state.wills.length > 0 
+                        {this.state.wills.length === 3
                             ? <> 
                                     <section className="section section-lg pt-lg-0 mt--200">
                                         <Container>

@@ -24,7 +24,7 @@
     "minify-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.min.css --output-style compressed",
     "map-sass": "node-sass src/assets/scss/argon-design-system-react.scss src/assets/css/argon-design-system-react.css --source-map true"
   },
-  "proxy": "http://localhost:3001/", 
+  "proxy": "http://localhost:3001/",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -58,6 +58,7 @@
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "^3.0.0",
+    "react-spinners": "^0.8.1",
     "react-svg-pan-zoom": "^3.8.0",
     "reactstrap": "8.0.0",
     "recompose": "^0.30.0"

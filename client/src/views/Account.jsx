@@ -48,7 +48,6 @@ class AccountPage extends React.Component {
     }
     
     render() {
-        console.log(this.props.authUser);
         return (
           <>
             <main className="profile-page" href="main">

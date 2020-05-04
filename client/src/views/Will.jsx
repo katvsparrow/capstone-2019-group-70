@@ -3,16 +3,35 @@ import React from 'react';
 import WillView from "components/Media/WillView.jsx";
 import WillAPI from "api/will.js";
 
+import { PropagateLoader } from "react-spinners/PropagateLoader";
+
 import {
+    Jumbotron,
     Container,
     Row, 
     Table 
 } from 'reactstrap';
 
 
+const NoWillFound = () => {
+    return (
+        <>
+            <section className="section section-lg bg-dark">
+                <Container className="mt-md mb-md pt-lg pb-lg">
+                    <Row className="justify-content-center">
+                        <Jumbotron>
+                            <h1 className="display-3">Oops!</h1>
+                            <p>No records found for requested will</p>
+                        </Jumbotron>
+                    </Row>
+                </Container>    
+            </section>
+        </>
+    )
+}
+
 const LoadedWill = (data) => {
     let will = data.will;
-    console.log(will);
     return (
         <>
             <section className="section section-lg bg-dark text-white">
@@ -97,11 +116,11 @@ class Will extends React.Component {
     renderType = (data) =>  {
         if(data === null) {
             // spinner
-            return null;
+            return <PropagateLoader />;
         } 
         else if(data.length === 0) {
             // no will found
-            return null;
+            return <NoWillFound />
         }
 
         else {
