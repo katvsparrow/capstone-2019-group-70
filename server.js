@@ -5,7 +5,7 @@ const app = express();
 require('dotenv').config();
 require('./routes/documentRoutes')(app);
 
-if(!('DB_HOST' in process.env) || !('DB_HOST' in process.env) 
+if(!('DB_HOST' in process.env) || !('DB_USER' in process.env) 
     || !('DB_PASS' in process.env) || !('DB_NAME' in process.env) ) {
   throw 'Missing credential file. Add .env file to your directory.'
 }
