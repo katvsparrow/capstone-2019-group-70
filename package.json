@@ -6,6 +6,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.4",
     "file-system": "^2.2.2",

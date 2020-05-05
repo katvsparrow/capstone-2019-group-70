@@ -47,14 +47,11 @@ class SignUpForm extends React.Component {
         event.preventDefault();
     };
 
-    checkInput = () => {
+    checkInput = (values) => {
         // Return false if password
         // less than 6 chars, does not contain one captial / one lowercase etc...
-
-        return email === '' ||
-        username === '' ||
-        passwordOne === '' ||
-        passwordOne !== passwordTwo;
+        console.log(values);
+        return true;
     };
     
     render() {
@@ -67,7 +64,7 @@ class SignUpForm extends React.Component {
         } = this.state
         
         // Check if input fields have been filled 
-        const isInvalid = this.checkInput;
+        const isInvalid = this.checkInput(this.state);
                           
         return(
             <>

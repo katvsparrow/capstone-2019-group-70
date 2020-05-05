@@ -1,15 +1,14 @@
 const mysql = require('mysql');
-
 const connectionString = process.env.JAWSDB_MARIA_URL;
 
 // if env variable exists, it's on cloud; otherwise, use localhost
 const connection = connectionString
   ? connectionString + '?multipleStatements=true'
   : {
-      host: 'op2hpcwcbxb1t4z9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-      user: 'bow68m2jqe88hco1',
-      password: 'i3inp545cau1avg5',
-      database: 'sinyxb3424v6hdac',
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME,
       multipleStatements: true
     };
 // create a pool for more efficient connection management
