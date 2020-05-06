@@ -22,6 +22,14 @@
     font-size: 15px;
 }
 
+/* Will page */
+.transcript-container {
+    overflow: auto;
+}
+
+.action-buttons button {
+    margin: 5px;
+}
 
 /* Account Page Panel Switch */
 .list-group-horizontal {

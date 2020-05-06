@@ -6,13 +6,18 @@ import WillAPI from "api/will.js";
 import { PropagateLoader } from "react-spinners/PropagateLoader";
 
 import {
+    Button,
+    Col,
     Jumbotron,
     Container,
     Row, 
-    Table 
+    Table,
+    Card,
+    CardHeader, 
+    CardBody
 } from 'reactstrap';
 
-
+// Will not found content 
 const NoWillFound = () => {
     return (
         <>
@@ -30,35 +35,104 @@ const NoWillFound = () => {
     )
 }
 
+// Will page components 
+const ActionButtons = () => {
+    return (
+        <div className='action-buttons'>
+            <Button>
+                <i class="far fa-heart fa-2x"></i>
+            </Button>
+            <Button>
+                <i class="far fa-image fa-2x"></i>
+            </Button>
+            <Button>
+                <i class="fas fa-eye fa-2x"></i>
+            </Button>
+            <Button>
+                <i class="fas fa-flag fa-2x"></i>
+            </Button>
+        </div>
+    )
+}
+
+const TagCard = (tags) => {
+    console.log(tags);
+
+    return (
+        <Card className="w-100">
+            <CardHeader className="text-center">Associated Tags</CardHeader>
+            <CardBody>
+                
+            </CardBody>
+        </Card>
+    );
+}
+
+const DetailTable = (details) => {
+    console.log(details);
+
+    return (
+        <Table borderless>
+            <tr>
+                <td>Publication date</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Location Origin</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Archive / Library</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Source Reference</td>
+                <td></td>
+            </tr>
+        </Table>
+    )
+}
+
+
 const LoadedWill = (data) => {
     let will = data.will;
+    console.log(will);
     return (
         <>
-            <section className="section section-lg bg-dark text-white">
+            <section className="section bg-dark text-white pb-3 mb-3" />
+            <section>
                 <Container>
-                    {/* Title */}
-                    <Row>{will['title']}</Row>
-                    <Row>
-                        <WillView />
+                    <Row className="mt-2 mb-2 border-bottom">
+                        <h3>{will['title']}</h3>
                     </Row>
-                </Container>
-            </section>
-            <section className="section">
-                <Container>
-                    <Row>
-                        <h2>Document Details</h2>
+                    <Row className="mt-4">
+                        <Col className="mr-1" lg="7">
+                            {/* Original Text */}
+                            <Row>
+                                <h4>Original Text</h4>
+                            </Row>
+                            <Row className="bg-secondary p-4 mb-3 transcript-container h-50">
+                                {will['original_text']}
+                            </Row>
+                            <Row>
+                                <h4>Translated Text</h4>
+                            </Row>
+                        </Col>
+                        <Col className="ml-5" lg="4">
+                            {/* Action buttons */ }
+                            <Row className="action-buttons">
+                                <ActionButtons />
+                            </Row>
+                            {/* Document Tags */}
+                            <Row className="mt-3">
+                                <TagCard />
+                            </Row>
+                            {/* Document Details */}
+                            <Row className="mt-3">
+                                <DetailTable />
+                            </Row>
+                        </Col>
                     </Row>
-                    <Row className="bg-secondary">
-                        <TableView {...will}/>
-                    </Row>
-                    <Row className="mt-3">
-                        <h2>Original Text</h2>
-                    </Row>
-                    <Row className="bg-secondary p-4">{will['original_text']}</Row>
-                    <Row className="mt-3">
-                        <h2>Translated Text</h2>
-                    </Row>
-                    <Row className="bg-secondary p-4">{will['translated_text']}</Row>
                 </Container>
             </section>
         </>
@@ -116,7 +190,7 @@ class Will extends React.Component {
     renderType = (data) =>  {
         if(data === null) {
             // spinner
-            return <PropagateLoader />;
+            return null;
         } 
         else if(data.length === 0) {
             // no will found
