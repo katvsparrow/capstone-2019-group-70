@@ -2,8 +2,7 @@ import React from 'react';
 
 import WillView from "components/Media/WillView.jsx";
 import WillAPI from "api/will.js";
-
-import { PropagateLoader } from "react-spinners/PropagateLoader";
+import PageSpinner from "components/Containers/PageSpinner.jsx";
 
 import {
     Button,
@@ -21,16 +20,14 @@ import {
 const NoWillFound = () => {
     return (
         <>
-            <section className="section section-lg bg-dark">
-                <Container className="mt-md mb-md pt-lg pb-lg">
-                    <Row className="justify-content-center">
-                        <Jumbotron>
-                            <h1 className="display-3">Oops!</h1>
-                            <p>No records found for requested will</p>
-                        </Jumbotron>
-                    </Row>
-                </Container>    
-            </section>
+        <Container className="mt-md mb-md pt-lg pb-lg">
+            <Row className="justify-content-center">
+                <Jumbotron>
+                    <h1 className="display-3">Oops!</h1>
+                    <p>No records found for requested will</p>
+                </Jumbotron>
+            </Row>
+        </Container>    
         </>
     )
 }
@@ -99,7 +96,6 @@ const LoadedWill = (data) => {
     console.log(will);
     return (
         <>
-            <section className="section bg-dark text-white pb-3 mb-3" />
             <section>
                 <Container>
                     <Row className="mt-2 mb-2 border-bottom">
@@ -174,7 +170,7 @@ const TableView = (data) => {
 
 class Will extends React.Component {
     state = {
-        will : null
+        will : null, 
     }
     
     componentDidMount() {
@@ -189,8 +185,7 @@ class Will extends React.Component {
 
     renderType = (data) =>  {
         if(data === null) {
-            // spinner
-            return null;
+            return <PageSpinner />
         } 
         else if(data.length === 0) {
             // no will found
@@ -207,6 +202,7 @@ class Will extends React.Component {
             <>
                 <main href="main">
                     <div className="position-relative">
+                        <section className="section bg-dark text-white pb-3 mb-3" />
                         {this.renderType(this.state.will) }
                     </div>
                 </main>
