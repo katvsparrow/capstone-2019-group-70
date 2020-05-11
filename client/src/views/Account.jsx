@@ -79,7 +79,7 @@ class Account extends React.Component {
             <main href="main">
                 <div className="position-relative">
                     <section className="section bg-gradient-jww-primary pb-4" />
-                    <section className='h-100'>
+                    <section className='page-content'>
                         <Container className="py-sm">
                             <div className="px-4">
                                 <Row className="justify-content-center text-center">

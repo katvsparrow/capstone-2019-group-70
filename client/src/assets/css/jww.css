@@ -6,6 +6,10 @@
     background-color: #FFFFFF;
 }
 
+.page-content {
+    min-height: 75vh;
+}
+
 .filter-border {
     border-right: solid black 1px;
 }
