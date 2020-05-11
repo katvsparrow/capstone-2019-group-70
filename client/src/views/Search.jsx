@@ -1,5 +1,7 @@
 import React from 'react';
 
+import WillAPI from "../api/will";
+
 /*
 Search functionality removed until wills inserted into db
 
@@ -35,14 +37,23 @@ import Result from "../components/Containers/Result.jsx";
 var mock_wills = require('../api/Mock/Mock_Wills.json');
 
 class Search extends React.Component {
-    state = { wills: mock_wills['mock_wills'] }
+    state = { 
+        wills: mock_wills['mock_wills'], 
+        viewType: 'card',
+        loading: true 
+    }
 
-    getWills = () => {
-        /* Fetch method, Pending client data */
+    getStartingWills = () => {
+        /* Fetch method, Pending client data 
+        const rESs = await WillAPI.getRandomDocuments(10);
+        this.setState({
+            wills: res, 
+            loading: false
+        });*/
     }
 
     componentDidMount() {
-        this.getWills();
+        //this.getWills();
     }
     
     render () {
@@ -50,7 +61,8 @@ class Search extends React.Component {
             <>
                 <main href="main">
                     <div className="position-relative">
-                        <section className="section section-shaped search-container bg-gradient-jww-primary">
+                        <section className="section bg-gradient-jww-primary pb-4" />
+                        <section>
                             <Container className = "py-md">
                                 <Row>
                                    <Col>
@@ -62,12 +74,10 @@ class Search extends React.Component {
                                                 </Button>
                                             </InputGroupAddon>
                                         </InputGroup>
-                                        <Label color="black" for="form-search" className="text-white">Search for wills by keywords, location, year, language</Label>
+                                        <Label color="black" for="form-search">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
                             </Container>
-                        </section>
-                        <section className="section section-lg pb-250 bg-secondary">
                             <Container>
                                 <Row>
                                     <Col xs="4" className="pr-5 filter-border">

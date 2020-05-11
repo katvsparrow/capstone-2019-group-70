@@ -35,12 +35,21 @@ class App extends React.Component {
         };
     }
 
+    createUserObject(response) { 
+        return {
+            'displayName': response['displayName'],
+            'email': response['email'],
+            'refreshToken': response['refreshToken'],
+            'uid': response['uid'],
+            'emailVerified': response['emailVerfieid']
+        }; 
+    }
+
     componentDidMount() {
         console.log(this.state.authUser);
         this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-            console.log(authUser);
             authUser 
-                ? this.setState({ authUser: authUser, loading: false })
+                ? this.setState({ authUser: this.createUserObject(authUser), loading: false })
                 : this.setState({ authUser: null, loading: false })
         });
     }

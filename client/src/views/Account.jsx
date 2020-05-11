@@ -2,9 +2,10 @@ import React from 'react';
 import classnames from "classnames";
 
 import { withFirebase } from "contexts/Firebase";
+import { AuthUserContext } from "contexts/Session";
 
 import * as ROUTES from "constants/routes";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 
 import {
@@ -22,16 +23,10 @@ import ChangePasswordForm from "../components/Forms/ChangePasswordForm.jsx";
 import WillSubmitForm from "../components/Forms/WillSubmitForm.jsx";
 import SavedWills from "../components/Containers/SavedWills.jsx";
 
-
-const INITIAL_STATE = {
-    activeTab: '1'
-};
-
-
 /**
  * Renders account details content 
  */
-const AccountDetailsConent = () => {
+const AccountDetailsContent = () => {
     return null; 
 }
 
@@ -53,6 +48,10 @@ const SavedWillsContent = () => {
     return null;
 }
 
+const INITIAL_STATE = {
+    activeTab: '1'
+};
+
 class Account extends React.Component {
     constructor(props) {
         super(props);
@@ -70,59 +69,26 @@ class Account extends React.Component {
     }
 
     signOut(props) {
-        props.firebase.doSignOut();
-        props.history.push(ROUTES.HOME);
+        props.contexts.firebase.doSignOut();
+        props.contexts.history.push(ROUTES.HOME);
     }
     
     render() {
         return (
           <>
-            <main className="profile-page" href="main">
-                <section className="section-profile-cover section-shaped my-0">
-                    {/* Background bubbles */ }
-                    <div className="shape shape-style-1 bg-gradient-jww-primary">
-                        <span />
-                        <span />
-                        <span />
-                        <span />
-                        <span />
-                    </div>
-                    <div className="separator separator-bottom separator-skew">
-                        <svg 
-                            xmlns="http://www.w3.org/2000/svg"
-                            preserveAspectRatio="none"
-                            version="1.1"
-                            viewBox="0 0 2560 100"
-                            x="0"
-                            y="0"
-                        > 
-                            <polygon className="fill-white" points="2560 0 2560 100 0 100"/>
-                        </svg>
-                     </div>
-                </section>  
-                <section className="section">
-                    <Container>
-                        <Card className="card-profile shadow mt--450">
+            <main href="main">
+                <div className="position-relative">
+                    <section className="section bg-gradient-jww-primary pb-4" />
+                    <section className='h-100'>
+                        <Container className="py-sm">
                             <div className="px-4">
-                                <Row className="justify-content-center">
-                                    <Col className="order-lg-2" lg="3">
-                                        <div className="card-profile-image">
-                                            <a href="#pablo" onClick={e => e.preventDefault()}>
-                                                <img
-                                                    alt="..."
-                                                    className="rounded-circle"
-                                                    src={require("assets/img/theme/team-4-800x800.jpg")}
-                                                />
-                                            </a>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row className="justify-content-center mt-lg text-center">
-                                    <Col className="mt-5">
-                                        <h3>Display Name</h3>
+                                <Row className="justify-content-center text-center">
+                                    <Col>
+                                        <h2>Account Portal</h2>
+                                        <h3>{this.props.user.displayName}</h3>
                                         <div className="h6 font-weight-300">
                                             <i className="ni location_pin mr-2" />
-                                            Email@address.com    
+                                            {this.props.user.email}
                                         </div>
                                     </Col>
                                 </Row>
@@ -174,36 +140,45 @@ class Account extends React.Component {
                                 <div className="mt-5 py-5 border-top text-center">
                                     <TabContent className="my-2" activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
-                                            <AccountDetailsConent />
-                                            <h2>My Account</h2>
-                                            <h3>Pending database</h3>
+                                            <AccountDetailsContent />
                                         </TabPane>
                                         <TabPane tabId="2">
                                             <PasswordChangeContent />
-                                            <h2>Password Change Form</h2>
                                         </TabPane>  
                                         <TabPane tabId="3">
                                             <SavedWillsContent />
-                                            <h2>Your Saved Wills</h2>
-                                            <SavedWills />
                                         </TabPane>
                                         <TabPane tabId="4">
                                             <SubmitWillContent />
-                                            <WillSubmitForm />
                                         </TabPane>
                                     </TabContent>
                                 </div>
                             </div>
-                        </Card>
-                    </Container>
-                </section>
-            </main>
+                        </Container>
+                    </section>
+                </div>
+            </main>    
           </>  
         );
     }
 }
 
+/**
+ * Determine page authorization access
+ */
+const AccountBase = (props) => {   
+    return(
+        <AuthUserContext.Consumer>
+            {
+                authUser =>
+                    authUser ? <Account contexts={props} user={authUser} />
+                             : <Redirect to={ROUTES.LOGIN} />
+            }
+        </AuthUserContext.Consumer>
+    )
+}
+
 export default compose(
     withRouter,
     withFirebase
-)(Account);
+)(AccountBase);
