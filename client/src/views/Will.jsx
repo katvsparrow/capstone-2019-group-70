@@ -65,8 +65,7 @@ const TagCard = (tags) => {
     return (
         <Card className="w-100">
             <CardHeader className="text-center">Associated Tags</CardHeader>
-            <CardBody>
-                
+            <CardBody>          
             </CardBody>
         </Card>
     );

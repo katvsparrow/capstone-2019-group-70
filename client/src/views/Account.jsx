@@ -132,7 +132,7 @@ class Account extends React.Component {
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '1'})}
                                                 onClick={() => {
-                                                this.toggle('1');
+                                                    this.toggle('1');
                                                 }}
                                             >
                                                 Account Details
@@ -140,7 +140,7 @@ class Account extends React.Component {
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '2'})}
                                                 onClick={() => {
-                                                this.toggle('2');
+                                                    this.toggle('2');
                                                 }}
                                             >
                                                 Change Password
@@ -148,7 +148,7 @@ class Account extends React.Component {
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '3'})}
                                                 onClick={() => {
-                                                this.toggle('3');
+                                                    this.toggle('3');
                                                 }}
                                             >
                                                 Saved Wills
@@ -156,13 +156,15 @@ class Account extends React.Component {
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '4'})}
                                                 onClick={() => {
-                                                this.toggle('4');
+                                                    this.toggle('4');
                                                 }}
                                             >
                                                 Submit Will
                                             </ListGroupItem>
                                             <ListGroupItem color="danger"tag="a"
-                                                onClick={this.signOut(this.props)}
+                                                onClick={() => {
+                                                    this.signOut(this.props)
+                                                }}
                                             >
                                                 Sign Out
                                             </ListGroupItem>
@@ -179,7 +181,6 @@ class Account extends React.Component {
                                         <TabPane tabId="2">
                                             <PasswordChangeContent />
                                             <h2>Password Change Form</h2>
-                                            <ChangePasswordForm />
                                         </TabPane>  
                                         <TabPane tabId="3">
                                             <SavedWillsContent />

@@ -33,14 +33,16 @@ const LoginNavigation = (props) => (
 );
 
 const LoginButton = () => (
-    <Button href="/login" className="btn-neutral btn-icon" color="default">
-        <span className="btn-inner--icon">
-            <i className="fa fa-user-circle" />
-        </span>
-        <span className="nav-link-inner--text ml-1">
-            Login / Register 
-        </span>
-    </Button>
+    <Link to={ROUTES.LOGIN}>
+        <Button className="btn-neutral btn-icon" color="default">
+            <span className="btn-inner--icon">
+                <i className="fa fa-user-circle" />
+            </span>
+            <span className="nav-link-inner--text ml-1">
+                Login / Register 
+            </span>
+        </Button>
+    </Link>
 );
 
 class MainNavbar extends React.Component {
