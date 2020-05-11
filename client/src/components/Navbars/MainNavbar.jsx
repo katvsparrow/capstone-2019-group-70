@@ -10,7 +10,6 @@ import {
     NavbarBrand,
     Navbar,
     NavItem,
-    NavLink,
     Nav,
     Container,
     Row,
@@ -81,19 +80,15 @@ class MainNavbar extends React.Component {
                             {/* Left-hand Navbar content */}
                             <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                                 <NavItem>
-                                    <Link to={ROUTES.SEARCH}>
-                                        <NavLink>
-                                            <i className="ni ni-collection d-lg-none mr-1" />
-                                            <span className="nav-link-inner--text">Search</span>
-                                        </NavLink>
+                                    <Link className="nav-link" to={ROUTES.SEARCH}>
+                                        <i className="ni ni-collection d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">Search</span>
                                     </Link>
                                 </NavItem>
                                 <NavItem>
-                                    <Link to={ROUTES.ABOUT}>
-                                        <NavLink>
-                                            <i className="fa fa-info-circle d-lg-none mr-1" />
-                                            <span className="nav-link-inner--text">About Us</span>
-                                        </NavLink>
+                                    <Link className="nav-link" to={ROUTES.ABOUT}>
+                                        <i className="fa fa-info-circle d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">About Us</span>
                                     </Link>
                                 </NavItem>
                             </Nav>

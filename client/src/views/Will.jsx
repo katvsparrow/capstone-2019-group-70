@@ -1,6 +1,5 @@
 import React from 'react';
 
-import WillView from "components/Media/WillView.jsx";
 import WillAPI from "api/will.js";
 import PageSpinner from "components/Containers/PageSpinner.jsx";
 
@@ -16,7 +15,9 @@ import {
     CardBody
 } from 'reactstrap';
 
-// Will not found content 
+/**
+ * Returns message stating requested will is not in the database
+ */
 const NoWillFound = () => {
     return (
         <>
@@ -32,26 +33,32 @@ const NoWillFound = () => {
     )
 }
 
-// Will page components 
+/**
+ * Defines available action buttons on page
+ */
 const ActionButtons = () => {
     return (
         <div className='action-buttons'>
             <Button>
-                <i class="far fa-heart fa-2x"></i>
+                <i className="far fa-heart fa-2x"></i>
             </Button>
             <Button>
-                <i class="far fa-image fa-2x"></i>
+                <i className="far fa-image fa-2x"></i>
             </Button>
             <Button>
-                <i class="fas fa-eye fa-2x"></i>
+                <i className="fas fa-eye fa-2x"></i>
             </Button>
             <Button>
-                <i class="fas fa-flag fa-2x"></i>
+                <i className="fas fa-flag fa-2x"></i>
             </Button>
         </div>
     )
 }
 
+/**
+ * Renders all associated tags of rendered Will 
+ * @param {json} tags 
+ */
 const TagCard = (tags) => {
     console.log(tags);
 
@@ -65,109 +72,114 @@ const TagCard = (tags) => {
     );
 }
 
+/**
+ * Renders table full of information related to the rendered will 
+ * @param {json} details 
+ */
 const DetailTable = (details) => {
     console.log(details);
 
     return (
         <Table borderless>
-            <tr>
+            <tbody>
+                <tr>
                 <td>Publication date</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Location Origin</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Archive / Library</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Source Reference</td>
-                <td></td>
-            </tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Location Origin</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Archive / Library</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Source Reference</td>
+                    <td></td>
+                    </tr>
+            </tbody>
         </Table>
     )
 }
 
-
-const LoadedWill = (data) => {
-    let will = data.will;
-    console.log(will);
+/**
+ * Media view container for will 
+ */
+const MediaView = () => {
     return (
         <>
-            <section>
-                <Container>
-                    <Row className="mt-2 mb-2 border-bottom">
-                        <h3>{will['title']}</h3>
-                    </Row>
-                    <Row className="mt-4">
-                        <Col className="mr-1" lg="7">
-                            {/* Original Text */}
-                            <Row>
-                                <h4>Original Text</h4>
-                            </Row>
-                            <Row className="bg-secondary p-4 mb-3 transcript-container h-50">
-                                {will['original_text']}
-                            </Row>
-                            <Row>
-                                <h4>Translated Text</h4>
-                            </Row>
-                        </Col>
-                        <Col className="ml-5" lg="4">
-                            {/* Action buttons */ }
-                            <Row className="action-buttons">
-                                <ActionButtons />
-                            </Row>
-                            {/* Document Tags */}
-                            <Row className="mt-3">
-                                <TagCard />
-                            </Row>
-                            {/* Document Details */}
-                            <Row className="mt-3">
-                                <DetailTable />
-                            </Row>
-                        </Col>
-                    </Row>
-                </Container>
-            </section>
         </>
     );
 }
 
-const TableView = (data) => {
+const TextView = (data) => {
+    let will = data.will;
     return (
-        <Table borderless>
-            <tbody>
-                <tr>
-                    <th scope="row">Year of Publication</th>
-                    <td>{data.year}</td>
-                </tr>
-                <tr>
-                    <th scope="row">City of Publication</th>
-                    <td>{data.city_name}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Country of Publication</th>
-                    <td>{data.country_name}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Original Language</th>
-                    <td>{data.language_name}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Upload Date</th>
-                    <td>{data.upload_date}</td>
-                </tr>
-                <tr>
-                    <th scope="row">Original Submitter</th>
-                    <td>{data.author}</td>
-                </tr>
-            </tbody>
-        </Table>
+        <>
+            <Col className="mr-1" lg='7'>
+                {/* Original Text */}
+                <Row>
+                    <h4>Original Text</h4>
+                </Row>
+                <Row className="bg-secondary p-4 mb-3 transcript-container h-50">
+                    {will['original_text']}
+                </Row>
+                <Row>
+                    <h4>Translated Text</h4>
+                </Row>
+            </Col>
+            <Col className="ml-5" lg="4">
+                {/* Action buttons */ }
+                <Row className="action-buttons">
+                    <ActionButtons />
+                </Row>
+                {/* Document Tags */}
+                <Row className="mt-3">
+                    <TagCard />
+                </Row>
+                {/* Document Details */}
+                <Row className="mt-3">
+                    <DetailTable />
+                </Row>
+            </Col>
+        </>
     );
 }
 
+/**
+ * Main container for Will content
+ * @param {json} data
+ */
+
+class LoadedWill extends React.Component { 
+    constructor(props){
+        super(props); 
+        
+        this.will = this.props.data; 
+    }
+
+    render() {
+        console.log(this.will);
+        return(
+            <section>
+                <Container>
+                    <Row className="mt-2 mb-2 border-bottom">
+                        <h3>{this.will['title']}</h3>
+                    </Row>
+                    <Row className="mt-4">
+                        <TextView will={this.will}/>
+                    </Row>
+                </Container>
+            </section>
+        );
+    }
+}
+
+
+/**
+ * Main Page for will
+ */
 class Will extends React.Component {
     state = {
         will : null, 
@@ -191,9 +203,8 @@ class Will extends React.Component {
             // no will found
             return <NoWillFound />
         }
-
         else {
-            return <LoadedWill will={data[0]} />
+            return <LoadedWill data={data[0]} />
         }
     }
 
@@ -203,7 +214,7 @@ class Will extends React.Component {
                 <main href="main">
                     <div className="position-relative">
                         <section className="section bg-dark text-white pb-3 mb-3" />
-                        {this.renderType(this.state.will) }
+                        { this.renderType(this.state.will) }
                     </div>
                 </main>
             </>

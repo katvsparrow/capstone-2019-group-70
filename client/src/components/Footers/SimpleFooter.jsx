@@ -6,14 +6,11 @@ import * as ROUTES from "../../constants/routes";
 
 // reactstrap components
 import {
-  Button,
-  NavItem,
-  NavLink,
   Nav,
+  NavItem,
   Container,
   Row,
-  Col,
-  UncontrolledTooltip
+  Col
 } from "reactstrap";
 
 class SimpleFooter extends React.Component {
@@ -27,9 +24,8 @@ class SimpleFooter extends React.Component {
               <Col md="6">
                 <div className=" copyright">
                   © {new Date().getFullYear()}{" "}
-                  <a
+                  <a 
                     href="https://liberalarts.oregonstate.edu/users/rena-lauer"
-                    target="_blank"
                   >
                     Rena Lauer
                   </a>
@@ -39,15 +35,13 @@ class SimpleFooter extends React.Component {
               <Col md="6">
                 <Nav className=" nav-footer justify-content-end">
                   <NavItem>
-                    <Link to={ROUTES.SEARCH}>
-                      <NavLink>Search</NavLink>
+                    <Link className="nav-link" to={ROUTES.SEARCH}>
+                      Search
                     </Link>
                   </NavItem>
                   <NavItem>
-                    <Link to={ROUTES.ABOUT}>
-                      <NavLink>
+                    <Link className="nav-link" to={ROUTES.ABOUT}>
                         About Us
-                      </NavLink>
                     </Link>
                   </NavItem>
                 </Nav>

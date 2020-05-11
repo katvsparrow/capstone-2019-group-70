@@ -1,7 +1,11 @@
 import React from 'react';
 import classnames from "classnames";
+
 import { withFirebase } from "contexts/Firebase";
 
+import * as ROUTES from "constants/routes";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
 
 import {
     Container, 
@@ -24,9 +28,35 @@ const INITIAL_STATE = {
 };
 
 
+/**
+ * Renders account details content 
+ */
+const AccountDetailsConent = () => {
+    return null; 
+}
+
+/**
+ * Renders password change form 
+ */
+const PasswordChangeContent = () => {
+    return null; 
+}
+
+/**
+ * Renders will submission form 
+ */
+const SubmitWillContent = () => {
+    return null; 
+}
+
+const SavedWillsContent = () => {
+    return null;
+}
+
 class Account extends React.Component {
     constructor(props) {
         super(props);
+
         this.toggle = this.toggle.bind(this);
         this.state = { ...INITIAL_STATE} ;
     }
@@ -37,6 +67,11 @@ class Account extends React.Component {
                 activeTab: tab
             });
         }
+    }
+
+    signOut(props) {
+        props.firebase.doSignOut();
+        props.history.push(ROUTES.HOME);
     }
     
     render() {
@@ -127,7 +162,7 @@ class Account extends React.Component {
                                                 Submit Will
                                             </ListGroupItem>
                                             <ListGroupItem color="danger"tag="a"
-                                                onClick={this.props.firebase.doSignOut}
+                                                onClick={this.signOut(this.props)}
                                             >
                                                 Sign Out
                                             </ListGroupItem>
@@ -135,23 +170,27 @@ class Account extends React.Component {
                                     </Col>
                                 </Row>
                                 <div className="mt-5 py-5 border-top text-center">
-                                        <TabContent className="my-2" activeTab={this.state.activeTab}>
-                                            <TabPane tabId="1">
-                                                <h2>My Account</h2>
-                                                <h3>Pending database</h3>
-                                            </TabPane>
-                                            <TabPane tabId="2">
-                                                <h2>Password Change Form</h2>
-                                                <ChangePasswordForm />
-                                            </TabPane>  
-                                            <TabPane tabId="3">
-                                                <h2>Your Saved Wills</h2>
-                                                <SavedWills />
-                                            </TabPane>
-                                            <TabPane tabId="4">
-                                                <WillSubmitForm />
-                                            </TabPane>
-                                        </TabContent>
+                                    <TabContent className="my-2" activeTab={this.state.activeTab}>
+                                        <TabPane tabId="1">
+                                            <AccountDetailsConent />
+                                            <h2>My Account</h2>
+                                            <h3>Pending database</h3>
+                                        </TabPane>
+                                        <TabPane tabId="2">
+                                            <PasswordChangeContent />
+                                            <h2>Password Change Form</h2>
+                                            <ChangePasswordForm />
+                                        </TabPane>  
+                                        <TabPane tabId="3">
+                                            <SavedWillsContent />
+                                            <h2>Your Saved Wills</h2>
+                                            <SavedWills />
+                                        </TabPane>
+                                        <TabPane tabId="4">
+                                            <SubmitWillContent />
+                                            <WillSubmitForm />
+                                        </TabPane>
+                                    </TabContent>
                                 </div>
                             </div>
                         </Card>
@@ -163,4 +202,7 @@ class Account extends React.Component {
     }
 }
 
-export default withFirebase(Account);
+export default compose(
+    withRouter,
+    withFirebase
+)(Account);

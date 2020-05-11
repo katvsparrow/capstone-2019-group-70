@@ -22,9 +22,9 @@ const TagCard = (tags) => {
             <CardHeader className="text-center">Associated Tags</CardHeader>
             <CardBody>
                 {/* Generate tages */}
-                <a href="#" className="badge badge-primary p-3 mx-1">1429</a>
-                <a href="#" className="badge badge-warning p-3 mx-1">Spanish</a>
-                <a href="#" className="badge badge-secondry p-3 mx-1">Spanish</a>
+                <a href="/#" className="badge badge-primary p-3 mx-1">1429</a>
+                <a href="/#" className="badge badge-warning p-3 mx-1">Spanish</a>
+                <a href="/#" className="badge badge-secondry p-3 mx-1">Spanish</a>
             </CardBody>
         </Card>
     );
