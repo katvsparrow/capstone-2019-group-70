@@ -102,7 +102,7 @@ class Account extends React.Component {
                 </section>  
                 <section className="section">
                     <Container>
-                        <Card className="card-profile shadow mt--300">
+                        <Card className="card-profile shadow mt--450">
                             <div className="px-4">
                                 <Row className="justify-content-center">
                                     <Col className="order-lg-2" lg="3">
