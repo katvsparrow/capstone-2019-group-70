@@ -30,7 +30,17 @@ class Firebase {
 
     doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
 
-    doPassWordUpdate = password => this.auth.currentUser.updatePassword(password);
+    doPasswordUpdate = async (currentPassword, newPassword) => {
+        try {
+            // Attempt to reauthenticate 
+            const user = this.auth.currentUser; 
+            const cred = app.auth.EmailAuthProvider(user.email, currentPassword);
+            user.reauthenticateWithCredential(cred);
+            await user.updatePassword(newPassword);
+        } catch(err){
+            return err.message;
+        }
+    }
 }
 
 export default Firebase; 

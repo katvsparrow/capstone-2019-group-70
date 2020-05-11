@@ -19,15 +19,20 @@ import {
     TabPane
 } from "reactstrap";
 
-import ChangePasswordForm from "../components/Forms/ChangePasswordForm.jsx";
-import WillSubmitForm from "../components/Forms/WillSubmitForm.jsx";
-import SavedWills from "../components/Containers/SavedWills.jsx";
+import UpdateDisplayNameForm from "../components/Forms/UpdateDisplayNameForm";
+import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
+import WillSubmitForm from "../components/Forms/WillSubmitForm";
+import SavedWills from "../components/Containers/SavedWills";
 
 /**
  * Renders account details content 
  */
-const AccountDetailsContent = () => {
-    return null; 
+const AccountDetailsContent = (user) => {
+    return (
+        <>  
+            <UpdateDisplayNameForm displayName={user.displayName} />
+        </>
+    );
 }
 
 /**
@@ -137,10 +142,10 @@ class Account extends React.Component {
                                         </ListGroup>
                                     </Col>
                                 </Row>
-                                <div className="mt-5 py-5 border-top text-center">
+                                <div className="mt-5 py-5 border-top">
                                     <TabContent className="my-2" activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
-                                            <AccountDetailsContent />
+                                            <AccountDetailsContent user={this.props.user} />
                                         </TabPane>
                                         <TabPane tabId="2">
                                             <PasswordChangeContent />
