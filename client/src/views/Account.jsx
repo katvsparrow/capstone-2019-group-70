@@ -1,7 +1,6 @@
 import React from 'react';
 import classnames from "classnames";
-
-import { FirebaseContext } from '../contexts/Firebase';
+import { withFirebase } from "contexts/Firebase";
 
 
 import {
@@ -19,20 +18,13 @@ import ChangePasswordForm from "../components/Forms/ChangePasswordForm.jsx";
 import WillSubmitForm from "../components/Forms/WillSubmitForm.jsx";
 import SavedWills from "../components/Containers/SavedWills.jsx";
 
-const Account = () => (
-    <FirebaseContext.Consumer>
-        {firebase => <AccountPage authUser={firebase.auth.currentUser} firebase={firebase} />}
-    </FirebaseContext.Consumer>
-);
-
-
 
 const INITIAL_STATE = {
     activeTab: '1'
 };
 
 
-class AccountPage extends React.Component {
+class Account extends React.Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
@@ -171,4 +163,4 @@ class AccountPage extends React.Component {
     }
 }
 
-export default Account;
+export default withFirebase(Account);

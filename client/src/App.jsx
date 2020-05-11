@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // React Context objects
 import { withFirebase } from 'contexts/Firebase';
@@ -11,6 +11,7 @@ import AboutUs from "views/AboutUs.jsx";
 import Search from "views/Search.jsx";
 import Login from "views/Login.jsx";
 import Account from "views/Account.jsx";
+import Admin from "views/Admin.jsx";
 import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
 import WillExample from "views/WillExample.jsx";
@@ -29,21 +30,26 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            authUser: JSON.parse(localStorage.getItem('authUser'))
+            authUser: null, 
+            loading: true
         };
     }
 
-    // Create protected routes based only available to logged in users
-    PrivateRoute = ({ component: Component, ...rest }) => (
-        <Route {...rest} render={(props) => (
-            this.state.authUser
-                ? <Component {...props} />
-                : <Redirect to={ROUTES.LOGIN} />
-        )} />
-    );
+    componentDidMount() {
+        this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+            
+            authUser 
+                ? this.setState({ authUser: authUser, loading: false })
+                : this.setState({ authUser: null, loading: false })
+        });
+    }
+
+    componentWillUnmount() {
+        this.listener();
+    }
 
     render() {
-        return(
+        return this.state.loading === true ? <h1>Loading</h1> : (
             <AuthUserContext.Provider value={this.state.authUser}>
                 <BrowserRouter>
                     <MainNavbar />
@@ -55,7 +61,8 @@ class App extends React.Component {
                             <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
                             <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
                             <Route path={ROUTES.WILL_EXAMPLE} render={props => <WillExample {...props}/> } />
-                            <this.PrivateRoute path={ROUTES.ACCOUNT} component={Account} />
+                            <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
+                            <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
                             <Route component={NotFound} />
                         </Switch>
                     <MainFooter />

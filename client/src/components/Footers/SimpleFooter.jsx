@@ -1,22 +1,9 @@
-/*!
-
-=========================================================
-* Argon Design System React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-design-system-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-design-system-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
 import React from "react";
+
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+
+
 // reactstrap components
 import {
   Button,
@@ -52,19 +39,16 @@ class SimpleFooter extends React.Component {
               <Col md="6">
                 <Nav className=" nav-footer justify-content-end">
                   <NavItem>
-                    <NavLink
-                      href="/discover"
-                    >
-                      Discover
-                    </NavLink>
+                    <Link to={ROUTES.SEARCH}>
+                      <NavLink>Search</NavLink>
+                    </Link>
                   </NavItem>
                   <NavItem>
-                    <NavLink
-                      href="/AboutUs"
-                      target="_blank"
-                    >
-                      About us
-                    </NavLink>
+                    <Link to={ROUTES.ABOUT}>
+                      <NavLink>
+                        About Us
+                      </NavLink>
+                    </Link>
                   </NavItem>
                 </Nav>
               </Col>

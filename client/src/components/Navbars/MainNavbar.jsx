@@ -1,5 +1,8 @@
 import React from "react"; 
 import { Link } from "react-router-dom"; 
+import * as ROUTES from "../../constants/routes";
+
+
 
 // import reactstrap components
 import {
@@ -18,14 +21,16 @@ import {
 import { AuthUserContext } from "../../contexts/Session";
 
 const LoginNavigation = (props) => (
-    <Button href="/account" className="btn-neutral btn-icon" color="default">
-        <span className="btn-inner--icon">
-            <i className="fa fa-user-circle" />
-        </span>
-        <span className="nav-link-inner--text ml-1">
-            Your Account 
-        </span>
-    </Button>
+    <Link to={ROUTES.ACCOUNT}>
+        <Button className="btn-neutral btn-icon" color="default">
+            <span className="btn-inner--icon">
+                <i className="fa fa-user-circle" />
+            </span>
+            <span className="nav-link-inner--text ml-1">
+                Your Account 
+            </span>
+        </Button>
+    </Link>
 );
 
 const LoginButton = () => (
@@ -76,17 +81,20 @@ class MainNavbar extends React.Component {
                             {/* Left-hand Navbar content */}
                             <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                                 <NavItem>
-                                    <NavLink href="/search">
-                                        <i className="ni ni-collection d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Search</span>
-                                    </NavLink>
+                                    <Link to={ROUTES.SEARCH}>
+                                        <NavLink>
+                                            <i className="ni ni-collection d-lg-none mr-1" />
+                                            <span className="nav-link-inner--text">Search</span>
+                                        </NavLink>
+                                    </Link>
                                 </NavItem>
                                 <NavItem>
-
-                                    <NavLink href="/account">
-                                    <i className="fa fa-info-circle d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Account Template</span>
-                                    </NavLink>
+                                    <Link to={ROUTES.ABOUT}>
+                                        <NavLink>
+                                            <i className="fa fa-info-circle d-lg-none mr-1" />
+                                            <span className="nav-link-inner--text">About Us</span>
+                                        </NavLink>
+                                    </Link>
                                 </NavItem>
                             </Nav>
 

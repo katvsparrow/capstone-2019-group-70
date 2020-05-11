@@ -1,5 +1,8 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+import * as ROUTES from "../../constants/routes";
+
 import {
     Badge,
     Button,
@@ -33,9 +36,11 @@ class WillCard extends React.Component {
                             {this.props.data['year']}
                         </Badge>
                     </div>
-                    <Button className="mt-4" color="dark" href={'/will/' + this.props.data['id']}>
-                        Read Will
-                    </Button>
+                    <Link to={'/will/' + this.props.data['id']}>
+                        <Button className="mt-4" color="dark">
+                            Read Will
+                        </Button>
+                    </Link>
                 </CardBody>
             </Card>
         );
