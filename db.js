@@ -24,50 +24,30 @@ module.exports = {
       db.query(query, callback);
    },
 
-   // Description: retrieve country
-   // Result: country_name
-   getCountry: callback => {
-      const query = 
-         'SELECT name AS country_name FROM Country';
-
-      db.query(query, callback);
-   },
-
-   // Description: retrieve city and corresponding country
-   // Result: city_name, country_name
-   getCity: callback => {
-      const query =
-         'SELECT City.name AS city_name, Country.name AS country_name FROM ' +
-         'City INNER JOIN Country ON country_id = Country.id';
-
-      db.query(query, callback);
-   },
-
    // Description: retrieve all documents
-   // Result: document title, author, year, original text, translated text, image, upload date,
-   //         language, country, city
+   // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocuments: callback => {
       const query =
          'SELECT Document.id, title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Country ON country_id = Country.id ' +
-         'LEFT JOIN City ON city_id = City.id';
+         'INNER JOIN Location ON country_id = Location.id ' +
+         'LEFT JOIN Location ON city_id = Location.id';
 
       db.query(query, callback);
    },
 
    // Description: retrieve document details for search page
-   // Result: document title, author, year, image, upload date, language, country, city
+   // Result: document title, author, year, image, upload date, language, location
    getDocumentMinimal: callback => {
       const query = 
          'SELECT Document.id, title, author, year, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'Language.name AS language_name, Location.country AS country_name,Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Country ON country_id = Country.id ' +
-         'INNER JOIN City ON city_id = City.id ';
+         'INNER JOIN Location ON country_id = Location.id ' +
+         'LEFT JOIN Location ON city_id = Location.id ';
 
       db.query(query, callback);
    },
@@ -123,16 +103,15 @@ module.exports = {
    },
 
    // Description: retrieve document by ID
-   // Result: document title, author, year, original text, translated text, image, upload date,
-   //         language, country, city
+   // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByID: (id, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Country ON country_id = Country.id ' +
-         'INNER JOIN City ON city_id = City.id ' +
+         'INNER JOIN Location ON country_id = Location.id ' +
+         'LEFT JOIN City ON city_id = Location.id ' +
          'WHERE Document.id = ?';
       const values = [id];
 
@@ -140,16 +119,15 @@ module.exports = {
    },
 
    // Description: retrieve document by tag
-   // Result: document title, author, year, original text, translated text, image, upload date,
-   //         language, country, city
+   // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByTag: (tag, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Country ON country_id = Country.id ' +
-         'INNER JOIN City ON city_id = City.id ' +
+         'INNER JOIN Location ON country_id = Location.id ' +
+         'LEFT JOIN Location ON city_id = Location.id ' +
          'INNER JOIN Document_Tag ON Document.id = document_id ' +
          'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
@@ -159,16 +137,15 @@ module.exports = {
    },
 
    // Description: retrieve document by username
-   // Result: document title, author, year, original text, translated text, image, upload date,
-   //         language, country, city
+   // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByUsername: (username, callback) => {
       const query =
          'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Country.name AS country_name, City.name AS city_name ' +
+         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Country ON country_id = Country.id ' +
-         'INNER JOIN City ON city_id = City.id ' +
+         'INNER JOIN Location ON country_id = Location.id ' +
+         'LEFT JOIN Location ON city_id = Location.id ' +
          'INNER JOIN Document_Tag ON Document.id = document_id ' +
          'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
@@ -180,7 +157,7 @@ module.exports = {
    // Description: add a document to the database
    insertDocument: (document, callback) => {
       const query = 
-         'INSERT INTO Document (title, author, year, original_text, translated_text, image, upload_date, language_id, country_id, city_id) VALUES ?';
+         'INSERT INTO Document (title, author, year, original_text, translated_text, image, upload_date, language_id, location_id) VALUES ?';
       const values = [document]
 
       db.query(query, values, callback);
