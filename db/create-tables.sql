@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS Document (
    language_id INT NOT NULL,
    document_location_id INT,
    archive_location_id INT,
+   reference VARCHAR(128),
    FOREIGN KEY (language_id) REFERENCES Language(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
@@ -86,7 +87,7 @@ CREATE TABLE IF NOT EXISTS User (
 -- Represents a link between a DOCUMENT and a TAG
 --
 -- References: Document, Tag
-CREATE TABLE IF NOT EXISTS Document_Tag (
+CREATE TABLE IF NOT EXISTS Document_Tag_Association (
    document_id INT NOT NULL,
    tag_id INT NOT NULL,
    FOREIGN KEY (document_id) REFERENCES Document(id)
@@ -100,7 +101,7 @@ CREATE TABLE IF NOT EXISTS Document_Tag (
 -- Represents a link between a DOCUMENT and a USER
 -- 
 -- References: Document, User
-CREATE TABLE IF NOT EXISTS Document_User (
+CREATE TABLE IF NOT EXISTS Document_User_Favorite (
    document_id INT NOT NULL,
    user_id INT NOT NULL,
    FOREIGN KEY (document_id) REFERENCES Document(id)
