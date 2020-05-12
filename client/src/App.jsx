@@ -46,8 +46,8 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state.authUser);
         this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
+            console.log(authUser);
             authUser 
                 ? this.setState({ authUser: this.createUserObject(authUser), loading: false })
                 : this.setState({ authUser: null, loading: false })

@@ -50,7 +50,7 @@ class SignUpForm extends React.Component {
         // Return false if password
         // less than 6 chars, does not contain one captial / one lowercase etc...
         console.log(values);
-        return true;
+        return false;
     };
     
     render() {
