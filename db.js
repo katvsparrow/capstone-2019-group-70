@@ -152,7 +152,7 @@ module.exports = {
    // Description: add a location to the database
    insertLocation: (city, country, callback) => {
       const query = 
-         'INSERT INTO Location (city, country) VALUES ?';
+         'INSERT IGNORE INTO Location (city, country) VALUES ?';
       const values = [city, country];
       
       db.query(query, values, callback);
