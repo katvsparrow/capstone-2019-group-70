@@ -5,59 +5,87 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import WillAPI from "../../api/will.js";
 
 
+const INITIAL_STATE = {
+    title: '', 
+    date: null, 
+    original_text: '',
+    transcriped_text: '',
+    translated_text: '',
+    language: '',
+    document_city: '',
+    document_country: '',
+    archive_city: '',
+    archive_country: ''
+};
+
 class WillSubmitForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
 
-    onSubmit = event => {
-        console.log(event);
+    onSubmit = async(event) => {
+        const payload = {...this.state};
+        const res = await WillAPI.postNewDocument(payload);
         event.preventDefault();
     }
 
+    onChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
     render() {
+        const {
+            title, date, original_text, transcribed_text,
+            translated_text, language, document_city,
+            document_country, archive_city, archive_country
+        } = this.state;
+
         return (
             <Form onSubmit={this.onSubmit}>
                 <FormGroup>
                     <Label for="form-title">Document Title</Label>
-                    <Input type="text" name="title" id="form-author" />
+                    <Input type="text" name="title" id="form-author" value={title} onChange={this.onChange}/>
                 </FormGroup>
                 <FormGroup>
                 <Label for="exampleDate">Date of Publication</Label>
-                    <Input type="date" name="date" id="date" placeholder="date placeholder" />
+                    <Input type="date" name="date" id="date" placeholder="date placeholder" value={date} onChange={this.onChange}/>
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-original-text">Original Text</Label>
-                    <Input cols="80" rows="5" type="textarea" name="original-text" id="form-original-text" />
+                    <Input cols="80" rows="5" type="textarea" name="original_text" id="form-original-text" value={original_text} onChange={this.onChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="form-transcribed-text">Transcribed Text </Label>
+                    <Input cols="80" rows="5" type="textarea" name="transcribed_text" id="form-transcribed-text" value={transcribed_text} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-translated-text">Translated Text (English)</Label>
-                    <Input cols="80" rows="5" type="textarea" name="translated-text" id="form-translated-text" />
+                    <Input cols="80" rows="5" type="textarea" name="translated_text" id="form-translated-text" value={translated_text} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-language">Original Language</Label>
-                    <Input type="text" name="language" id="form-language" />
+                    <Input type="text" name="language" id="form-language" value={language} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-document-city">Document: City of Origin</Label>
-                    <Input type="text" name="document-city" id="form-document-city" />
+                    <Input type="text" name="document_city" id="form-document-city" value={document_city} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-document-country">Document: Country of Origin</Label>
-                    <Input type="text" name="document-country" id="form-document-country" />
+                    <Input type="text" name="document_country" id="form-document-country" value={document_country} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-archive-city">Archive: City of Origin</Label>
-                    <Input type="text" name="archive-city" id="form-archive-city" />
+                    <Input type="text" name="archive_city" id="form-archive-city" value={archive_city} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-archive-country">Archive: country of Origin</Label>
-                    <Input type="text" name="archive-country" id="form-archive-country" />
+                    <Input type="text" name="archive_country" id="form-archive-country" value={archive_country} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-will-image">Will Image</Label>
-                    <Input type="file" name="will-image" id="form-will-image" />
+                    <Input type="file" name="will_image" id="form-will-image" />
                     <FormText color="muted">
                         File must be less than: <b>10MB</b> <br />
                         Allowed File Type: <b>PNG</b>
