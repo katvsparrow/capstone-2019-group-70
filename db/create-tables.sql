@@ -19,26 +19,10 @@ CREATE TABLE IF NOT EXISTS Language (
    name VARCHAR(32) NOT NULL
 ) ENGINE=InnoDB;
 
--- Represents a single COUNTRY
---
--- References: none
--- Associations: none
-CREATE TABLE IF NOT EXISTS Country (
+CREATE TABLE IF NOT EXISTS Location (
    id INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(32) NOT NULL
-) ENGINE=InnoDB;
-
--- Represents a single CITY
---
--- References: Country
--- Associations: none
-CREATE TABLE IF NOT EXISTS City (
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(32) NOT NULL,
-   country_id INT NOT NULL,
-   FOREIGN KEY (country_id) REFERENCES Country(id)
-      ON DELETE CASCADE
-      ON UPDATE CASCADE
+   city VARCHAR(32),
+   country VARCHAR(32)
 ) ENGINE=InnoDB;
 
 -- Represents a single DOCUMENT
@@ -55,15 +39,15 @@ CREATE TABLE IF NOT EXISTS Document (
    image TEXT NOT NULL,
    upload_date DATE NOT NULL,
    language_id INT NOT NULL,
-   country_id INT,
-   city_id INT,
+   document_location_id INT,
+   archive_location_id INT,
    FOREIGN KEY (language_id) REFERENCES Language(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-   FOREIGN KEY (country_id) REFERENCES Country(id)
+   FOREIGN KEY (document_location_id) REFERENCES Location(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-   FOREIGN KEY (city_id) REFERENCES City(id)
+   FOREIGN KEY (archive_location_id) REFERENCES Location(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 ) ENGINE=InnoDB;
@@ -93,7 +77,6 @@ CREATE TABLE IF NOT EXISTS Role (
 CREATE TABLE IF NOT EXISTS User (
    id INT AUTO_INCREMENT PRIMARY KEY,
    username VARCHAR(32) NOT NULL UNIQUE,
-   email VARCHAR(255) NOT NULL,
    role_id INT NOT NULL,
    FOREIGN KEY (role_id) REFERENCES Role(id)
       ON DELETE CASCADE

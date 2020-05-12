@@ -38,6 +38,7 @@
     "algoliasearch": "^4.0.3",
     "async": "^3.1.1",
     "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
     "classnames": "2.2.6",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",

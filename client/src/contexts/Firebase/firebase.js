@@ -17,8 +17,11 @@ class Firebase {
      * Authentication methods 
      * Reference: https://firebase.google.com/docs/reference/js/firebase.auth.AUTH
     */
-    doCreateUserWithEmailAndPassword = (email, password) => {
-        this.auth.createUserWithEmailAndPassword(email, password);
+    doCreateUserWithEmailAndPassword = (email, password, username) => {
+        let cred = this.auth.createUserWithEmailAndPassword(email, password);
+        cred.user.updateProfile({
+            displayName: username
+        });
     }
         
     doSignInWithEmailAndPassword = (email, password) =>

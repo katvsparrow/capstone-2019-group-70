@@ -20,7 +20,6 @@ const INITIAL_STATE = {
     error: null
 };
 
-
 class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
@@ -32,11 +31,11 @@ class SignUpForm extends React.Component {
     };
 
     onSubmit = event => {
-        const {username, email, passwordOne } = this.state;
+        const { username, email, passwordOne } = this.state;
         
         // Attempt to create a user with an email and password
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .doCreateUserWithEmailAndPassword(email, passwordOne, username)
             .then(authUser => {
                 this.setState({ ...INITIAL_STATE});
             })
@@ -65,7 +64,7 @@ class SignUpForm extends React.Component {
         
         // Check if input fields have been filled 
         const isInvalid = this.checkInput(this.state);
-                          
+
         return(
             <>
                 <Form onSubmit={this.onSubmit}>
@@ -82,6 +81,7 @@ class SignUpForm extends React.Component {
                                 value={username}
                                 placeholder="Username" 
                                 type="text" 
+                                invalid
                                 onChange={this.onChange}
                             />
                         </InputGroup>
