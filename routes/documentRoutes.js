@@ -59,7 +59,17 @@ module.exports = (app) => {
     });
 
     app.post('/api/documents/postNewDocument', function(req, res)  {
-        console.log(req.body);
-        res.send('HELLO');
+        let { document } = req.body;
+
+        db.insertLocation(document, err => {
+            if (err) throw err;
+        });
+
+        db.insertDocument(document, err => {
+            if (err) throw err;
+
+            // add a redirect, res.status(200), or something along those lines
+            // whatever needs to happen after the form submission
+        });
     });
 }

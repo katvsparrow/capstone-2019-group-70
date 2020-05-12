@@ -32,8 +32,7 @@ module.exports = {
          'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON country_id = Location.id ' +
-         'LEFT JOIN Location ON city_id = Location.id';
+         'INNER JOIN Location ON document_location_id = Location.id ';
 
       db.query(query, callback);
    },
@@ -46,8 +45,7 @@ module.exports = {
          'Language.name AS language_name, Location.country AS country_name,Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON country_id = Location.id ' +
-         'LEFT JOIN Location ON city_id = Location.id ';
+         'INNER JOIN Location ON document_location_id = Location.id ';
 
       db.query(query, callback);
    },
@@ -110,7 +108,7 @@ module.exports = {
          'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON country_id = Location.id ' +
+         'INNER JOIN Location ON document_location_id = Location.id ' +
          'WHERE Document.id = ?';
       const values = [id];
 
@@ -125,8 +123,7 @@ module.exports = {
          'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON country_id = Location.id ' +
-         'LEFT JOIN Location ON city_id = Location.id ' +
+         'INNER JOIN Location ON document_location_id = Location.id ' +
          'INNER JOIN Document_Tag ON Document.id = document_id ' +
          'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
@@ -143,8 +140,7 @@ module.exports = {
          'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON country_id = Location.id ' +
-         'LEFT JOIN Location ON city_id = Location.id ' +
+         'INNER JOIN Location ON document_location_id = Location.id ' +
          'INNER JOIN Document_Tag ON Document.id = document_id ' +
          'INNER JOIN Tag ON tag.id = tag_id ' +
          'WHERE Tag.name = ?';
@@ -153,11 +149,34 @@ module.exports = {
       db.query(query, values, callback);
    },
 
+   // Description: add a location to the database
+   insertLocation: (form, callback) => {
+      const query = 
+         'INSERT INTO Location (city, country) VALUES ?';
+      const values = [form.city, form.country];
+      
+      db.query(query, values, callback);
+   },
+
    // Description: add a document to the database
+   // Prereqs: Call insertLocation first for doc location and archive location
    insertDocument: (document, callback) => {
       const query = 
-         'INSERT INTO Document (title, author, year, original_text, translated_text, image, upload_date, language_id, location_id) VALUES ?';
-      const values = [document]
+         'INSERT INTO Document (title, date_of_publication, original_text, translated_text, language_id, ' +
+         '(SELECT id FROM Location WHERE city = ? AND country = ?), ' +
+         '(SELECT id FROM Location WHERE city  = ? AND country = ?)) ' +
+         'VALUES (?,?,?,?,?)';
+      const values = [
+         document.document_city,
+         document.document_country,
+         document.archive_city,
+         document.archive_country,
+         document.title,
+         document.date,
+         document.original_text,
+         document.translated_text,
+         document.language
+      ];
 
       db.query(query, values, callback);
    },

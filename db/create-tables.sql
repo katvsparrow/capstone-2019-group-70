@@ -19,9 +19,11 @@ CREATE TABLE IF NOT EXISTS Language (
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Location (
-   id INT AUTO_INCREMENT PRIMARY KEY,
+   id INT AUTO_INCREMENT,
    city VARCHAR(32),
-   country VARCHAR(32)
+   country VARCHAR(32),
+   PRIMARY KEY (id),
+   UNIQUE KEY (city, country)
 ) ENGINE=InnoDB;
 
 -- Represents a single DOCUMENT
@@ -35,7 +37,6 @@ CREATE TABLE IF NOT EXISTS Document (
    date_of_publication DATE NOT NULL,
    year SMALLINT NOT NULL,
    original_text MEDIUMTEXT,
-   transcribed_text MEDIUMTEXT,
    translated_text MEDIUMTEXT,
    image TEXT,
    upload_date DATE NOT NULL,
