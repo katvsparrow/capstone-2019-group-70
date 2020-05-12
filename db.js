@@ -166,7 +166,24 @@ module.exports = {
       const query = 
          'INSERT INTO User (username, role_id, firebase_uid) VALUES ?';
       const values = [userDetails]
+
+      db.query(query, values, callback);
+   },
+
+   insertNewLocation: (location, callback) => {
+      const query = 'INSERT INTO Location (city, country) VALUES ?';
+      const values = [location.city, location.country];
+
+      db.query(query, values, callback)
+   }, 
+
+   getLocationID: (location, callback) => {
+      const query = 
+         'SELECT id FROM Location ' + 
+         'WHERE location.city = ? AND location.country = ?';
+      const values = [location.city, location.country];
       
       db.query(query, values, callback);
    }
+
 }

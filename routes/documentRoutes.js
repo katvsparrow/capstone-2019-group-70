@@ -59,7 +59,41 @@ module.exports = (app) => {
     });
 
     app.post('/api/documents/postNewDocument', function(req, res)  {
-        console.log(req.body);
+        let data = req.bpdy;
+        console.log(data);
+
+        // Find id for document location 
+        db.getLocationID(data.location.city, data.location.country, (err, id) => {
+            if(err) {
+                throw err; 
+            }
+
+            console.log(id);
+        });
+
+
+        // Find id for archive location 
+        
+        
+        
+        
+        insert_object = {
+            'title': data.title,
+            'uploader': 'Dr. Rena Lauer',
+            'date_of_publication': data.date_of_publication,
+            'year': '',
+            'original_text': data.original_text,
+            'transcribed_text': data.transcribed_text,
+            'translated_text': data.translated_text,
+            'image': '',
+            'upload_date': '',
+            'edit_date': '', 
+            'lanugage_id': '',
+            'document_location_id': '', 
+            'archive_location_id': '',
+            'reference': data.reference
+        }
+
         res.send('HELLO');
     });
 }
