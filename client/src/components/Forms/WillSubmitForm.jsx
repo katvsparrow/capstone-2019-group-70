@@ -24,11 +24,12 @@ class WillSubmitForm extends React.Component {
     }
 
     onSubmit = async(event) => {
+        console.log("STARTING SUBMIT");
+        event.preventDefault();
         const payload = {...this.state};
         console.log(payload);
         const res = await WillAPI.postNewDocument(payload);
         console.log(res);
-        event.preventDefault();
     }
 
     onChange = event => {
@@ -92,7 +93,7 @@ class WillSubmitForm extends React.Component {
                         Allowed File Type: <b>PNG</b>
                     </FormText>
                 </FormGroup>
-                <Button type="button" className="btn btn-success btn-lg btn-block">Submit For Approval</Button>
+                <Button className="btn btn-success btn-lg btn-block">Submit For Approval</Button>
             </Form>
         )
     }
