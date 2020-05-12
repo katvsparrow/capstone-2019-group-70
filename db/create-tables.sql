@@ -1,11 +1,10 @@
 USE sinyxb3424v6hdac;
 
-DROP TABLE IF EXISTS Document_User;
-DROP TABLE IF EXISTS Document_Tag;
+
+DROP TABLE IF EXISTS Document_User_Favorite;
+DROP TABLE IF EXISTS Document_Tag_Association;
 DROP TABLE IF EXISTS Document;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Language;
-DROP TABLE IF EXISTS City;
-DROP TABLE IF EXISTS Country;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Role;
@@ -32,12 +31,15 @@ CREATE TABLE IF NOT EXISTS Location (
 CREATE TABLE IF NOT EXISTS Document (
    id INT AUTO_INCREMENT PRIMARY KEY,
    title VARCHAR(128) NOT NULL,
-   author VARCHAR(64) NOT NULL,
+   uploader VARCHAR(32) NOT NULL,
+   date_of_publication DATE NOT NULL,
    year SMALLINT NOT NULL,
-   original_text MEDIUMTEXT NOT NULL,
-   translated_text MEDIUMTEXT NOT NULL,
-   image TEXT NOT NULL,
+   original_text MEDIUMTEXT,
+   transcribed_text MEDIUMTEXT,
+   translated_text MEDIUMTEXT,
+   image TEXT,
    upload_date DATE NOT NULL,
+   edit_date DATE NOT NULL,
    language_id INT NOT NULL,
    document_location_id INT,
    archive_location_id INT,
