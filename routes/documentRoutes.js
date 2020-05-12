@@ -58,8 +58,8 @@ module.exports = (app) => {
         });
     });
 
-    app.post('/api/documents/postNewDocument', async(req, res) => {
-        console.log(req);
-        return 1;
+    app.post('/api/documents/postNewDocument', function(req, res)  {
+        console.log(req.body);
+        res.send('HELLO');
     });
 }
