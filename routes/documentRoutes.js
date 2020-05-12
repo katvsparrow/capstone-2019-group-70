@@ -58,7 +58,7 @@ module.exports = (app) => {
         });
     });
 
-    app.post('/api/postNewDocument/', async(req, res) => {
+    app.post('/api/documents/postNewDocument', async(req, res) => {
         console.log(req);
         return 1;
     });

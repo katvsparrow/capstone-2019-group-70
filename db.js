@@ -160,5 +160,13 @@ module.exports = {
       const values = [document]
 
       db.query(query, values, callback);
+   },
+
+   insertNewUser: (userDetails, callback) => {
+      const query = 
+         'INSERT INTO User (username, role_id, firebase_uid) VALUES ?';
+      const values = [userDetails]
+      
+      db.query(query, values, callback);
    }
 }
