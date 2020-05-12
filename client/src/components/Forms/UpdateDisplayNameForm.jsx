@@ -40,7 +40,7 @@ class UpdateDisplayNameForm extends React.Component {
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>
-                                <i class="fas fa-pencil-alt"></i>
+                                <i className="fas fa-pencil-alt"></i>
                             </InputGroupText>
                         </InputGroupAddon>
                         <Input id='displayname-input'placeholder={this.props.displayName} type="text" />

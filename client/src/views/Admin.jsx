@@ -8,6 +8,8 @@ import * as ROUTES from "constants/routes";
 import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 
+import WillSubmitForm from "components/Forms/WillSubmitForm";
+
 import {
     Container, 
     Row, 
@@ -92,6 +94,7 @@ class Admin extends React.Component {
                                         <TabPane tabId="1">
                                         </TabPane>
                                         <TabPane tabId="2">
+                                            <WillSubmitForm />
                                         </TabPane>  
                                         <TabPane tabId="3">
                                         </TabPane>
