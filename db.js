@@ -111,7 +111,6 @@ module.exports = {
          'FROM Document ' +
          'INNER JOIN Language ON language_id = Language.id ' +
          'INNER JOIN Location ON country_id = Location.id ' +
-         'LEFT JOIN City ON city_id = Location.id ' +
          'WHERE Document.id = ?';
       const values = [id];
 

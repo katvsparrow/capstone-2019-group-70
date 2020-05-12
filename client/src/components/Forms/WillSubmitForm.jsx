@@ -4,7 +4,6 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import WillAPI from "../../api/will.js";
 
-
 const INITIAL_STATE = {
     title: '', 
     date: null, 

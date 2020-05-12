@@ -21,7 +21,7 @@ class Home extends React.Component {
     
     // Fetch passwords after first mount
     componentDidMount() {
-        this.getWills()
+        //this.getWills()
     }
 
     getWills = async () => {
