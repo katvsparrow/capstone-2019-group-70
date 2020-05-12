@@ -61,7 +61,11 @@ module.exports = (app) => {
     app.post('/api/documents/postNewDocument', function(req, res)  {
         let { document } = req.body;
 
-        db.insertLocation(document, err => {
+        db.insertLocation(document.document_city, document.document_country, err => {
+            if (err) throw err;
+        });
+
+        db.insertLocation(document.archive_city, document.archive_country, err => {
             if (err) throw err;
         });
 

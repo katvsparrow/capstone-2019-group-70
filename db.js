@@ -150,10 +150,10 @@ module.exports = {
    },
 
    // Description: add a location to the database
-   insertLocation: (form, callback) => {
+   insertLocation: (city, country, callback) => {
       const query = 
          'INSERT INTO Location (city, country) VALUES ?';
-      const values = [form.city, form.country];
+      const values = [city, country];
       
       db.query(query, values, callback);
    },
@@ -185,7 +185,7 @@ module.exports = {
       const query = 
          'INSERT INTO User (username, role_id, firebase_uid) VALUES ?';
       const values = [userDetails]
-      
+
       db.query(query, values, callback);
    }
 }
