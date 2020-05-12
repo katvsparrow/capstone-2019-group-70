@@ -8,7 +8,6 @@ const INITIAL_STATE = {
     title: '', 
     date: '', 
     original_text: '',
-    transcriped_text: '',
     translated_text: '',
     language: '',
     document_city: '',
@@ -38,7 +37,7 @@ class WillSubmitForm extends React.Component {
 
     render() {
         const {
-            title, date, original_text, transcribed_text,
+            title, date, original_text,
             translated_text, language, document_city,
             document_country, archive_city, archive_country
         } = this.state;
@@ -56,10 +55,6 @@ class WillSubmitForm extends React.Component {
                 <FormGroup>
                     <Label for="form-original-text">Original Text</Label>
                     <Input cols="80" rows="5" type="textarea" name="original_text" id="form-original-text" value={original_text} onChange={this.onChange} />
-                </FormGroup>
-                <FormGroup>
-                    <Label for="form-transcribed-text">Transcribed Text </Label>
-                    <Input cols="80" rows="5" type="textarea" name="transcribed_text" id="form-transcribed-text" value={transcribed_text} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-translated-text">Translated Text (English)</Label>
