@@ -23,16 +23,16 @@ class UpdateDisplayNameForm extends React.Component {
     };
 
     onSubmit = event => {
-        const { displayName } = this.state; 
+        //const { displayName } = this.state; 
         // Perform update 
     }
 
     render() {
-        const { input } = this.state;
+        //const { input } = this.state;
         
-        const isInvalid = input === '' ||
-                          input !== this.props.displayName;
-
+        //const isInvalid = input === '' ||
+        //                  input !== this.props.displayName;
+        //console.log(isInvalid);
         return (
             <Form onSubmit={this.onSubmit}>
                 <FormGroup>

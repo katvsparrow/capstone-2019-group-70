@@ -1,9 +1,8 @@
 import React from 'react';
 
-import WillView from "components/Media/WillView.jsx";
+//import WillView from "components/Media/WillView.jsx";
 
 import {
-    Badge,
     Card, 
     CardHeader, 
     CardBody,

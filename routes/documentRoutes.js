@@ -57,4 +57,9 @@ module.exports = (app) => {
                 return res.status(200).send(shuffled);
         });
     });
+
+    app.post('/api/postNewDocument/', async(req, res) => {
+        console.log(req);
+        return 1;
+    });
 }

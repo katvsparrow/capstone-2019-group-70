@@ -14,15 +14,12 @@ import {
     Col,
     ListGroup,
     ListGroupItem, 
-    Card,
     TabContent,
     TabPane
 } from "reactstrap";
 
 import UpdateDisplayNameForm from "../components/Forms/UpdateDisplayNameForm";
-import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
-import WillSubmitForm from "../components/Forms/WillSubmitForm";
-import SavedWills from "../components/Containers/SavedWills";
+
 
 /**
  * Renders account details content 

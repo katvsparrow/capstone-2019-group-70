@@ -6,7 +6,7 @@ import WillAPI from "../../api/will.js";
 
 const INITIAL_STATE = {
     title: '', 
-    date: null, 
+    date: '', 
     original_text: '',
     transcriped_text: '',
     translated_text: '',
@@ -25,7 +25,9 @@ class WillSubmitForm extends React.Component {
 
     onSubmit = async(event) => {
         const payload = {...this.state};
+        console.log(payload);
         const res = await WillAPI.postNewDocument(payload);
+        console.log(res);
         event.preventDefault();
     }
 
@@ -90,7 +92,7 @@ class WillSubmitForm extends React.Component {
                         Allowed File Type: <b>PNG</b>
                     </FormText>
                 </FormGroup>
-                <Button className="btn btn-success btn-lg btn-block">Submit For Approval</Button>
+                <Button type="button" className="btn btn-success btn-lg btn-block">Submit For Approval</Button>
             </Form>
         )
     }

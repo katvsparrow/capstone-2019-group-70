@@ -1,6 +1,6 @@
 import React from 'react';
 
-import WillAPI from "../api/will";
+//import WillAPI from "../api/will";
 
 /*
 Search functionality removed until wills inserted into db

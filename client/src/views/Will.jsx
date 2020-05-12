@@ -104,13 +104,14 @@ const DetailTable = (details) => {
 
 /**
  * Media view container for will 
- */
+
 const MediaView = () => {
     return (
         <>
         </>
     );
 }
+ */
 
 const TextView = (data) => {
     let will = data.will;
