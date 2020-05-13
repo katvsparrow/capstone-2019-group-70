@@ -113,13 +113,18 @@ module.exports = {
    // Description: retrieve document by ID
    // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByID: (id, callback) => {
-      const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
-         'FROM Document ' +
-         'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON document_location_id = Location.id ' +
-         'WHERE Document.id = ?';
+      const query = `
+         SELECT title, uploader, date_of_publication, year,
+         original_text, translated_text, image, upload_date, edit_date,
+         Language.name as language_name, Location.country as country_name, 
+         Location.city as city_name, Archive.name as archive_name
+      FROM Document 
+      INNER JOIN Language ON language_id = Language.id
+      INNER JOIN Location ON document_location_id = Location.id
+      INNER JOIN Archive on archive_id = Archive.id
+      WHERE Document.id = ?
+      `;
+
       const values = [id];
 
       db.query(query, values, callback);
