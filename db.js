@@ -27,25 +27,35 @@ module.exports = {
    // Description: retrieve all documents
    // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocuments: callback => {
-      const query =
-         'SELECT Document.id, title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
-         'FROM Document ' +
-         'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON document_location_id = Location.id ';
-
+      // same as document minimal, but expecting change
+      const query = `
+         SELECT 
+            Document.id, title, uploader, date_of_publication, year,
+            original_text, translated_text, image, upload_date, edit_date,
+            Language.name as language_name, Location.country as country_name, 
+            Location.city as city_name, Archive.name as archive_name
+         FROM Document 
+         INNER JOIN Language ON language_id = Language.id
+         INNER JOIN Location ON document_location_id = Location.id
+         INNER JOIN Archive on archive_id = Archive.id
+      `;
       db.query(query, callback);
    },
 
    // Description: retrieve document details for search page
    // Result: document title, author, year, image, upload date, language, location
    getDocumentMinimal: callback => {
-      const query = 
-         'SELECT Document.id, title, author, year, image, upload_date, ' +
-         'Language.name AS language_name, Location.country AS country_name,Location.city AS city_name ' +
-         'FROM Document ' +
-         'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON document_location_id = Location.id ';
+      const query = `
+      SELECT 
+         Document.id, title, uploader, date_of_publication, 
+         original_text, translated_text, image, upload_date, edit_date,
+         Language.name as language_name, Location.country as country_name, 
+         Location.city as city_name, Archive.name as archive_name
+      FROM Document 
+      INNER JOIN Language ON language_id = Language.id
+      INNER JOIN Location ON document_location_id = Location.id
+      INNER JOIN Archive on archive_id = Archive.id
+   `;
 
       db.query(query, callback);
    },
@@ -182,7 +192,10 @@ module.exports = {
          VALUES (?, ?, ?, ?, ?, ?, ?, ?,
                   (SELECT Language.id from Language WHERE Language.name = ?),
                   (SELECT Location.id from Location WHERE Location.city = ? AND Location.country = ?),
-                  (SELECT Archive.id from Archive WHERE Archive.name = ?),
+                  (SELECT Archive.id from Archive
+                     JOIN Location on Location.city = ? AND Location.country = ?
+                     WHERE Archive.name = ?
+                  ),
                ?)
       `;
 
@@ -198,6 +211,8 @@ module.exports = {
          document.language,
          document.document_city,
          document.document_country,
+         document.archive_city,
+         document.archive_country,
          document.archive,
          document.reference
       ];
