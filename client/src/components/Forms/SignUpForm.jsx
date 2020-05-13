@@ -1,5 +1,5 @@
 import React from "react";
-import { withFirebase } from "../Firebase";
+import { withFirebase } from "../../contexts/Firebase";
 
 import {
     Form, 
@@ -20,7 +20,6 @@ const INITIAL_STATE = {
     error: null
 };
 
-
 class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
@@ -32,11 +31,11 @@ class SignUpForm extends React.Component {
     };
 
     onSubmit = event => {
-        const {username, email, passwordOne } = this.state;
+        const { username, email, passwordOne } = this.state;
         
         // Attempt to create a user with an email and password
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .doCreateUserWithEmailAndPassword(email, passwordOne, username)
             .then(authUser => {
                 this.setState({ ...INITIAL_STATE});
             })
@@ -45,6 +44,13 @@ class SignUpForm extends React.Component {
             });
 
         event.preventDefault();
+    };
+
+    checkInput = (values) => {
+        // Return false if password
+        // less than 6 chars, does not contain one captial / one lowercase etc...
+        console.log(values);
+        return false;
     };
     
     render() {
@@ -57,11 +63,8 @@ class SignUpForm extends React.Component {
         } = this.state
         
         // Check if input fields have been filled 
-        const isInvalid = email === '' ||
-                          username === '' ||
-                          passwordOne === '' ||
-                          passwordOne !== passwordTwo;
-                          
+        const isInvalid = this.checkInput(this.state);
+
         return(
             <>
                 <Form onSubmit={this.onSubmit}>
@@ -78,6 +81,7 @@ class SignUpForm extends React.Component {
                                 value={username}
                                 placeholder="Username" 
                                 type="text" 
+                                invalid
                                 onChange={this.onChange}
                             />
                         </InputGroup>

@@ -1,5 +1,8 @@
 import React from "react"; 
 import { Link } from "react-router-dom"; 
+import * as ROUTES from "../../constants/routes";
+
+
 
 // import reactstrap components
 import {
@@ -7,7 +10,6 @@ import {
     NavbarBrand,
     Navbar,
     NavItem,
-    NavLink,
     Nav,
     Container,
     Row,
@@ -15,28 +17,32 @@ import {
     Button
 } from "reactstrap";
 
-import { AuthUserContext } from "../Session";
+import { AuthUserContext } from "../../contexts/Session";
 
 const LoginNavigation = (props) => (
-    <Button href="/account" className="btn-neutral btn-icon" color="default">
-        <span className="btn-inner--icon">
-            <i className="fa fa-user-circle" />
-        </span>
-        <span className="nav-link-inner--text ml-1">
-            Your Account 
-        </span>
-    </Button>
+    <Link to={ROUTES.ACCOUNT}>
+        <Button className="btn-neutral btn-icon" color="default">
+            <span className="btn-inner--icon">
+                <i className="fa fa-user-circle" />
+            </span>
+            <span className="nav-link-inner--text ml-1">
+                Your Account 
+            </span>
+        </Button>
+    </Link>
 );
 
 const LoginButton = () => (
-    <Button href="/login" className="btn-neutral btn-icon" color="default">
-        <span className="btn-inner--icon">
-            <i className="fa fa-user-circle" />
-        </span>
-        <span className="nav-link-inner--text ml-1">
-            Login / Register 
-        </span>
-    </Button>
+    <Link to={ROUTES.LOGIN}>
+        <Button className="btn-neutral btn-icon" color="default">
+            <span className="btn-inner--icon">
+                <i className="fa fa-user-circle" />
+            </span>
+            <span className="nav-link-inner--text ml-1">
+                Login / Register 
+            </span>
+        </Button>
+    </Link>
 );
 
 class MainNavbar extends React.Component {
@@ -76,17 +82,16 @@ class MainNavbar extends React.Component {
                             {/* Left-hand Navbar content */}
                             <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                                 <NavItem>
-                                    <NavLink href="/search">
+                                    <Link className="nav-link" to={ROUTES.SEARCH}>
                                         <i className="ni ni-collection d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">Search</span>
-                                    </NavLink>
+                                    </Link>
                                 </NavItem>
                                 <NavItem>
-
-                                    <NavLink href="/account">
-                                    <i className="fa fa-info-circle d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Account Template</span>
-                                    </NavLink>
+                                    <Link className="nav-link" to={ROUTES.ABOUT}>
+                                        <i className="fa fa-info-circle d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">About Us</span>
+                                    </Link>
                                 </NavItem>
                             </Nav>
 

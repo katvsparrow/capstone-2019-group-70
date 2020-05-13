@@ -8,6 +8,8 @@ import * as ROUTES from "constants/routes";
 import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 
+import WillSubmitForm from "components/Forms/WillSubmitForm";
+
 import {
     Container, 
     Row, 
@@ -18,43 +20,11 @@ import {
     TabPane
 } from "reactstrap";
 
-import UpdateDisplayNameForm from "../components/Forms/UpdateDisplayNameForm";
-
-
-/**
- * Renders account details content 
- */
-const AccountDetailsContent = (user) => {
-    return (
-        <>  
-            <UpdateDisplayNameForm displayName={user.displayName} />
-        </>
-    );
-}
-
-/**
- * Renders password change form 
- */
-const PasswordChangeContent = () => {
-    return null; 
-}
-
-/**
- * Renders will submission form 
- */
-const SubmitWillContent = () => {
-    return null; 
-}
-
-const SavedWillsContent = () => {
-    return null;
-}
-
 const INITIAL_STATE = {
     activeTab: '1'
 };
 
-class Account extends React.Component {
+class Admin extends React.Component {
     constructor(props) {
         super(props);
 
@@ -70,11 +40,6 @@ class Account extends React.Component {
         }
     }
 
-    signOut(props) {
-        props.contexts.firebase.doSignOut();
-        props.contexts.history.push(ROUTES.HOME);
-    }
-    
     render() {
         return (
           <>
@@ -86,7 +51,7 @@ class Account extends React.Component {
                             <div className="px-4">
                                 <Row className="justify-content-center text-center">
                                     <Col>
-                                        <h2>Account Portal</h2>
+                                        <h2>Admin Portal</h2>
                                         <h3>{this.props.user.displayName}</h3>
                                         <div className="h6 font-weight-300">
                                             <i className="ni location_pin mr-2" />
@@ -103,7 +68,7 @@ class Account extends React.Component {
                                                     this.toggle('1');
                                                 }}
                                             >
-                                                Account Details
+                                                Accounts
                                             </ListGroupItem>
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '2'})}
@@ -111,7 +76,7 @@ class Account extends React.Component {
                                                     this.toggle('2');
                                                 }}
                                             >
-                                                Change Password
+                                                Wills
                                             </ListGroupItem>
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '3'})}
@@ -119,39 +84,19 @@ class Account extends React.Component {
                                                     this.toggle('3');
                                                 }}
                                             >
-                                                Saved Wills
-                                            </ListGroupItem>
-                                            <ListGroupItem tag="a"
-                                                className={classnames({active: this.state.activeTab === '4'})}
-                                                onClick={() => {
-                                                    this.toggle('4');
-                                                }}
-                                            >
-                                                Submit Will
-                                            </ListGroupItem>
-                                            <ListGroupItem color="danger"tag="a"
-                                                onClick={() => {
-                                                    this.signOut(this.props)
-                                                }}
-                                            >
-                                                Sign Out
+                                                Awaiting Review
                                             </ListGroupItem>
                                         </ListGroup>
                                     </Col>
                                 </Row>
-                                <div className="mt-5 py-5 border-top">
+                                <div className="mt-5 py-5 border-top text-center">
                                     <TabContent className="my-2" activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
-                                            <AccountDetailsContent user={this.props.user} />
                                         </TabPane>
                                         <TabPane tabId="2">
-                                            <PasswordChangeContent />
+                                            <WillSubmitForm />
                                         </TabPane>  
                                         <TabPane tabId="3">
-                                            <SavedWillsContent />
-                                        </TabPane>
-                                        <TabPane tabId="4">
-                                            <SubmitWillContent />
                                         </TabPane>
                                     </TabContent>
                                 </div>
@@ -168,12 +113,13 @@ class Account extends React.Component {
 /**
  * Determine page authorization access
  */
-const AccountBase = (props) => {   
+const AdminBase = (props) => {
     return(
         <AuthUserContext.Consumer>
             {
+                /* Check Role */
                 authUser =>
-                    authUser ? <Account contexts={props} user={authUser} />
+                    authUser ? <Admin contexts={props} user={authUser} />
                              : <Redirect to={ROUTES.LOGIN} />
             }
         </AuthUserContext.Consumer>
@@ -183,4 +129,4 @@ const AccountBase = (props) => {
 export default compose(
     withRouter,
     withFirebase
-)(AccountBase);
+)(AdminBase);

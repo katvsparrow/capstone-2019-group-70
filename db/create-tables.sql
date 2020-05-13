@@ -1,14 +1,15 @@
 USE sinyxb3424v6hdac;
 
-DROP TABLE IF EXISTS Document_User;
-DROP TABLE IF EXISTS Document_Tag;
+DROP TABLE IF EXISTS Document_User_Favorite;
+DROP TABLE IF EXISTS Document_Tag_Association;
 DROP TABLE IF EXISTS Document;
+DROP TABLE IF EXISTS Archive;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Language;
-DROP TABLE IF EXISTS City;
-DROP TABLE IF EXISTS Country;
+DROP TABLE IF EXISTS sinyxb3424v6hdac.Location;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Role;
+
 
 -- Represents a single LANGUAGE
 --
@@ -19,27 +20,24 @@ CREATE TABLE IF NOT EXISTS Language (
    name VARCHAR(32) NOT NULL
 ) ENGINE=InnoDB;
 
--- Represents a single COUNTRY
---
--- References: none
--- Associations: none
-CREATE TABLE IF NOT EXISTS Country (
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(32) NOT NULL
+CREATE TABLE IF NOT EXISTS Location (
+   id INT AUTO_INCREMENT,
+   city VARCHAR(32),
+   country VARCHAR(32),
+   PRIMARY KEY (id),
+   UNIQUE KEY (city, country)
 ) ENGINE=InnoDB;
 
--- Represents a single CITY
---
--- References: Country
--- Associations: none
-CREATE TABLE IF NOT EXISTS City (
+CREATE TABLE IF NOT EXISTS Archive (
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(32) NOT NULL,
-   country_id INT NOT NULL,
-   FOREIGN KEY (country_id) REFERENCES Country(id)
+   location_id INT,
+   UNIQUE KEY (name, location_id),
+   FOREIGN KEY (location_id) REFERENCES Location(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
 
 -- Represents a single DOCUMENT
 --
@@ -48,22 +46,25 @@ CREATE TABLE IF NOT EXISTS City (
 CREATE TABLE IF NOT EXISTS Document (
    id INT AUTO_INCREMENT PRIMARY KEY,
    title VARCHAR(128) NOT NULL,
-   author VARCHAR(64) NOT NULL,
+   uploader VARCHAR(32) NOT NULL,
+   date_of_publication DATE NOT NULL,
    year SMALLINT NOT NULL,
-   original_text MEDIUMTEXT NOT NULL,
-   translated_text MEDIUMTEXT NOT NULL,
-   image TEXT NOT NULL,
+   original_text MEDIUMTEXT,
+   translated_text MEDIUMTEXT,
+   image TEXT,
    upload_date DATE NOT NULL,
+   edit_date DATE NOT NULL,
    language_id INT NOT NULL,
-   country_id INT,
-   city_id INT,
+   document_location_id INT,
+   archive_id INT,
+   reference VARCHAR(128),
    FOREIGN KEY (language_id) REFERENCES Language(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-   FOREIGN KEY (country_id) REFERENCES Country(id)
+   FOREIGN KEY (document_location_id) REFERENCES Location(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-   FOREIGN KEY (city_id) REFERENCES City(id)
+   FOREIGN KEY (archive_id) REFERENCES Archive(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 ) ENGINE=InnoDB;
@@ -93,7 +94,6 @@ CREATE TABLE IF NOT EXISTS Role (
 CREATE TABLE IF NOT EXISTS User (
    id INT AUTO_INCREMENT PRIMARY KEY,
    username VARCHAR(32) NOT NULL UNIQUE,
-   email VARCHAR(255) NOT NULL,
    role_id INT NOT NULL,
    FOREIGN KEY (role_id) REFERENCES Role(id)
       ON DELETE CASCADE
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS User (
 -- Represents a link between a DOCUMENT and a TAG
 --
 -- References: Document, Tag
-CREATE TABLE IF NOT EXISTS Document_Tag (
+CREATE TABLE IF NOT EXISTS Document_Tag_Association (
    document_id INT NOT NULL,
    tag_id INT NOT NULL,
    FOREIGN KEY (document_id) REFERENCES Document(id)
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS Document_Tag (
 -- Represents a link between a DOCUMENT and a USER
 -- 
 -- References: Document, User
-CREATE TABLE IF NOT EXISTS Document_User (
+CREATE TABLE IF NOT EXISTS Document_User_Favorite (
    document_id INT NOT NULL,
    user_id INT NOT NULL,
    FOREIGN KEY (document_id) REFERENCES Document(id)

@@ -1,6 +1,7 @@
 import React from "react";
-import { withFirebase } from "../Firebase";
-
+import { withFirebase } from "../../contexts/Firebase";
+import { compose } from 'recompose';
+import { withRouter } from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 
 import {
@@ -32,7 +33,7 @@ class SignInForm extends React.Component {
     };
 
     onSubmit = event => {
-        const {email, password } = this.state;
+        const { email, password } = this.state;
         
         // Attempt to sign in 
         this.props.firebase
@@ -109,4 +110,7 @@ class SignInForm extends React.Component {
 }
 
 // Export with Firebase Context 
-export default withFirebase(SignInForm);
+export default compose(
+    withRouter,
+    withFirebase
+)(SignInForm);

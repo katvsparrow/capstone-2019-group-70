@@ -10,34 +10,25 @@ import {
 } from "reactstrap";    
 
 import HomeSearch from "components/SearchBars/HomeSearch.jsx";
-import ContactForm from "components/Forms/ContactForm.jsx";
 import WillCard from "components/Containers/WillCard.jsx";
 
-var mock_wills = require('../data/Mock/Mock_Wills.json');
+import WillAPI from "api/will.js";
 
 class Home extends React.Component {
     // Initialize state
     state = { wills: [] }
-
+    
     // Fetch passwords after first mount
     componentDidMount() {
-        this.getWills();
+        //this.getWills()
     }
 
-    getWills = () => {
-        /* FETCH 3 WILLS METHOD, PENDING DATABASE ENTRY 
-        fetch('/api/random_home_wills')
-        .then(res => res.json())
-        .then(wills => this.setState({ wills }));
-        */ 
-        const wills = mock_wills['mock_wills'].sort(function() { return .5 - Math.random();} );
-        this.setState({ wills });
-        console.log(wills);
+    getWills = async () => {
+        const res = await WillAPI.getRandomDocuments(3);
+        this.setState({ wills: res })
     }
-
 
     render() {
-        const { wills } = this.state;
         return (
             <>
                 <main href="main">
@@ -72,7 +63,7 @@ class Home extends React.Component {
                             </Container>
                         </section>
                         {/* 3 Random Wills */}
-                        {this.state.wills.length > 0 
+                        {this.state.wills.length === 3
                             ? <> 
                                     <section className="section section-lg pt-lg-0 mt--200">
                                         <Container>
@@ -98,8 +89,6 @@ class Home extends React.Component {
                               </>
                             : null
                         }
-
-                        
                         {/* Search Bar */}
                         <section className="section section-lg">
                             <Container>
@@ -164,15 +153,6 @@ class Home extends React.Component {
                                 </Row>
                             </Container>
                            
-                        </section>
-                        <section className="section bg-secondary">
-                            <Container>
-                            <Row className="justify-content-center">
-                                <Col lg="8">
-                                    <ContactForm />
-                                </Col>
-                            </Row>
-                            </Container>
                         </section>
                     </div>
                 </main>
