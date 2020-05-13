@@ -9,7 +9,8 @@ const connection = connectionString
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
-      multipleStatements: true
+      multipleStatements: true,
+      connectionLimit: 20
     };
 // create a pool for more efficient connection management
 const db = mysql.createPool(connection);
@@ -129,6 +130,43 @@ module.exports = {
          'INNER JOIN Role ON role_id = Role.id';
 
       db.query(query, callback);
+   },
+
+   // Description: retrieve all bibliography entries
+   // Result: entry
+   getBibliography: callback => {
+      const query = 
+         `SELECT entry FROM Bibliography`
+      
+      db.query(query, callback);
+   },
+
+   // Description: retrieve all bibliography entries
+   // Result: contributor_name
+   getContributors: callback => {
+      const query =
+         `SELECT name AS contributor_name FROM Contributors`
+
+      db.query(query, callback);
+   },
+
+   // Description: retrieve all text pages
+   // Result: page, text
+   getTextPage: callback => {
+      const query =
+         `SELECT page, text FROM TextPage`
+
+      db.query(query, callback);
+   },
+
+   // Description: retrieve text page by identifier
+   // Result: page, text
+   getTextPageByName: (page, callback) => {
+      const query =
+         `SELECT page, text FROM TextPage WHERE page = ?`
+      const values = [page]
+
+      db.query(query, values, callback);
    },
 
    // Description: retrieve document by ID

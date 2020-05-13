@@ -102,6 +102,30 @@ CREATE TABLE IF NOT EXISTS User (
       ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
+-- Represents a single BIBLIOGRAPHY entry
+--
+-- References: none
+-- Associations: none
+CREATE TABLE IF NOT EXISTS Bibilography (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   entry VARCHAR(256) NOT NULL
+) ENGINE=InnoDB;
+
+-- Represents a single CONTRIBUTOR entry
+--
+-- References: none
+-- Associations: none
+CREATE TABLE IF NOT EXISTS Contributors (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(32) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS TextPage (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   page VARCHAR(32) NOT NULL,
+   text MEDIUMTEXT NOT NULL
+) ENGINE=InnoDB;
+
 -- Represents a link between a DOCUMENT and a TAG
 --
 -- References: Document, Tag
