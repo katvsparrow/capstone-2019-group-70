@@ -66,6 +66,7 @@ class App extends React.Component {
                         <Switch>
                             <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
                             <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
+                            {/*  
                             <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                             <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                             <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
@@ -73,6 +74,7 @@ class App extends React.Component {
                             <Route path={ROUTES.WILL_EXAMPLE} render={props => <WillExample {...props}/> } />
                             <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
                             <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
+                            /*/}
                             <Route component={NotFound} />
                         </Switch>
                     <MainFooter />
