@@ -3,11 +3,13 @@ USE sinyxb3424v6hdac;
 DROP TABLE IF EXISTS Document_User_Favorite;
 DROP TABLE IF EXISTS Document_Tag_Association;
 DROP TABLE IF EXISTS Document;
+DROP TABLE IF EXISTS Archive;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Language;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Location;
 DROP TABLE IF EXISTS Tag;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS sinyxb3424v6hdac.Role;
+
 
 -- Represents a single LANGUAGE
 --
@@ -26,6 +28,17 @@ CREATE TABLE IF NOT EXISTS Location (
    UNIQUE KEY (city, country)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS Archive (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(32) NOT NULL,
+   location_id INT,
+   UNIQUE KEY (name, location_id),
+   FOREIGN KEY (location_id) REFERENCES Location(id)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+
 -- Represents a single DOCUMENT
 --
 -- References: Language, Country, City
@@ -43,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Document (
    edit_date DATE NOT NULL,
    language_id INT NOT NULL,
    document_location_id INT,
-   archive_location_id INT,
+   archive_id INT,
    reference VARCHAR(128),
    FOREIGN KEY (language_id) REFERENCES Language(id)
       ON DELETE CASCADE
@@ -51,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Document (
    FOREIGN KEY (document_location_id) REFERENCES Location(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
-   FOREIGN KEY (archive_location_id) REFERENCES Location(id)
+   FOREIGN KEY (archive_id) REFERENCES Archive(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE
 ) ENGINE=InnoDB;

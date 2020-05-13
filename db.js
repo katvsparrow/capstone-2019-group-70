@@ -152,30 +152,54 @@ module.exports = {
    // Description: add a location to the database
    insertLocation: (city, country, callback) => {
       const query = 
-         'INSERT IGNORE INTO Location (city, country) VALUES ?';
+         'INSERT IGNORE INTO Location (city, country) VALUES (?, ?)';
       const values = [city, country];
       
       db.query(query, values, callback);
    },
 
+   insertArchive: (document, callback) => {
+      const query = 
+         'INSERT IGNORE INTO Archive (name, location_id) ' + 
+         'VALUES (?, (SELECT Location.id FROM Location WHERE Location.city = ? AND Location.country = ?))';
+      
+      const values = [
+         document.archive, 
+         document.archive_city,
+         document.archive_country
+      ];
+
+      db.query(query, values, callback);
+   }, 
+
    // Description: add a document to the database
    // Prereqs: Call insertLocation first for doc location and archive location
    insertDocument: (document, callback) => {
-      const query = 
-         'INSERT INTO Document (title, date_of_publication, original_text, translated_text, language_id, ' +
-         '(SELECT id FROM Location WHERE city = ? AND country = ?), ' +
-         '(SELECT id FROM Location WHERE city  = ? AND country = ?)) ' +
-         'VALUES (?,?,?,?,?)';
+      const query = `
+         INSERT INTO Document
+            (title, uploader, date_of_publication, year, original_text, translated_text, upload_date,
+               edit_date, language_id, location_id, archive_id, reference)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?,
+                  (SELECT Language.id from Language WHERE Language.name = ?),
+                  (SELECT Location.id from Location WHERE Location.city = ? AND Location.country = ?),
+                  (SELECT Archive.id from Archive WHERE Archive.name = ?),
+               ?)
+      `;
+
       const values = [
-         document.document_city,
-         document.document_country,
-         document.archive_city,
-         document.archive_country,
          document.title,
-         document.date,
+         document.uploader,
+         document.date_of_publication,
+         document.year,
          document.original_text,
          document.translated_text,
-         document.language
+         document.upload_date,
+         document.edit_date,
+         document.language,
+         document.document_city,
+         document.document_country,
+         document.archive,
+         document.reference
       ];
 
       db.query(query, values, callback);

@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     language: '',
     document_city: '',
     document_country: '',
+    archive: '',
     archive_city: '',
     archive_country: ''
 };
@@ -26,7 +27,6 @@ class WillSubmitForm extends React.Component {
         console.log("STARTING SUBMIT");
         event.preventDefault();
         const payload = {...this.state};
-        console.log(payload);
         const res = await WillAPI.postNewDocument(payload);
         console.log(res);
     }
@@ -39,7 +39,7 @@ class WillSubmitForm extends React.Component {
         const {
             title, date, original_text,
             translated_text, language, document_city,
-            document_country, archive_city, archive_country
+            document_country, archive, archive_city, archive_country
         } = this.state;
 
         return (
@@ -73,11 +73,15 @@ class WillSubmitForm extends React.Component {
                     <Input type="text" name="document_country" id="form-document-country" value={document_country} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
+                    <Label for="form-archive">Archive / Library name</Label>
+                    <Input type="text" name="archive" id="form-archive" value={archive} onChange={this.onChange} />
+                </FormGroup>
+                <FormGroup>
                     <Label for="form-archive-city">Archive: City of Origin</Label>
                     <Input type="text" name="archive_city" id="form-archive-city" value={archive_city} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="form-archive-country">Archive: country of Origin</Label>
+                    <Label for="form-archive-country">Archive: Country of Origin</Label>
                     <Input type="text" name="archive_country" id="form-archive-country" value={archive_country} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>

@@ -1,5 +1,13 @@
 const db = require('../db.js');
 
+extractYear = (str) => {
+    try {
+        return str.split('-')[0];
+    } catch {
+        return null; 
+    }
+}
+
 module.exports = (app) => {
     // Retrieve a document that matches a given document ID
     app.get('/api/documents/getDocumentByID/:id', async (req, res) => {
@@ -59,14 +67,47 @@ module.exports = (app) => {
     });
 
     app.post('/api/documents/postNewDocument', function(req, res)  {
-        let { document } = req.body;
+        let fields = req.body;
+
+        let document = {
+            'title': fields.title,
+            'uploader': 'Dr. Rena Lauer',
+            'date_of_publication': fields.date_of_publication,
+            'year': extractYear(fields.date_of_publication),
+            'document_city': fields.document_city, 
+            'document_country': fields.document_country,
+            'original_text': fields.original_text,
+            'translated_text': fields.translated_text,
+            'language': fields.language,
+            'archive':  fields.archive,
+            'archive_city': fields.archive_city, 
+            'archive_country': fields.archive_country,
+        }
+
+        console.log(document);
 
         db.insertLocation(document.document_city, document.document_country, err => {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
         });
 
         db.insertLocation(document.archive_city, document.archive_country, err => {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
+        });
+
+        db.insertArchive(document, err =>{
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
         });
 
         db.insertDocument(document, err => {
@@ -75,5 +116,7 @@ module.exports = (app) => {
             // add a redirect, res.status(200), or something along those lines
             // whatever needs to happen after the form submission
         });
+
+        return res.status(200).send('Successful Submit');
     });
 }
