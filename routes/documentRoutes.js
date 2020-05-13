@@ -133,4 +133,19 @@ module.exports = (app) => {
             return res.sendStatus(200);
         });
     });
+
+    app.post('/api/markFavoriteDocument', function(req, res) {
+        let documentTitle = req.body.title;
+        let uid = req.body.uid;
+
+        db.addFavorite(uid, documentTitle, err => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
+
+            return res.sendStatus(200);
+        });
+    });
 }
