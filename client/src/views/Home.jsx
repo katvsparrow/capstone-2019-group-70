@@ -10,7 +10,6 @@ import {
 } from "reactstrap";    
 
 import HomeSearch from "components/SearchBars/HomeSearch.jsx";
-import ContactForm from "components/Forms/ContactForm.jsx";
 import WillCard from "components/Containers/WillCard.jsx";
 
 import WillAPI from "api/will.js";
@@ -154,15 +153,6 @@ class Home extends React.Component {
                                 </Row>
                             </Container>
                            
-                        </section>
-                        <section className="section bg-secondary">
-                            <Container>
-                            <Row className="justify-content-center">
-                                <Col lg="8">
-                                    <ContactForm />
-                                </Col>
-                            </Row>
-                            </Container>
                         </section>
                     </div>
                 </main>

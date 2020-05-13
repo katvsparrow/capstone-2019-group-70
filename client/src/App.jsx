@@ -59,7 +59,7 @@ class App extends React.Component {
     }
 
     render() {
-        return this.state.loading === true ? <h1>Loading</h1> : (
+        return this.state.loading === true ? null : (
             <AuthUserContext.Provider value={this.state.authUser}>
                 <BrowserRouter>
                     <MainNavbar />
