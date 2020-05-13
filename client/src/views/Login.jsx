@@ -11,6 +11,11 @@ import {
 
 import SignInForm from "components/Forms/SignInForm.jsx";
 
+import { AuthUserContext } from "contexts/Session";
+
+import * as ROUTES from "constants/routes";
+import { Redirect } from "react-router-dom";
+
 class Login extends React.Component {
     render() {
         return (
@@ -51,4 +56,16 @@ class Login extends React.Component {
     }
 }
 
-export default Login; 
+const LoginBase = (props) => {
+    return (
+        <AuthUserContext.Consumer>
+            {
+                authUser =>
+                    authUser ? <Redirect to={ROUTES.ACCOUNT} />
+                             : <Login />
+            }
+        </AuthUserContext.Consumer>
+    )
+}
+
+export default LoginBase; 

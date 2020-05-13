@@ -10,6 +10,11 @@ import {
 
 import SignUpForm from "components/Forms/SignUpForm.jsx";
 
+import { AuthUserContext } from "contexts/Session";
+
+import * as ROUTES from "constants/routes";
+import { Redirect } from "react-router-dom";
+
 class Register extends React.Component {
     render() {
         return(
@@ -50,4 +55,19 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+
+const RegisterBase = (props) => {
+    return (
+        <AuthUserContext.Consumer>
+            {
+                authUser =>
+                    authUser ? <Redirect to={ROUTES.ACCOUNT} />
+                             : <Register />
+            }
+        </AuthUserContext.Consumer>
+    )
+}
+
+
+
+export default RegisterBase;
