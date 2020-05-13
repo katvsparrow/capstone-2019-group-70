@@ -250,5 +250,29 @@ module.exports = {
       const values = [userDetails]
 
       db.query(query, values, callback);
-   }
+   },
+
+   addFavorite: (uid, documentTitle, callback) => {
+      const query = 
+         'INSERT INTO Document_User_Favorite (' +
+         '(SELECT id FROM User WHERE uid = ?),' +
+         '(SELECT id FROM Document WHERE title = ?)';
+      const values = [uid, documentTitle];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentTitle: (title, callback) => {
+      const query =
+         `UPDATE Document SET title = ?`;
+      
+      db.query(query, title, callback);
+   },
+
+   editDocumentDateOfPublication: (date, callback) => {
+      const query = 
+         `UPDATE Document SET date_of_publication = ?`;
+
+      db.query(query, date, callback);
+   },
 }
