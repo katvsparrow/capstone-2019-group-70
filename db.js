@@ -178,7 +178,7 @@ module.exports = {
       const query = `
          INSERT INTO Document
             (title, uploader, date_of_publication, year, original_text, translated_text, upload_date,
-               edit_date, language_id, location_id, archive_id, reference)
+               edit_date, language_id, document_location_id, archive_id, reference)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?,
                   (SELECT Language.id from Language WHERE Language.name = ?),
                   (SELECT Location.id from Location WHERE Location.city = ? AND Location.country = ?),

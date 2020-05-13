@@ -12,9 +12,10 @@ const INITIAL_STATE = {
     language: '',
     document_city: '',
     document_country: '',
-    archive: '',
+    archive: '',    
     archive_city: '',
-    archive_country: ''
+    archive_country: '', 
+    reference: ''
 };
 
 class WillSubmitForm extends React.Component {
@@ -24,11 +25,14 @@ class WillSubmitForm extends React.Component {
     }
 
     onSubmit = async(event) => {
-        console.log("STARTING SUBMIT");
         event.preventDefault();
         const payload = {...this.state};
         const res = await WillAPI.postNewDocument(payload);
         console.log(res);
+        
+        if(res) {
+            this.setState({ ...INITIAL_STATE});
+        }
     }
 
     onChange = event => {
@@ -38,7 +42,7 @@ class WillSubmitForm extends React.Component {
     render() {
         const {
             title, date, original_text,
-            translated_text, language, document_city,
+            translated_text, language, document_city, reference, 
             document_country, archive, archive_city, archive_country
         } = this.state;
 
@@ -83,6 +87,10 @@ class WillSubmitForm extends React.Component {
                 <FormGroup>
                     <Label for="form-archive-country">Archive: Country of Origin</Label>
                     <Input type="text" name="archive_country" id="form-archive-country" value={archive_country} onChange={this.onChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="form-reference">Reference</Label>
+                    <Input type="text" name="reference" id="form-reference" value={reference} onChange={this.onChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="form-will-image">Will Image</Label>

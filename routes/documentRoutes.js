@@ -68,12 +68,13 @@ module.exports = (app) => {
 
     app.post('/api/documents/postNewDocument', function(req, res)  {
         let fields = req.body;
+        let request_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
         let document = {
             'title': fields.title,
             'uploader': 'Dr. Rena Lauer',
-            'date_of_publication': fields.date_of_publication,
-            'year': extractYear(fields.date_of_publication),
+            'date_of_publication': fields.date,
+            'year': extractYear(fields.date),
             'document_city': fields.document_city, 
             'document_country': fields.document_country,
             'original_text': fields.original_text,
@@ -82,9 +83,10 @@ module.exports = (app) => {
             'archive':  fields.archive,
             'archive_city': fields.archive_city, 
             'archive_country': fields.archive_country,
+            'reference': fields.reference,
+            'upload_date': request_time,
+            'edit_date': request_time,
         }
-
-        console.log(document);
 
         db.insertLocation(document.document_city, document.document_country, err => {
             if (err) {
@@ -111,12 +113,13 @@ module.exports = (app) => {
         });
 
         db.insertDocument(document, err => {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
 
-            // add a redirect, res.status(200), or something along those lines
-            // whatever needs to happen after the form submission
+            return res.sendStatus(200);
         });
-
-        return res.status(200).send('Successful Submit');
     });
 }
