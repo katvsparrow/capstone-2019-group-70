@@ -1,160 +1,213 @@
 import React from "react";
 import { withFirebase } from "../../contexts/Firebase";
+import { Formik } from "formik";
+import * as EmailValidator from "email-validator";
+
 
 import {
-    Form, 
-    FormGroup, 
-    Input, 
-    InputGroupAddon, 
-    InputGroupText, 
+    Form,
+    FormGroup,
+    Input,
+    InputGroupAddon,
+    InputGroupText,
     InputGroup,
     Button
 } from "reactstrap";
 
-// Define initial form fields as empty 
-const INITIAL_STATE = {
-    username: '', 
-    email: '', 
-    passwordOne: '',
-    passwordTwo: '',
-    error: null
-};
+// Define initial form fields as empty
 
-class SignUpForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { ...INITIAL_STATE} ;
-    }
+const SignUpForm = () => (
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
+  <Formik
+     initialValues= {{ email: "", passwordOne: "", username: "", passwordTwo:"" }}
+     onSubmit={(values, { setSubmitting }) => {
 
-    onSubmit = event => {
-        const { username, email, passwordOne } = this.state;
-        
-        // Attempt to create a user with an email and password
-        this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne, username)
-            .then(authUser => {
-                this.setState({ ...INITIAL_STATE});
-            })
-            .catch(error => {
-                this.setState({ error });
-            });
+       setTimeout(() => {
+      console.log("Logging in", values);
+      setSubmitting(true);
+    }, 500);
 
-        event.preventDefault();
-    };
+     }}
 
-    checkInput = (values) => {
-        // Return false if password
-        // less than 6 chars, does not contain one captial / one lowercase etc...
-        console.log(values);
-        return false;
-    };
-    
-    render() {
-        const {
-            username,
-            email,
-            passwordOne,
-            passwordTwo,
-            error,
-        } = this.state
-        
-        // Check if input fields have been filled 
-        const isInvalid = this.checkInput(this.state);
+     validate = { values =>{
 
-        return(
-            <>
-                <Form onSubmit={this.onSubmit}>
-                    {/* Username */}
-                    <FormGroup>
-                        <InputGroup className="input-group-alternative mb-3">
-                            <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-hat-3" />
-                                </InputGroupText>
-                            </InputGroupAddon>
-                            <Input 
-                                name="username"
-                                value={username}
-                                placeholder="Username" 
-                                type="text" 
-                                invalid
-                                onChange={this.onChange}
-                            />
-                        </InputGroup>
-                    </FormGroup>
+        let errors ={};
 
-                    {/* Email */}
-                    <FormGroup>
-                        <InputGroup className="input-group-alternative mb-3">
-                            <InputGroupAddon addonType="prepend">
-                                <InputGroupText>
-                                    <i className="ni ni-email-83" />
-                                </InputGroupText>
-                            </InputGroupAddon>
-                            <Input 
-                                name="email"
-                                value={email}
-                                placeholder="Email" 
-                                type="text" 
-                                onChange={this.onChange}
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                    
-                    {/* Password */}
-                    <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-lock-circle-open" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              name="passwordOne"
-                              value={passwordOne}
-                              placeholder="Password" 
-                              type="password" 
-                              onChange={this.onChange}
-                              autoComplete="off"
-                            />
-                        </InputGroup>
-                    </FormGroup>
-                
-                    {/* Password Confirm */}
-                    <FormGroup>
-                        <InputGroup className="input-group-alternative">
-                            <InputGroupAddon addonType="prepend">
-                              <InputGroupText>
-                                <i className="ni ni-lock-circle-open" />
-                              </InputGroupText>
-                            </InputGroupAddon>
-                            <Input
-                              name="passwordTwo"
-                              value={passwordTwo}
-                              placeholder="Confirm Password" 
-                              type="password" 
-                              onChange={this.onChange}
-                              autoComplete="off"
-                            />
-                        </InputGroup>
-                    </FormGroup>
+          if (!values.email){
+            errors.email ="Please enter an Email Address.";
+          }
 
-                    {/* Submit Form */}
-                    <Button disabled={isInvalid} className="mt-4" color="primary" type="submit">
-                        Create Account
-                    </Button>
+          else if (!EmailValidator.validate(values.email)){
+            errors.email = " Invalid Email Address. Please enter a valid Email Address. "
+          }
 
-                    {/* Error message */}
-                    {error && <p>{error.message}</p>}
-                </Form>  
-            </>
-        );
-    }
-}
+          const int_password = /(?=.*[0-9])/
+          const upper_case_password = /(?=.*[A-Z])/
 
-// Export with Firebase Context 
-export default withFirebase(SignUpForm);
+          if ((!values.passwordOne) || (values.passwordOne < 8) | (!int_password.test(values.passwordOne)) || (!upper_case_password.test(values.passwordOne))){
+            errors.passwordOne ="Password must be 8 characters long including at least one digit [0-9] and one upper-case letter [A-Z]  ";
+          }
+
+          if(values.passwordOne !== values.passwordTwo){
+
+            errors.passwordTwo ="Password didn't matched. Please try agian"
+          }
+
+        return errors;
+
+     }}
+   >
+
+   {props => {
+    const {
+          values,
+          touched,
+          errors,
+          isSubmitting,
+          handleChange,
+          handleBlur,
+          handleSubmit
+      } = props;
+
+     return (
+
+
+       <Form onSubmit={handleSubmit}>
+           {/* Username */}
+           <FormGroup>
+               <InputGroup className="input-group-alternative mb-3">
+                   <InputGroupAddon addonType="prepend">
+                       <InputGroupText>
+                           <i className="ni ni-hat-3" />
+                       </InputGroupText>
+                   </InputGroupAddon>
+                   <Input
+                       name="username"
+                       value={values.username}
+                       placeholder="Username"
+                       type="text"
+                       onChange={handleChange}
+                       onBlur={handleBlur}
+                       className={errors.username && touched.username &&"error"}
+                   />
+
+                   {errors.username && touched.username && (
+
+                      <div className="input-feedback text-danger"> {errors.username}</div>
+                   )}
+
+               </InputGroup>
+           </FormGroup>
+
+           {/* Email */}
+           <FormGroup>
+               <InputGroup className="input-group-alternative mb-3">
+                   <InputGroupAddon addonType="prepend">
+                       <InputGroupText>
+                           <i className="ni ni-email-83" />
+                       </InputGroupText>
+                   </InputGroupAddon>
+                   <Input
+                       name="email"
+                       value={values.email}
+                       placeholder="Email"
+                       type="text"
+                       onChange={handleChange}
+                       onBlur={handleBlur}
+                       className={errors.email && touched.email &&"error"}
+                   />
+
+
+               </InputGroup>
+
+               {errors.email && touched.email && (
+
+                  <div>
+                  <small className="form-text input-feedback text-danger">
+                  {errors.email}
+                  </small>
+                  </div>
+               )}
+
+           </FormGroup>
+
+           {/* Password */}
+           <FormGroup>
+               <InputGroup className="input-group-alternative">
+                   <InputGroupAddon addonType="prepend">
+                     <InputGroupText>
+                       <i className="ni ni-lock-circle-open" />
+                     </InputGroupText>
+                   </InputGroupAddon>
+                   <Input
+                     name="passwordOne"
+                     value={values.passwordOne}
+                     placeholder="Password"
+                     type="password"
+                     onChange={handleChange}
+                     autoComplete="off"
+                     onBlur={handleBlur}
+                     className={errors.passwordOne && touched.passwordOne &&"error"}
+
+                   />
+
+               </InputGroup>
+
+               {errors.passwordOne && touched.passwordOne && (
+
+                  <div>
+                  <small className="form-text input-feedback text-danger">
+                  {errors.passwordOne}
+                  </small>
+                  </div>
+               )}
+           </FormGroup>
+
+           {/* Password Confirm */}
+           <FormGroup>
+               <InputGroup className="input-group-alternative">
+                   <InputGroupAddon addonType="prepend">
+                     <InputGroupText>
+                       <i className="ni ni-lock-circle-open" />
+                     </InputGroupText>
+                   </InputGroupAddon>
+                   <Input
+                     name="passwordTwo"
+                     value={values.passwordTwo}
+                     placeholder="Confirm Password"
+                     type="password"
+                     onChange={handleChange}
+                     autoComplete="off"
+                     onBlur={handleBlur}
+                     className={errors.passwordTwo && touched.passwordTwo &&"error"}
+
+                   />
+
+               </InputGroup>
+
+               {errors.passwordTwo && touched.passwordTwo && (
+
+                  <div>
+                  <small className="form-text input-feedback text-danger">
+                      {errors.passwordTwo}
+                  </small>
+                  </div>
+               )}
+           </FormGroup>
+
+           {/* Submit Form */}
+           <Button disabled={isSubmitting} className="mt-4" color="primary" type="submit">
+               Create Account
+           </Button>
+       </Form>
+
+
+     );
+
+   }}
+
+  </Formik>
+);
+
+
+export default SignUpForm;
