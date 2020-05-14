@@ -137,4 +137,140 @@ module.exports = (app) => {
             return res.sendStatus(200);
         });
     });
+
+    app.post('/api/editDocument/:id/:attribute', function(req, res) {
+        let id = req.params.id;
+        let attribute = req.params.attribute;
+        let fields = req.body;
+
+        switch(attribute) {
+            case "title": 
+                db.editDocumentTitle(id, fields.title, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "date":
+                db.editDocumentDateOfPublication(id, fields.date, extractYear(fields.date), err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "location":
+                db.insertLocation(fields.document_city, fields.document_country, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                });
+
+                db.editDocumentLocation(id, fields.document_city, fields.document_country, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+            
+            case "text":
+                db.editDocumentOriginalText(id, fields.original_text, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "translation":
+                db.editDocumentTranslatedText(id, fields.translated_text, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "language":
+                db.editDocumentLanguage(id, fields.language, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "archive":
+                db.insertLocation(fields.archive_city, fields.archive_country, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                });
+
+                db.insertArchive(fields, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                
+                db.editDocumentArchive(id, fields.archive, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+                
+            case "reference":
+                db.editDocumentReference(id, fields.reference, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "image":
+                db.editDocumentImage(id, fields.image, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            default:
+                console.log(err);
+                return res.sendStatus(500);
+        }
+    });
 }
