@@ -1,7 +1,8 @@
 import React from 'react';
 
-import WillAPI from "api/will.js";
-import PageSpinner from "components/Containers/PageSpinner.jsx";
+import WillAPI from "api/will";
+import PageSpinner from "components/Containers/PageSpinner";
+import * as Mock from "constants/placeholder";
 
 import {
     Button,
@@ -75,28 +76,41 @@ const TagCard = (tags) => {
  * Renders table full of information related to the rendered will 
  * @param {json} details 
  */
-const DetailTable = (details) => {
+const DetailTable = ({details}) => {
     console.log(details);
 
     return (
         <Table borderless>
             <tbody>
                 <tr>
-                <td>Publication date</td>
-                    <td></td>
+                    <td>Language</td>
+                    <td>{details.language_name}</td>
                 </tr>
                 <tr>
                     <td>Location Origin</td>
-                    <td></td>
+                    <td>
+                        {details.city_name && 
+                            details.city_name + ', '
+                        }
+                        {details.country_name &&
+                            details.country_name
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Publication date</td>
+                    <td>{details.date_of_publication}</td>
                 </tr>
                 <tr>
                     <td>Archive / Library</td>
-                    <td></td>
+                    <td>
+                        {details.archive_name}
+                    </td>
                 </tr>
                 <tr>
                     <td>Source Reference</td>
                     <td></td>
-                    </tr>
+                </tr>
             </tbody>
         </Table>
     )
@@ -113,8 +127,8 @@ const MediaView = () => {
 }
  */
 
-const TextView = (data) => {
-    let will = data.will;
+const TextView = ({will}) => {
+    console.log(will);
     return (
         <>
             <Col className="mr-1" lg='7'>
@@ -123,7 +137,7 @@ const TextView = (data) => {
                     <h4>Original Text</h4>
                 </Row>
                 <Row className="bg-secondary p-4 mb-3 transcript-container h-50">
-                    {will['original_text']}
+                    {Mock.original_text}
                 </Row>
                 <Row>
                     <h4>Translated Text</h4>
@@ -134,13 +148,14 @@ const TextView = (data) => {
                 <Row className="action-buttons">
                     <ActionButtons />
                 </Row>
-                {/* Document Tags */}
+                {/* Document Tags 
                 <Row className="mt-3">
                     <TagCard />
                 </Row>
+                */}
                 {/* Document Details */}
                 <Row className="mt-3">
-                    <DetailTable />
+                    <DetailTable details={will}/>
                 </Row>
             </Col>
         </>
@@ -151,16 +166,13 @@ const TextView = (data) => {
  * Main container for Will content
  * @param {json} data
  */
-
 class LoadedWill extends React.Component { 
     constructor(props){
         super(props); 
-        
         this.will = this.props.data; 
     }
 
     render() {
-        console.log(this.will);
         return(
             <section>
                 <Container>
@@ -213,7 +225,7 @@ class Will extends React.Component {
             <>
                 <main href="main">
                     <div className="position-relative">
-                        <section className="section bg-dark text-white pb-3 mb-3" />
+                        <section className="section bg-gradient-jww-primary pb-4" />
                         { this.renderType(this.state.will) }
                     </div>
                 </main>
