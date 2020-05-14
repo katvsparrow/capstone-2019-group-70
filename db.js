@@ -262,17 +262,104 @@ module.exports = {
       db.query(query, values, callback);
    },
 
-   editDocumentTitle: (title, callback) => {
+   editDocumentTitle: (document_id, title, callback) => {
       const query =
-         `UPDATE Document SET title = ?`;
+         `UPDATE Document 
+            SET title = ? 
+            WHERE id = ?`;
+      values = [title, document_id];
       
-      db.query(query, title, callback);
+      db.query(query, values, callback);
    },
 
-   editDocumentDateOfPublication: (date, callback) => {
+   editDocumentDateOfPublication: (document_id, date, year, callback) => {
       const query = 
-         `UPDATE Document SET date_of_publication = ?`;
+         `UPDATE Document 
+            SET date_of_publication = ?,
+                year = ?
+            WHERE id = ?`;
+      values = [date, year, document_id]
 
-      db.query(query, date, callback);
+      db.query(query, values, callback);
    },
+
+   editDocumentOriginalText: (document_id, text, callback) => {
+      const query = 
+         `UPDATE Document
+            SET original_text = ?
+            WHERE id = ?`;
+      values = [text, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentTranslatedText: (document_id, text, callback) => {
+      const query = 
+         `UPDATE Document
+            SET translated_text = ?
+            WHERE id = ?`;
+      values = [text, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentImage: (document_id, image_url, callback) => {
+      const query =
+         `UPDATE Document
+            SET image = ?
+            WHERE id = ?`;
+      values = [image_url, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentEditDate: (document_id, edit_date, callback) => {
+      const query = 
+         `UPDATE Document
+            SET edit_date = ?
+            WHERE id = ?`
+      values = [edit_date, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentLanguage: (document_id, language, callback) => {
+      const query = 
+         `UPDATE Document
+            SET language_id = (SELECT id FROM Language WHERE name = ?)
+            WHERE id = ?`
+      values = [language, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentLocation: (document_id, city, country, callback) => {
+      const query = 
+         `UPDATE Document
+            SET document_location_id = (SELECT id FROM Location WHERE city = ? AND country = ?)
+            WHERE id = ?`
+      values = [city, country, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentArchive: (document_id, archive, callback) => {
+      const query = 
+         `UPDATE Document
+            SET archive_id = (SELECT id FROM Archive WHERE name = ?)
+            WHERE id = ?`
+      values = [archive, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentReference: (document_id, reference, callback) => {
+      const query =
+         `UPDATE Document
+            SET reference = ?
+            WHERE id = ?`
+      values = [reference, document_id];
+
+      db.query(query, values, callback);
+   }
 }
