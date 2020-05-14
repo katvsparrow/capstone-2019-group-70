@@ -1,6 +1,5 @@
 import React from 'react';
-
-//import WillAPI from "../api/will";
+import WillAPI from "../api/will";
 
 /*
 Search functionality removed until wills inserted into db
@@ -34,26 +33,23 @@ import {
 
 import Result from "../components/Containers/Result.jsx";
 
-var mock_wills = require('../api/Mock/Mock_Wills.json');
-
 class Search extends React.Component {
     state = { 
-        wills: mock_wills['mock_wills'], 
+        wills: null,  
         viewType: 'card',
         loading: true 
     }
 
-    getStartingWills = () => {
-        /* Fetch method, Pending client data 
-        const rESs = await WillAPI.getRandomDocuments(10);
+    getStartingWills = async () => {
+        const res = await WillAPI.getRandomDocuments(10);
         this.setState({
             wills: res, 
             loading: false
-        });*/
+        });
     }
 
     componentDidMount() {
-        //this.getWills();
+        this.getStartingWills();
     }
     
     render () {
@@ -62,8 +58,8 @@ class Search extends React.Component {
                 <main href="main">
                     <div className="position-relative">
                         <section className="section bg-gradient-jww-primary pb-4" />
-                        <section>
-                            <Container className = "py-md">
+                        <section className="mb-sm">
+                            <Container className = "py-sm">
                                 <Row>
                                    <Col>
                                         <InputGroup size="lg">
@@ -127,14 +123,18 @@ class Search extends React.Component {
                                         </Row>
                                     </Col>
                                     <Col xs="8" className="pl-5">
-                                        <Row>
-                                            <h3>Displaying {this.state.wills.length} search results...</h3>
-                                        </Row>
-                                        <Row>
-                                            <ListGroup>
-                                                {this.state.wills.map(d => <Result data={d} />)}
-                                            </ListGroup>
-                                        </Row>
+                                        {this.state.wills &&
+                                            <>
+                                                <Row>
+                                                <h3>Displaying {this.state.wills.length} search results...</h3>
+                                                </Row>
+                                                <Row>
+                                                    <ListGroup>
+                                                        {this.state.wills.map((d, i) => <Result data={d} key={i} />)}
+                                                    </ListGroup>
+                                                </Row>
+                                            </>
+                                        }
                                     </Col>
                                 </Row>
                             </Container>

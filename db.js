@@ -15,6 +15,25 @@ const connection = connectionString
 const db = mysql.createPool(connection);
 
 module.exports = {
+   getAlgoliaData: callback => {
+      const query = `
+         SELECT 
+            Document.id, title, uploader, date_of_publication, year,
+            original_text, translated_text, image, upload_date, edit_date,
+            Language.name as language_name, Location.city as city_name, 
+            Location.country AS country_name, Archive.name as archive_name,
+            Arc_Loc.city as archive_city_name, Arc_Loc.country as archive_country_name
+         FROM Document 
+         INNER JOIN Language ON language_id = Language.id
+         INNER JOIN Location ON document_location_id = Location.id
+         INNER JOIN Archive on archive_id = Archive.id
+         INNER JOIN Location Arc_Loc ON Arc_Loc.id = Archive.location_id
+      `;
+
+      db.query(query, callback)
+   },
+
+   
    // Description: retrieve language
    // Result: [language_name]
    getLanguage: callback => {

@@ -1,4 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { getDateTimeString } from "utils";
+
+import * as Mock from "constants/placeholder";
 
 
 import {
@@ -17,13 +21,13 @@ class Result extends React.Component {
     render () {
         return (
             <ListGroupItem>
-                <ListGroupItemHeading tag="a" href="/will">{this.props.data['document_title']}</ListGroupItemHeading>
-                    <ListGroupItemText>{this.props.data['date_of_publication']}</ListGroupItemText>
-                    <ListGroupItemText className="font-italic">{this.format_preview(this.props.data['translated_text'])}</ListGroupItemText>
+                    <ListGroupItemHeading>{this.props.data['title']}</ListGroupItemHeading>
+                    <ListGroupItemText>{getDateTimeString(this.props.data['date_of_publication'])}</ListGroupItemText>
+                    <ListGroupItemText className="font-italic">{this.format_preview(Mock.translated_text)}</ListGroupItemText>
                     <div className="will-context-badges">
-                        <Badge color="primary">{this.props.data['location']}</Badge>
-                        <Badge color="dark">{this.props.data['original_language']}</Badge>
-                        <Badge color="info">{this.props.data['year_of_publication']}</Badge>
+                        <Badge color="primary">{this.props.data['location_name']}</Badge>
+                        <Badge color="dark">{this.props.data['language_name']}</Badge>
+                        <Badge color="info">{this.props.data['year']}</Badge>
                     </div>
             </ListGroupItem>
         )

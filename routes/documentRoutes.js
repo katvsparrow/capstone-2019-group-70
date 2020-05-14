@@ -9,6 +9,17 @@ extractYear = (str) => {
 }
 
 module.exports = (app) => {
+    app.get('/api/documents/algoliaDocments', function(req, res) {
+        db.getAlgoliaData((err, data) => {
+            if(err) {
+                console.log(error);
+                return; 
+            }
+
+            return res.status(200).send(data);
+        });
+    });
+    
     // Retrieve a document that matches a given document ID
     app.get('/api/documents/getDocumentByID/:id', async (req, res) => {
         const id = req.params.id;

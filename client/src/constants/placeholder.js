@@ -11,8 +11,7 @@ Duis aliquet rutrum risus ac condimentum. Aliquam efficitur gravida turpis, vel 
 Aenean ornare vestibulum nulla, eu commodo turpis.
 `;
 
-export const translated_text = `
-Aliquam erat volutpat. Nullam eleifend velit ut pharetra mollis. Etiam euismod condimentum ipsum ac gravida. Pellentesque a auctor ligula. Cras sodales leo eget mauris ullamcorper, ultrices viverra mauris bibendum. Integer vel iaculis lectus. Etiam vel turpis sagittis, ullamcorper mi nec, tempor odio. Vivamus libero ipsum, malesuada at tincidunt in, pellentesque eu leo. Praesent pellentesque risus nibh, nec tempus nisi dapibus eget. Phasellus ullamcorper eros mi, eleifend efficitur justo pharetra eget. 
+export const translated_text = `Aliquam erat volutpat. Nullam eleifend velit ut pharetra mollis. Etiam euismod condimentum ipsum ac gravida. Pellentesque a auctor ligula. Cras sodales leo eget mauris ullamcorper, ultrices viverra mauris bibendum. Integer vel iaculis lectus. Etiam vel turpis sagittis, ullamcorper mi nec, tempor odio. Vivamus libero ipsum, malesuada at tincidunt in, pellentesque eu leo. Praesent pellentesque risus nibh, nec tempus nisi dapibus eget. Phasellus ullamcorper eros mi, eleifend efficitur justo pharetra eget. 
 
 Vestibulum varius enim dui, nec fringilla felis vestibulum ultrices. Donec iaculis placerat tincidunt. Quisque sed neque et nulla mattis placerat. 
 

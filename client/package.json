@@ -48,7 +48,7 @@
     "firebase": "^7.7.0",
     "formik": "^2.1.4",
     "headroom.js": "0.9.4",
-    "moment": "2.24.0",
+    "moment": "^2.24.0",
     "mysql": "^2.18.1",
     "node-sass": "^4.13.1",
     "nouislider": "13.1.5",
