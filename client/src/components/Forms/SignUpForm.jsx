@@ -33,7 +33,7 @@ const SignUpForm = (context) => (
                 // Validate passwords
                 const int_password = /(?=.*[0-9])/
                 const upper_case_password = /(?=.*[A-Z])/
-                if ((!values.passwordOne) || (values.passwordOne < 8) | (!int_password.test(values.passwordOne)) || (!upper_case_password.test(values.passwordOne))){
+                if ((!values.passwordOne) || (values.passwordOne < 8) || (!int_password.test(values.passwordOne)) || (!upper_case_password.test(values.passwordOne))){
                     errors.passwordOne ="Password must be 8 characters long including at least one digit [0-9] and one upper-case letter [A-Z]  ";
                 }
                 
