@@ -337,5 +337,15 @@ module.exports = {
       values = [reference, document_id];
 
       db.query(query, values, callback);
+   },
+
+   editDocumentVisibility: (document_id, value, callback) => {
+      const query = 
+         `UPDATE Document
+            SET is_enabled = ?
+            WHERE id = ?`
+      values = [value, document_id];
+
+      db.query(query, values, callback);
    }
 }

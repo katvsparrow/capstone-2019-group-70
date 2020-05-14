@@ -66,6 +66,7 @@ module.exports = (app) => {
         });
     });
 
+    // Post a new document to the site
     app.post('/api/documents/postNewDocument', function(req, res)  {
         let fields = req.body;
         let request_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
@@ -123,6 +124,7 @@ module.exports = (app) => {
         });
     });
 
+    // Mark a document as a user's favorite
     app.post('/api/markFavoriteDocument', function(req, res) {
         let documentTitle = req.body.title;
         let uid = req.body.uid;
@@ -138,6 +140,7 @@ module.exports = (app) => {
         });
     });
 
+    // Edit an existing document
     app.post('/api/editDocument/:id/:attribute', function(req, res) {
         let id = req.params.id;
         let attribute = req.params.attribute;
@@ -259,6 +262,17 @@ module.exports = (app) => {
 
             case "image":
                 db.editDocumentImage(id, fields.image, err => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                        return;
+                    }
+                    return res.sendStatus(200);
+                });
+                break;
+
+            case "visibility":
+                db.editDocumentVisibility(id, fields.enabled, err => {
                     if (err) {
                         console.log(err);
                         res.sendStatus(500);

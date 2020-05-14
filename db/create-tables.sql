@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS Document (
    document_location_id INT,
    archive_id INT,
    reference VARCHAR(128),
+   is_enabled BOOL DEFAULT 0,
    FOREIGN KEY (language_id) REFERENCES Language(id)
       ON DELETE CASCADE
       ON UPDATE CASCADE,
