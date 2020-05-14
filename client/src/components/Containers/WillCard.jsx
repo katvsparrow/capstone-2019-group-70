@@ -9,6 +9,8 @@ import {
     CardBody,
 } from "reactstrap";
 
+import * as Mock from "../../constants/placeholder";
+
 class WillCard extends React.Component {
     format_preview = (text) => {
         return "\"" + text.substring(0, 100) + "...\"";
@@ -22,7 +24,7 @@ class WillCard extends React.Component {
                         {this.props.data['title']}
                     </h6>
                     <p className="descption mt-3">
-                        {this.format_preview(this.props.data['translated_text'])}
+                        {this.format_preview(Mock.original_text)}
                     </p>
                     <div>
                         <Badge color="primary" pill className="mr-1">

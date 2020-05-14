@@ -178,7 +178,7 @@ const AccountBase = (props) => {
             }
         </AuthUserContext.Consumer>
     )
-}
+};
 
 export default compose(
     withRouter,

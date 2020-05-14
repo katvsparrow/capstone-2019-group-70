@@ -20,7 +20,7 @@ class Home extends React.Component {
     
     // Fetch passwords after first mount
     componentDidMount() {
-        //this.getWills()
+        this.getWills()
     }
 
     getWills = async () => {
@@ -70,7 +70,6 @@ class Home extends React.Component {
                                             <Row className="justify-center-content">
                                                 <Col lg="12">
                                                     <Row className="row-grid">
-                                                        {/* 1st Will */}
                                                         <Col lg="4">
                                                             <WillCard data={this.state.wills[0]} />
                                                         </Col>
@@ -105,6 +104,7 @@ class Home extends React.Component {
                                 </Row>
                             </Container>
                         </section>
+
                         {/* About Section */}
                         <section className="section bg-secondary">
                             <Container className="pt-lg">
@@ -151,8 +151,7 @@ class Home extends React.Component {
                                         </p>
                                    </Col>
                                 </Row>
-                            </Container>
-                           
+                            </Container>       
                         </section>
                     </div>
                 </main>
