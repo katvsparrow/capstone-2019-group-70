@@ -19,7 +19,7 @@ After cloning the repository to the destination of your choice, open the folder 
 Install server node dependencies and run server.
 ```
 npm install
-npm run
+npm start
 ```
 
 Open a new terminal, and cd back into the folder location for the repo.
@@ -27,7 +27,7 @@ Open the client directory, install the
 ```
 cd client
 npm install 
-npm run
+npm start
 ```
 
 If installed successfully, a browser will appear displaying the website.
