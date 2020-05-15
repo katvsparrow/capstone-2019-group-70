@@ -1,6 +1,6 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
+import { formatPreview } from "../../utils";
 
 import {
     Badge,
@@ -12,10 +12,6 @@ import {
 import * as Mock from "../../constants/placeholder";
 
 class WillCard extends React.Component {
-    format_preview = (text) => {
-        return "\"" + text.substring(0, 100) + "...\"";
-    }
-    
     render() {
         return(
             <Card className="card-lift--hover shadow border-0">
@@ -24,7 +20,7 @@ class WillCard extends React.Component {
                         {this.props.data['title']}
                     </h6>
                     <p className="descption mt-3">
-                        {this.format_preview(Mock.original_text)}
+                        {formatPreview(Mock.original_text, 100)}
                     </p>
                     <div>
                         <Badge color="primary" pill className="mr-1">

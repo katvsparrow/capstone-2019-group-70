@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getDateTimeString } from "utils";
+import { getDateTimeString, formatPreview } from "utils";
 
 import * as Mock from "constants/placeholder";
 
@@ -12,18 +12,13 @@ import {
     Badge
 } from "reactstrap";
 
-class Result extends React.Component {
-
-    format_preview = (text) => {
-        return "\"" + text.substring(0, 200) + "...\"";
-    }
-
+class ResultCard extends React.Component {
     render () {
         return (
             <ListGroupItem>
                     <ListGroupItemHeading>{this.props.data['title']}</ListGroupItemHeading>
                     <ListGroupItemText>{getDateTimeString(this.props.data['date_of_publication'])}</ListGroupItemText>
-                    <ListGroupItemText className="font-italic">{this.format_preview(Mock.translated_text)}</ListGroupItemText>
+                    <ListGroupItemText className="font-italic">{formatPreview(Mock.translated_text, 200)}</ListGroupItemText>
                     <div className="will-context-badges">
                         <Badge color="primary">{this.props.data['location_name']}</Badge>
                         <Badge color="dark">{this.props.data['language_name']}</Badge>
@@ -34,4 +29,4 @@ class Result extends React.Component {
     }
 }
 
-export default Result; 
+export default ResultCard; 

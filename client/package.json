@@ -62,7 +62,7 @@
     "react-router-dom": "5.0.0",
     "react-scripts": "^3.0.0",
     "react-svg-pan-zoom": "^3.8.0",
-    "reactstrap": "8.0.0",
+    "reactstrap": "^8.4.1",
     "recompose": "^0.30.0"
   },
   "devDependencies": {

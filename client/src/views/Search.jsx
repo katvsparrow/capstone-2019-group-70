@@ -18,8 +18,8 @@ const searchClient = algoliasearch('5HZO9XNZH3', '8f0e8b74cc6600ccc74527ba33fd91
 */
 
 import {
-    ButtonGroup,
     Button,
+    ButtonGroup,
     Container,      
     Row, 
     Col, 
@@ -29,10 +29,12 @@ import {
     Form,
     FormGroup,
     Label, 
-    ListGroup
+    ListGroup,
+    Table
 } from "reactstrap";
 
-import Result from "../components/Containers/Result.jsx";
+import ResultCard from "../components/Containers/ResultCard";
+import ResultRow from "../components/Containers/ResultRow"
 
 class Search extends React.Component {
     state = { 
@@ -53,6 +55,18 @@ class Search extends React.Component {
         this.getStartingWills();
     }
     
+    
+    changeResults = (e) => {
+        if(e.target.classList.contains('active')) {
+            return; 
+        }
+
+        const clicked = e.target.id;
+        this.setState({
+            'viewType': clicked
+        });
+    };
+
     render () {
         return (
             <>
@@ -75,10 +89,23 @@ class Search extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
-                            <Container>
+                            <Container fluid className="mx-5">
                                 <Row>
-                                    <Col xs="4" className="pr-5 filter-border">
+                                    <Col xs="3" className="pr-5 filter-border">
                                         <Row>
+                                            <h4>Result View</h4>
+                                        </Row>
+                                        <Row>
+                                            <div className="action-buttons">
+                                                <Button id="card" onClick={this.changeResults} active={this.state.viewType === 'card' }>
+                                                    <i className="fas fa-poll-h fa-2x" />
+                                                </Button>
+                                                <Button id="table" onClick={this.changeResults} active={this.state.viewType === 'table'}>
+                                                    <i className="fas fa-table fa-2x" />
+                                                </Button>
+                                            </div>
+                                        </Row>
+                                        <Row className="mt-3">
                                             <h4>Refine Your Results</h4>
                                         </Row>
                                         <Row>
@@ -130,11 +157,31 @@ class Search extends React.Component {
                                                 <h3>Displaying {this.state.wills.length} search results...</h3>
                                                 </Row>
                                                 <Row>
-                                                    <ListGroup>
-                                                        {this.state.wills.map((d, i) => <Result data={d} key={i} />)}
-                                                    </ListGroup>
+                                                    { 
+                                                        this.state.viewType === 'card' ? (
+                                                            <ListGroup>
+                                                                {this.state.wills.map((d, i) => <ResultCard data={d} key={i} />)}
+                                                            </ListGroup>
+                                                        )
+                                                        : ( 
+                                                            <Table hover>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Will</th>
+                                                                        <th>Date of Publication</th>
+                                                                        <th>Location</th>
+                                                                        <th>Language</th>
+                                                                        <th>Archive</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {this.state.wills.map((d, i) => <ResultRow data={d} key={i} /> )}
+                                                                </tbody>
+                                                            </Table>
+                                                        )
+                                                    }
                                                 </Row>
-                                            </>
+                                            </> 
                                             : <PageSpinner />
                                         }
                                     </Col>

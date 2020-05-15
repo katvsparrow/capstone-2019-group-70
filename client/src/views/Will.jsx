@@ -1,7 +1,9 @@
 import React from 'react';
-
 import WillAPI from "api/will";
+import { getDateTimeString } from "../utils";
+
 import PageSpinner from "components/Containers/PageSpinner";
+
 import * as Mock from "constants/placeholder";
 
 import {
@@ -99,7 +101,7 @@ const DetailTable = ({details}) => {
                 </tr>
                 <tr>
                     <td>Publication date</td>
-                    <td>{details.date_of_publication}</td>
+                    <td>{getDateTimeString(details.date_of_publication)}</td>
                 </tr>
                 <tr>
                     <td>Archive / Library</td>
@@ -148,14 +150,13 @@ const TextView = ({will}) => {
                 <Row className="action-buttons">
                     <ActionButtons />
                 </Row>
-                {/* Document Tags 
-                <Row className="mt-3">
-                    <TagCard />
-                </Row>
-                */}
+
                 {/* Document Details */}
                 <Row className="mt-3">
                     <DetailTable details={will}/>
+                </Row>
+                <Row className="mt-3">
+                    <TagCard />
                 </Row>
             </Col>
         </>
