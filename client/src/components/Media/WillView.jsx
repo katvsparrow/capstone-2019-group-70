@@ -2,7 +2,12 @@ import React from 'react';
 import ReactImageZoom from 'react-image-zoom';
  
 const WillView = (props) => {
-    props = {width: 400, height: 500, zoomWidth: 500, img: require("assets/img/lorem_text.png")};
+    props = {
+        width: 500, 
+        height: 650,
+        zoomWidth: 600,
+        zoomPosition: 'original',
+        img: require("assets/img/lorem_text.png")};
 
     return(
         <>

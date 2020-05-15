@@ -1,8 +1,10 @@
 import React from 'react';
 import WillAPI from "api/will";
-import { getDateTimeString } from "../utils";
+import { getDateTimeString } from "utils";
 
 import PageSpinner from "components/Containers/PageSpinner";
+import ModalDisplay from "components/Containers/ModalDisplay";
+import WillView from "components/Media/WillView";
 
 import * as Mock from "constants/placeholder";
 
@@ -37,34 +39,10 @@ const NoWillFound = () => {
 }
 
 /**
- * Defines available action buttons on page
- */
-const ActionButtons = () => {
-    return (
-        <div className='action-buttons'>
-            <Button>
-                <i className="far fa-heart fa-2x"></i>
-            </Button>
-            <Button>
-                <i className="far fa-image fa-2x"></i>
-            </Button>
-            <Button>
-                <i className="fas fa-eye fa-2x"></i>
-            </Button>
-            <Button>
-                <i className="fas fa-flag fa-2x"></i>
-            </Button>
-        </div>
-    )
-}
-
-/**
  * Renders all associated tags of rendered Will 
  * @param {json} tags 
  */
 const TagCard = (tags) => {
-    console.log(tags);
-
     return (
         <Card className="w-100">
             <CardHeader className="text-center">Associated Tags</CardHeader>
@@ -79,8 +57,6 @@ const TagCard = (tags) => {
  * @param {json} details 
  */
 const DetailTable = ({details}) => {
-    console.log(details);
-
     return (
         <Table borderless>
             <tbody>
@@ -111,7 +87,7 @@ const DetailTable = ({details}) => {
                 </tr>
                 <tr>
                     <td>Source Reference</td>
-                    <td></td>
+                    <td>{details.reference}</td>
                 </tr>
             </tbody>
         </Table>
@@ -120,37 +96,44 @@ const DetailTable = ({details}) => {
 
 /**
  * Media view container for will 
+ */
 
-const MediaView = () => {
+ const MediaView = ({will}) => {
     return (
         <>
+            <Col sm="7">
+                <WillView />
+            </Col>
+            <Col className="ml-5" sm="4">
+                
+            </Col>
+            <Row className="mt-3">
+                <h4>Document Information</h4>
+                <DetailTable details={will}/>
+            </Row>
         </>
     );
 }
- */
 
 const TextView = ({will}) => {
-    console.log(will);
     return (
         <>
-            <Col className="mr-1" lg='7'>
+            <Col sm='7'>
                 {/* Original Text */}
                 <Row>
                     <h4>Original Text</h4>
                 </Row>
-                <Row className="bg-secondary p-4 mb-3 transcript-container h-50">
+                <Row className="bg-secondary p-4 mb-3 transcript-container">
                     {Mock.original_text}
                 </Row>
                 <Row>
                     <h4>Translated Text</h4>
                 </Row>
-            </Col>
-            <Col className="ml-5" lg="4">
-                {/* Action buttons */ }
-                <Row className="action-buttons">
-                    <ActionButtons />
+                <Row className="bg-secondary p-4 transcript-container">
+                    {Mock.translated_text}
                 </Row>
-
+            </Col>
+            <Col className="ml-5" sm="3">
                 {/* Document Details */}
                 <Row className="mt-3">
                     <DetailTable details={will}/>
@@ -171,7 +154,24 @@ class LoadedWill extends React.Component {
     constructor(props){
         super(props); 
         this.will = this.props.data; 
+        
+        this.state = {
+            'viewType': 'text'
+        };
     }
+
+    /* Change view type depending on active class */ 
+    changeViewType = (e) => {
+        if(e.target.classList.contains('active')) {
+            this.setState({
+                'viewType': 'text'
+            });
+        } else {
+            this.setState({
+                'viewType': 'media'
+            });
+        }
+    };
 
     render() {
         return(
@@ -180,8 +180,28 @@ class LoadedWill extends React.Component {
                     <Row className="mt-2 mb-2 border-bottom">
                         <h3>{this.will['title']}</h3>
                     </Row>
+                    <Row>
+                        <div className='action-buttons'>
+                            <Button>
+                                <i className="far fa-heart fa-2x"></i>
+                            </Button>
+                            <Button>
+                                <i className="far fa-image fa-2x"></i>
+                            </Button>
+                            <Button onClick={this.changeViewType} active={this.state.viewType === 'media'}>
+                                <i className="fas fa-eye fa-2x"></i>
+                            </Button>
+                            <Button>
+                                <i className="fas fa-flag fa-2x"></i>
+                            </Button>
+                            <ModalDisplay />
+                        </div>
+                    </Row>
                     <Row className="mt-4">
-                        <TextView will={this.will}/>
+                        {this.state.viewType === 'text'
+                            ? <TextView will={this.will} />
+                            : <MediaView will={this.will} />
+                        }
                     </Row>
                 </Container>
             </section>
