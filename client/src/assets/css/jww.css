@@ -93,6 +93,16 @@
   }
 }
 
+/* Cross-site */
+.text-container {
+    white-space: pre-line;
+}
+
+/* Home Page */
+.welcome-banner {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Will page */
 .transcript-container {
     overflow: auto;

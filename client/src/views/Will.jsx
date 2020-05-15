@@ -210,12 +210,9 @@ class Will extends React.Component {
     renderType = (data) =>  {
         if(data === null) {
             return <PageSpinner />
-        } 
-        else if(data.length === 0) {
-            // no will found
+        } else if(data.length === 0) {
             return <NoWillFound />
-        }
-        else {
+        } else {
             return <LoadedWill data={data[0]} />
         }
     }

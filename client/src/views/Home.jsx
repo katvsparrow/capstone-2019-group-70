@@ -2,8 +2,6 @@ import React from "react";
 
 
 import {
-    Card, 
-    CardImg,
     Container,      
     Row, 
     Col
@@ -46,18 +44,13 @@ class Home extends React.Component {
                             {/* Text Content */ }
                             <Container className="py-lg-md d-flex">
                                 <div className="col px-0">
-                                    <Row>
-                                        <Col lg="6">
-                                            <h1 className="display-3 text-white">
-                                                Lorem ipsum dolor sit ame{" "}
-                                                <span>Rebum civibus appellantur</span>
-                                            </h1>
-                                            <p className="lead text-white">
-                                                Et graeco iracundia assueverit eam, et noluisse signiferumque 
-                                                nam. Eu qui quas iuvaret accumsan, mel delicata sadipscing eu, 
-                                                ei prima dicta neglegentur est. Stet aeque omnium at ius.
+                                    <Row className="welcome-banner p-3 text-center">
+                                            <p className="lead text-white text-container">
+                                                {`Jewish women’s voices from the premodern world are often hard to hear. Their last wishes—instructions for heirs, gifts to loved ones, pious bequests, and sometimes even ethical messages and warnings—provide a rare and fascinating entrée into the lives of those who were fortunate enough to have possessions they could disseminate.
+                                                
+                                                Women living in Jewish communities from France to Fustat (old Cairo) and beyond left behind wills, often recorded in the local language. As a result, the act of cataloging Jewish women’s wills can give us an increasingly global perspective on premodern Jewish life, and a rich source base from which to begin asking new questions and seeking new answers.
+                                                `}
                                             </p>
-                                        </Col>
                                     </Row>
                                 </div>
                             </Container>
