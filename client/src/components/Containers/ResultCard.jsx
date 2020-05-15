@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 import { getDateTimeString, formatPreview } from "utils";
 
 import * as Mock from "constants/placeholder";
