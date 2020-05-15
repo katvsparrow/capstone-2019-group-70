@@ -89,7 +89,7 @@ class Search extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
-                            <Container fluid className="mx-5">
+                            <Container fluid className="mx-lg">
                                 <Row>
                                     <Col xs="3" className="pr-5 filter-border">
                                         <Row>

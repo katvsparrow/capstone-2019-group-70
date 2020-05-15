@@ -239,3 +239,8 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.favorite-icon {
+    float: right;
+    cursor: pointer; 
+}

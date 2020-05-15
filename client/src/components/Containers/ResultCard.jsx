@@ -16,9 +16,10 @@ class ResultCard extends React.Component {
     render () {
         return (
             <ListGroupItem>
+                    <i class="favorite-icon far fa-heart fa-2x" aria-hidden="true" />
                     <ListGroupItemHeading>{this.props.data['title']}</ListGroupItemHeading>
                     <ListGroupItemText>{getDateTimeString(this.props.data['date_of_publication'])}</ListGroupItemText>
-                    <ListGroupItemText className="font-italic">{formatPreview(Mock.translated_text, 200)}</ListGroupItemText>
+                    <ListGroupItemText className="text-dark font-italic">{formatPreview(Mock.translated_text, 200)}</ListGroupItemText>
                     <div className="will-context-badges">
                         <Badge color="primary">{this.props.data['location_name']}</Badge>
                         <Badge color="dark">{this.props.data['language_name']}</Badge>
