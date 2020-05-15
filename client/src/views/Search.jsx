@@ -1,6 +1,6 @@
 import React from 'react';
-
-//import WillAPI from "../api/will";
+import WillAPI from "../api/will";
+import PageSpinner from "../components/Containers/PageSpinner";
 
 /*
 Search functionality removed until wills inserted into db
@@ -18,8 +18,8 @@ const searchClient = algoliasearch('5HZO9XNZH3', '8f0e8b74cc6600ccc74527ba33fd91
 */
 
 import {
-    ButtonGroup,
     Button,
+    ButtonGroup,
     Container,      
     Row, 
     Col, 
@@ -29,41 +29,52 @@ import {
     Form,
     FormGroup,
     Label, 
-    ListGroup
+    ListGroup,
+    Table
 } from "reactstrap";
 
-import Result from "../components/Containers/Result.jsx";
-
-var mock_wills = require('../api/Mock/Mock_Wills.json');
+import ResultCard from "../components/Containers/ResultCard";
+import ResultRow from "../components/Containers/ResultRow"
 
 class Search extends React.Component {
     state = { 
-        wills: mock_wills['mock_wills'], 
+        wills: null,  
         viewType: 'card',
         loading: true 
     }
 
-    getStartingWills = () => {
-        /* Fetch method, Pending client data 
-        const rESs = await WillAPI.getRandomDocuments(10);
+    getStartingWills = async () => {
+        const res = await WillAPI.getRandomDocuments(10);
         this.setState({
             wills: res, 
             loading: false
-        });*/
+        });
     }
 
     componentDidMount() {
-        //this.getWills();
+        this.getStartingWills();
     }
     
+    
+    changeResults = (e) => {
+        if(e.target.classList.contains('active')) {
+            return; 
+        }
+
+        const clicked = e.target.id;
+        this.setState({
+            'viewType': clicked
+        });
+    };
+
     render () {
         return (
             <>
                 <main href="main">
                     <div className="position-relative">
                         <section className="section bg-gradient-jww-primary pb-4" />
-                        <section>
-                            <Container className = "py-md">
+                        <section className="mb-sm">
+                            <Container className = "py-sm">
                                 <Row>
                                    <Col>
                                         <InputGroup size="lg">
@@ -78,10 +89,23 @@ class Search extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
-                            <Container>
+                            <Container fluid className="mx-lg">
                                 <Row>
-                                    <Col xs="4" className="pr-5 filter-border">
+                                    <Col xs="3" className="pr-5 filter-border">
                                         <Row>
+                                            <h4>Result View</h4>
+                                        </Row>
+                                        <Row>
+                                            <div className="action-buttons">
+                                                <Button id="card" onClick={this.changeResults} active={this.state.viewType === 'card' }>
+                                                    <i className="fas fa-poll-h fa-2x" />
+                                                </Button>
+                                                <Button id="table" onClick={this.changeResults} active={this.state.viewType === 'table'}>
+                                                    <i className="fas fa-table fa-2x" />
+                                                </Button>
+                                            </div>
+                                        </Row>
+                                        <Row className="mt-3">
                                             <h4>Refine Your Results</h4>
                                         </Row>
                                         <Row>
@@ -90,20 +114,20 @@ class Search extends React.Component {
                                                     <FormGroup>
                                                     <Label for="form-language">Country of Origin</Label>
                                                         <Input type="select" name="country" id="form-country">
-                                                        <option></option>
-                                                        <option>Germany</option>
-                                                        <option>Israel</option>
-                                                        <option>Italy</option>
-                                                        <option>Spain</option>
+                                                            <option></option>
+                                                            <option>Germany</option>
+                                                            <option>Israel</option>
+                                                            <option>Italy</option>
+                                                            <option>Spain</option>
                                                         </Input>
                                                     </FormGroup>
                                                     <FormGroup>
                                                         <Label for="form-language">Original Language</Label>
                                                         <Input type="select" name="language" id="form-language">
-                                                        <option></option>
-                                                        <option>English</option>
-                                                        <option>Latin</option>
-                                                        <option>Spanish</option>
+                                                            <option></option>
+                                                            <option>English</option>
+                                                            <option>Latin</option>
+                                                            <option>Spanish</option>
                                                         </Input>
                                                     </FormGroup>
                                                     <Label for="form-year">Year of Publication</Label>
@@ -127,14 +151,39 @@ class Search extends React.Component {
                                         </Row>
                                     </Col>
                                     <Col xs="8" className="pl-5">
-                                        <Row>
-                                            <h3>Displaying {this.state.wills.length} search results...</h3>
-                                        </Row>
-                                        <Row>
-                                            <ListGroup>
-                                                {this.state.wills.map(d => <Result data={d} />)}
-                                            </ListGroup>
-                                        </Row>
+                                        {this.state.wills ?
+                                            <>
+                                                <Row>
+                                                <h3>Displaying {this.state.wills.length} search results...</h3>
+                                                </Row>
+                                                <Row>
+                                                    { 
+                                                        this.state.viewType === 'card' ? (
+                                                            <ListGroup>
+                                                                {this.state.wills.map((d, i) => <ResultCard data={d} key={i} />)}
+                                                            </ListGroup>
+                                                        )
+                                                        : ( 
+                                                            <Table hover>
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Will</th>
+                                                                        <th>Date of Publication</th>
+                                                                        <th>Location</th>
+                                                                        <th>Language</th>
+                                                                        <th>Archive</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {this.state.wills.map((d, i) => <ResultRow data={d} key={i} /> )}
+                                                                </tbody>
+                                                            </Table>
+                                                        )
+                                                    }
+                                                </Row>
+                                            </> 
+                                            : <PageSpinner />
+                                        }
                                     </Col>
                                 </Row>
                             </Container>

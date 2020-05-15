@@ -2,8 +2,6 @@ import React from "react";
 
 
 import {
-    Card, 
-    CardImg,
     Container,      
     Row, 
     Col
@@ -20,7 +18,7 @@ class Home extends React.Component {
     
     // Fetch passwords after first mount
     componentDidMount() {
-        //this.getWills()
+        this.getWills()
     }
 
     getWills = async () => {
@@ -46,18 +44,13 @@ class Home extends React.Component {
                             {/* Text Content */ }
                             <Container className="py-lg-md d-flex">
                                 <div className="col px-0">
-                                    <Row>
-                                        <Col lg="6">
-                                            <h1 className="display-3 text-white">
-                                                Lorem ipsum dolor sit ame{" "}
-                                                <span>Rebum civibus appellantur</span>
-                                            </h1>
-                                            <p className="lead text-white">
-                                                Et graeco iracundia assueverit eam, et noluisse signiferumque 
-                                                nam. Eu qui quas iuvaret accumsan, mel delicata sadipscing eu, 
-                                                ei prima dicta neglegentur est. Stet aeque omnium at ius.
+                                    <Row className="welcome-banner p-3 text-center">
+                                            <p className="lead text-white text-container">
+                                                {`Jewish women’s voices from the premodern world are often hard to hear. Their last wishes—instructions for heirs, gifts to loved ones, pious bequests, and sometimes even ethical messages and warnings—provide a rare and fascinating entrée into the lives of those who were fortunate enough to have possessions they could disseminate.
+                                                
+                                                Women living in Jewish communities from France to Fustat (old Cairo) and beyond left behind wills, often recorded in the local language. As a result, the act of cataloging Jewish women’s wills can give us an increasingly global perspective on premodern Jewish life, and a rich source base from which to begin asking new questions and seeking new answers.
+                                                `}
                                             </p>
-                                        </Col>
                                     </Row>
                                 </div>
                             </Container>
@@ -70,7 +63,6 @@ class Home extends React.Component {
                                             <Row className="justify-center-content">
                                                 <Col lg="12">
                                                     <Row className="row-grid">
-                                                        {/* 1st Will */}
                                                         <Col lg="4">
                                                             <WillCard data={this.state.wills[0]} />
                                                         </Col>
@@ -104,55 +96,6 @@ class Home extends React.Component {
                                     </Col>
                                 </Row>
                             </Container>
-                        </section>
-                        {/* About Section */}
-                        <section className="section bg-secondary">
-                            <Container className="pt-lg">
-                                <Row className="row-grid align-items-center">
-                                    {/* CardImg Object */}
-                                    <Col md="6">
-                                        <Card className="bg-default shadow border-0">
-                                            {/* Picture */}
-                                            <CardImg
-                                                alt="..." 
-                                                src={require("assets/img/people/rena_lauer.jpg")}
-                                                top
-                                            />
-                                            {/* Caption */}
-                                            <blockquote className="card-blockquote">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="svg-bg" preserveAspectRatio="none" viewBox="0 0 583 95">
-                                                    <polygon className="fill-default" points="0,52 583,95 0,95"/>
-                                                    <polygon className="fill-default" opacity=".2" points="0,42 583,95 683,0 0,95"/>
-                                                </svg>
-                                                <h4 className="display-3 font-weight-bold text-white">
-                                                    Dr. Rena Lauer
-                                                </h4>
-                                                <p className="lead text-italic text-white">
-                                                    Oregon State Univeristy
-                                                </p>
-                                                <p className="text-white">
-                                                    Delicata sadipscing eu, ei prima dicta neglegentur est. 
-                                                </p>
-                                            </blockquote>
-                                        </Card> 
-                                    </Col>
-                                    {/* Description to CardImg */}
-                                    <Col md="6">
-                                        <h3>Message from our Founder</h3>
-                                        <p className="lead">
-                                            Possim ancillae pro ex, aperiam admodum patrioque ius et. Et mea 
-                                            putent causae intellegam, sed eu tation semper efficiendi. 
-                                            Qui ad tempor molestiae, vix ei adhuc noster.
-                                        </p>
-                                        <p>
-                                            Et graeco iracundia assueverit eam, et noluisse signiferumque nam. Eu qui quas iuvaret accumsan, 
-                                            mel delicata sadipscing eu, ei prima dicta neglegentur est. Stet aeque omnium at ius. Ne cum simul 
-                                            postulant maiestatis. Vix dicta persius ne. Hinc argumentum eum ex. 
-                                        </p>
-                                   </Col>
-                                </Row>
-                            </Container>
-                           
                         </section>
                     </div>
                 </main>

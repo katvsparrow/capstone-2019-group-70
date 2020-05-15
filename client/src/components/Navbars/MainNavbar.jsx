@@ -26,7 +26,7 @@ const LoginNavigation = (props) => (
                 <i className="fa fa-user-circle" />
             </span>
             <span className="nav-link-inner--text ml-1">
-                Your Account 
+                My Account 
             </span>
         </Button>
     </Link>

@@ -93,10 +93,21 @@
   }
 }
 
+/* Cross-site */
+.text-container {
+    white-space: pre-line;
+}
+
+/* Home Page */
+.welcome-banner {
+    background-color: rgba(255, 255, 255, 0.3);
+}
 
 /* Will page */
 .transcript-container {
     overflow: auto;
+    white-space: pre-line;
+    max-height: 30%;  
 }
 
 .action-buttons button {
@@ -228,4 +239,9 @@
 .will-context-badges .badge {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.favorite-icon {
+    float: right;
+    cursor: pointer; 
 }

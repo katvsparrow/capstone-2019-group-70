@@ -19,7 +19,7 @@ import {
 } from "reactstrap";
 
 import UpdateDisplayNameForm from "../components/Forms/UpdateDisplayNameForm";
-
+import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
 
 /**
  * Renders account details content 
@@ -30,13 +30,6 @@ const AccountDetailsContent = (user) => {
             <UpdateDisplayNameForm displayName={user.displayName} />
         </>
     );
-}
-
-/**
- * Renders password change form 
- */
-const PasswordChangeContent = () => {
-    return null; 
 }
 
 /**
@@ -145,7 +138,7 @@ class Account extends React.Component {
                                             <AccountDetailsContent user={this.props.user} />
                                         </TabPane>
                                         <TabPane tabId="2">
-                                            <PasswordChangeContent />
+                                            <ChangePasswordForm />
                                         </TabPane>  
                                         <TabPane tabId="3">
                                             <SavedWillsContent />
@@ -178,7 +171,7 @@ const AccountBase = (props) => {
             }
         </AuthUserContext.Consumer>
     )
-}
+};
 
 export default compose(
     withRouter,

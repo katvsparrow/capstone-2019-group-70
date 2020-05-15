@@ -1,8 +1,6 @@
 import React from "react";
 import { withFirebase } from "../../contexts/Firebase";
 import { compose } from 'recompose';
-import { withRouter } from 'react-router-dom';
-import * as ROUTES from "../../constants/routes";
 
 import {
     Form, 
@@ -40,7 +38,6 @@ class SignInForm extends React.Component {
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 this.setState({ ...INITIAL_STATE});
-                this.props.history.push(ROUTES.ACCOUNT);
             })
             .catch(error => {
                 this.setState({ error });
@@ -111,6 +108,5 @@ class SignInForm extends React.Component {
 
 // Export with Firebase Context 
 export default compose(
-    withRouter,
     withFirebase
 )(SignInForm);
