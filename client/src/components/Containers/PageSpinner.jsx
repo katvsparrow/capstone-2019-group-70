@@ -7,7 +7,6 @@ const Spinner = () => {
         <>
             <section className="my-lg py-lg">
                 <Container className="text-center">
-                    <h2>Fetching content...</h2>
                     <div className="loader"></div>
                 </Container>
             </section>

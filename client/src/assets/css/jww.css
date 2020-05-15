@@ -93,10 +93,10 @@
   }
 }
 
-
 /* Will page */
 .transcript-container {
     overflow: auto;
+    white-space: pre-line; 
 }
 
 .action-buttons button {

@@ -1,5 +1,6 @@
 import React from 'react';
 import WillAPI from "../api/will";
+import PageSpinner from "../components/Containers/PageSpinner";
 
 /*
 Search functionality removed until wills inserted into db
@@ -86,20 +87,20 @@ class Search extends React.Component {
                                                     <FormGroup>
                                                     <Label for="form-language">Country of Origin</Label>
                                                         <Input type="select" name="country" id="form-country">
-                                                        <option></option>
-                                                        <option>Germany</option>
-                                                        <option>Israel</option>
-                                                        <option>Italy</option>
-                                                        <option>Spain</option>
+                                                            <option></option>
+                                                            <option>Germany</option>
+                                                            <option>Israel</option>
+                                                            <option>Italy</option>
+                                                            <option>Spain</option>
                                                         </Input>
                                                     </FormGroup>
                                                     <FormGroup>
                                                         <Label for="form-language">Original Language</Label>
                                                         <Input type="select" name="language" id="form-language">
-                                                        <option></option>
-                                                        <option>English</option>
-                                                        <option>Latin</option>
-                                                        <option>Spanish</option>
+                                                            <option></option>
+                                                            <option>English</option>
+                                                            <option>Latin</option>
+                                                            <option>Spanish</option>
                                                         </Input>
                                                     </FormGroup>
                                                     <Label for="form-year">Year of Publication</Label>
@@ -123,7 +124,7 @@ class Search extends React.Component {
                                         </Row>
                                     </Col>
                                     <Col xs="8" className="pl-5">
-                                        {this.state.wills &&
+                                        {this.state.wills ?
                                             <>
                                                 <Row>
                                                 <h3>Displaying {this.state.wills.length} search results...</h3>
@@ -134,6 +135,7 @@ class Search extends React.Component {
                                                     </ListGroup>
                                                 </Row>
                                             </>
+                                            : <PageSpinner />
                                         }
                                     </Col>
                                 </Row>

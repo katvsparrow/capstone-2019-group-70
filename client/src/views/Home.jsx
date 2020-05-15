@@ -104,55 +104,6 @@ class Home extends React.Component {
                                 </Row>
                             </Container>
                         </section>
-
-                        {/* About Section */}
-                        <section className="section bg-secondary">
-                            <Container className="pt-lg">
-                                <Row className="row-grid align-items-center">
-                                    {/* CardImg Object */}
-                                    <Col md="6">
-                                        <Card className="bg-default shadow border-0">
-                                            {/* Picture */}
-                                            <CardImg
-                                                alt="..." 
-                                                src={require("assets/img/people/rena_lauer.jpg")}
-                                                top
-                                            />
-                                            {/* Caption */}
-                                            <blockquote className="card-blockquote">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="svg-bg" preserveAspectRatio="none" viewBox="0 0 583 95">
-                                                    <polygon className="fill-default" points="0,52 583,95 0,95"/>
-                                                    <polygon className="fill-default" opacity=".2" points="0,42 583,95 683,0 0,95"/>
-                                                </svg>
-                                                <h4 className="display-3 font-weight-bold text-white">
-                                                    Dr. Rena Lauer
-                                                </h4>
-                                                <p className="lead text-italic text-white">
-                                                    Oregon State Univeristy
-                                                </p>
-                                                <p className="text-white">
-                                                    Delicata sadipscing eu, ei prima dicta neglegentur est. 
-                                                </p>
-                                            </blockquote>
-                                        </Card> 
-                                    </Col>
-                                    {/* Description to CardImg */}
-                                    <Col md="6">
-                                        <h3>Message from our Founder</h3>
-                                        <p className="lead">
-                                            Possim ancillae pro ex, aperiam admodum patrioque ius et. Et mea 
-                                            putent causae intellegam, sed eu tation semper efficiendi. 
-                                            Qui ad tempor molestiae, vix ei adhuc noster.
-                                        </p>
-                                        <p>
-                                            Et graeco iracundia assueverit eam, et noluisse signiferumque nam. Eu qui quas iuvaret accumsan, 
-                                            mel delicata sadipscing eu, ei prima dicta neglegentur est. Stet aeque omnium at ius. Ne cum simul 
-                                            postulant maiestatis. Vix dicta persius ne. Hinc argumentum eum ex. 
-                                        </p>
-                                   </Col>
-                                </Row>
-                            </Container>       
-                        </section>
                     </div>
                 </main>
             </>
