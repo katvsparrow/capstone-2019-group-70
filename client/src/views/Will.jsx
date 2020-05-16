@@ -105,7 +105,14 @@ const DetailTable = ({details}) => {
                 <WillView />
             </Col>
             <Col className="ml-5" sm="4">
-                
+                <Row>
+                    <h4>Original Text</h4>
+                </Row>
+                <Row className="bg-secondary p-4 mb-3 transcript-container"></Row>
+                <Row>
+                    <h4>Translated Text</h4>
+                </Row>
+                <Row className="bg-secondary p-4 mb-3 transcript-container"></Row>
             </Col>
             <Row className="mt-3">
                 <h4>Document Information</h4>
@@ -185,11 +192,8 @@ class LoadedWill extends React.Component {
                             <Button>
                                 <i className="far fa-heart fa-2x"></i>
                             </Button>
-                            <Button>
-                                <i className="far fa-image fa-2x"></i>
-                            </Button>
                             <Button onClick={this.changeViewType} active={this.state.viewType === 'media'}>
-                                <i className="fas fa-eye fa-2x"></i>
+                                <i className="far fa-image fa-2x"></i>
                             </Button>
                             <Button>
                                 <i className="fas fa-flag fa-2x"></i>
