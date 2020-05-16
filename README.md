@@ -4,7 +4,9 @@ A digital archive of Jewish women's wills during the medieval period.
 
 ## Repo Note
 
-The contents and database of this repo are mock based, pending more client data. Database used in db.js does not contain any real information that will be on the final product.
+The code review suggestion changes can be viewed in the the documents/Code_Review_Changes.pdf file. 
+
+While our the main repo reflects the code review documentation changes, we made some additional stages that can be viewed in our dev branch (abel-dev), as we are finishing some additional client requests. 
 
 ### Prerequisites
 
@@ -19,7 +21,7 @@ After cloning the repository to the destination of your choice, open the folder 
 Install server node dependencies and run server.
 ```
 npm install
-npm run
+npm start
 ```
 
 Open a new terminal, and cd back into the folder location for the repo.
@@ -27,7 +29,7 @@ Open the client directory, install the
 ```
 cd client
 npm install 
-npm run
+npm start
 ```
 
 If installed successfully, a browser will appear displaying the website.
