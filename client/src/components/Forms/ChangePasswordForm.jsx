@@ -1,87 +1,121 @@
 import React from "react";
-
+import { Formik } from "formik";
 import {
-    Form, 
-    FormGroup, 
+    Form,
+    FormGroup,
     Input,
     Button
 } from "reactstrap";
 
-// Define initial form fields as empty 
-const INITIAL_STATE = {
-    current_password: '', 
-    new_password: '',
-    confirm_new_password: null
-};
+const ChangePasswordForm = (context) => (
 
-class ChangePasswordForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { ...INITIAL_STATE} ;
+
+  <Formik
+      initialValues = {{ current_password: "" , new_password: "",confirm_new_password: "" }}
+      onSubmit={(values, { setSubmitting }) => {
+
+        console.log("Password changed");
+
+      }}
+      validate = { values => {
+
+          let errors = {};
+
+          const int_password = /(?=.*[0-9])/
+          const upper_case_password = /(?=.*[A-Z])/
+          if ((!values.new_password) || (values.new_password< 8) || (!int_password.test(values.new_password)) || (!upper_case_password.test(values.new_password))){
+              errors.new_password ="Password must be 8 characters long including at least one digit [0-9] and one upper-case letter [A-Z]  ";
+          }
+
+          if(values.new_password !== values.confirm_new_password){
+              errors.confirm_new_password ="Password didn't matched. Please try agian"
+          }
+          return errors;
+      }
     }
+  >
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
-    
-    render() {
-        const { current_password, new_password, confirm_new_password, error} = this.state
-        
-        // Check if input fields have been filled 
-        const isInvalid = current_password === '' ||
-                          new_password === '' ||
-                          new_password !== confirm_new_password;
+            {
+            props => {
+                const {
+                    values,
+                    touched,
+                    errors,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit
+                } = props;
 
-        return(
-            <Form onSubmit={this.onSubmit}>
-                {/* Current password */}
-                <FormGroup>
-                    <label for="current-password-input">Enter old password</label>
-                    <Input 
-                        name="current_password"
-                        id="current-password-input"
-                        value={current_password}
-                        placeholder="Current password" 
-                        type="password" 
-                        onChange={this.onChange}
-                    />
-                </FormGroup>
-                
-                {/* New Password */}
-                <FormGroup>
-                    <label for="new-password-input">Enter new password</label>
-                    <Input 
-                        name="new_password"
-                        id="new-password-input"
-                        value={new_password}
-                        placeholder="New password" 
-                        type="password" 
-                        onChange={this.onChange}
-                    />
-                </FormGroup>
-                
-                <FormGroup>
-                    <label for="confirm-new-password-input">Enter new password</label>
-                        <Input 
-                            name="confirm_new_password"
-                            id="confirm-new-password-input"
-                            value={confirm_new_password}
-                            placeholder="Confirm password" 
-                            type="password" 
-                            onChange={this.onChange}
+          return (
+
+                <Form onSubmit={handleSubmit}>
+                    {/* Current password */}
+                    <FormGroup>
+                        <label for="current-password-input">Enter old password</label>
+                        <Input
+                            name="current_password"
+                            id="current-password-input"
+                            value={values.current_password}
+                            placeholder="Current password"
+                            type="password"
+                            onChange={handleChange}
                         />
-                </FormGroup>
-                
-                {/* Submit Form */}
-                <Button disabled={isInvalid} className="mt-4" color="primary" type="submit">
-                    Change password
-                </Button>
+                    </FormGroup>
 
-                {/* Error message */}
-                {error && <p>{error.message}</p>}
-            </Form>    
-        );
-    }
-}
+                    {/* New Password */}
+                    <FormGroup>
+                        <label for="new-password-input">Enter new password</label>
+                        <Input
+                            name="new_password"
+                            id="new-password-input"
+                            value={values.new_password}
+                            placeholder="New password"
+                            type="password"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={errors.new_password && touched.new_password &&"error"}
+                        />
+                        {errors.new_password && touched.new_password && (
+                            <div>
+                                <small className="form-text input-feedback text-danger">
+                                    {errors.new_password}
+                                </small>
+                            </div>
+                        )}
+                    </FormGroup>
 
-export default ChangePasswordForm; 
+                    <FormGroup>
+                        <label for="confirm-new-password-input">Enter new password</label>
+                            <Input
+                                name="confirm_new_password"
+                                id="confirm-new-password-input"
+                                value={values.confirm_new_password}
+                                placeholder="Confirm password"
+                                type="password"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={errors.confirm_new_password && touched.confirm_new_password &&"error"}
+                            />
+
+                            {errors.confirm_new_password && touched.confirm_new_password && (
+                                <div>
+                                    <small className="form-text input-feedback text-danger">
+                                        {errors.confirm_new_password}
+                                    </small>
+                                </div>
+                            )}
+                    </FormGroup>
+
+                    {/* Submit Form */}
+                    <Button className="mt-4" color="primary" type="submit">
+                        Change password
+                    </Button>
+
+                    </Form>
+
+                  );
+                }}
+                </Formik>
+              );
+              export default ChangePasswordForm;
