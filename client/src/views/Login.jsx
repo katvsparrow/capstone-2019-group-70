@@ -1,4 +1,7 @@
 import React from "react";
+import { Redirect, Link } from "react-router-dom";
+import { AuthUserContext } from "contexts/Session";
+import * as ROUTES from "constants/routes";
 
 import { 
     Card,  
@@ -8,13 +11,7 @@ import {
     Col
 } from "reactstrap";
 
-
 import SignInForm from "components/Forms/SignInForm.jsx";
-
-import { AuthUserContext } from "contexts/Session";
-
-import * as ROUTES from "constants/routes";
-import { Redirect } from "react-router-dom";
 
 class Login extends React.Component {
     render() {
@@ -43,7 +40,11 @@ class Login extends React.Component {
                                             Login with credentials
                                         </div>
                                         <SignInForm />
-                                        <a href='/register'>Don't have an account? Register now.</a>
+                                        <div className="mt-3">
+                                            <Link to={ROUTES.REGISTER}>
+                                                Don't have an account? Register now!
+                                            </Link>
+                                        </div>
                                         </CardBody>
                                     </Card>
                                 </Col>

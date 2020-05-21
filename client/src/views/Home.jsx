@@ -44,7 +44,7 @@ class Home extends React.Component {
                             {/* Text Content */ }
                             <Container className="py-lg-md d-flex">
                                 <div className="col px-0">
-                                    <Row className="welcome-banner p-3 text-center">
+                                    <Row className="welcome-banner p-3">
                                             <p className="lead text-white text-container">
                                                 {`Jewish women’s voices from the premodern world are often hard to hear. Their last wishes—instructions for heirs, gifts to loved ones, pious bequests, and sometimes even ethical messages and warnings—provide a rare and fascinating entrée into the lives of those who were fortunate enough to have possessions they could disseminate.
                                                 

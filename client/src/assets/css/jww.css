@@ -1,9 +1,5 @@
 .bg-gradient-jww-primary {
-    background: linear-gradient(87deg, #97421B 0, #5E0B15 100%) !important;
-}
-
-.bg-white {
-    background-color: #FFFFFF;
+    background: linear-gradient(#02203D,#001519) !important;
 }
 
 .page-content {

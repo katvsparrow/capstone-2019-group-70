@@ -39,7 +39,7 @@ import ResultRow from "../components/Containers/ResultRow"
 class Search extends React.Component {
     state = { 
         wills: null,  
-        viewType: 'card',
+        viewType: 'table',
         loading: true 
     }
 
@@ -97,11 +97,11 @@ class Search extends React.Component {
                                         </Row>
                                         <Row>
                                             <div className="action-buttons">
-                                                <Button id="card" onClick={this.changeResults} active={this.state.viewType === 'card' }>
-                                                    <i className="fas fa-poll-h fa-2x" />
-                                                </Button>
                                                 <Button id="table" onClick={this.changeResults} active={this.state.viewType === 'table'}>
                                                     <i className="fas fa-table fa-2x" />
+                                                </Button>
+                                                <Button id="card" onClick={this.changeResults} active={this.state.viewType === 'card' }>
+                                                    <i className="fas fa-poll-h fa-2x" />
                                                 </Button>
                                             </div>
                                         </Row>

@@ -16,7 +16,7 @@ class ResultCard extends React.Component {
     render () {
         return (
             <ListGroupItem>
-                    <i class="favorite-icon far fa-heart fa-2x" aria-hidden="true" />
+                    <i className="favorite-icon far fa-heart fa-2x" aria-hidden="true" />
                     <ListGroupItemHeading>{this.props.data['title']}</ListGroupItemHeading>
                     <ListGroupItemText>{getDateTimeString(this.props.data['date_of_publication'])}</ListGroupItemText>
                     <ListGroupItemText className="text-dark font-italic">{formatPreview(Mock.translated_text, 200)}</ListGroupItemText>

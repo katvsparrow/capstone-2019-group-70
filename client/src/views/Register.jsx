@@ -1,4 +1,7 @@
 import React from "react";
+import { Redirect, Link } from "react-router-dom";
+import { AuthUserContext } from "contexts/Session";
+import * as ROUTES from "constants/routes";
 
 import { 
     Card,  
@@ -9,11 +12,6 @@ import {
 } from "reactstrap";
 
 import SignUpForm from "components/Forms/SignUpForm.jsx";
-
-import { AuthUserContext } from "contexts/Session";
-
-import * as ROUTES from "constants/routes";
-import { Redirect } from "react-router-dom";
 
 class Register extends React.Component {
     render() {
@@ -38,11 +36,15 @@ class Register extends React.Component {
                                 <Col lg="6">
                                     <Card className="bg-secondary shadow border-0">
                                         <CardBody>
-                                        <div className="text-center text-muted mb-4">
-                                            Create an Account
-                                        </div>
-                                        <SignUpForm />
-                                        <a href='/login'>Already have an account? Login.</a>
+                                            <div className="text-center text-muted mb-4">
+                                                Create an Account
+                                            </div>
+                                            <SignUpForm />
+                                            <div className="mt-3">
+                                                <Link to={ROUTES.LOGIN}>
+                                                    Already have an account? Login
+                                                </Link>
+                                            </div>
                                         </CardBody>
                                     </Card>
                                 </Col>
