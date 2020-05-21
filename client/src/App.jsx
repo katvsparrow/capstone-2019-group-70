@@ -5,22 +5,22 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { withFirebase } from 'contexts/Firebase';
 import { AuthUserContext } from 'contexts/Session';
 
-// Views
+// App Page Views
 import Home from "views/Home.jsx";
 import AboutUs from "views/AboutUs.jsx";
 import Search from "views/Search.jsx";
 import Login from "views/Login.jsx";
 import Account from "views/Account.jsx";
 import Admin from "views/Admin.jsx";
+import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
-import WillExample from "views/WillExample.jsx";
+import Bibliography from "views/Bibliography.jsx";
 import NotFound from "views/NotFound.jsx";
 
 // Components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
 import MainFooter from "components/Footers/SimpleFooter.jsx";
 
-// Constants 
 import * as ROUTES from "constants/routes";
 
 
@@ -67,11 +67,11 @@ class App extends React.Component {
                             <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
                             <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                             <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
-                            <Route path={ROUTES.WILL_EXAMPLE} render={props => <WillExample {...props}/> } />
                             <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
                             <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
                             <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                             <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
+                            <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />
                             <Route component={NotFound} />
                         </Switch>
                     <MainFooter />
