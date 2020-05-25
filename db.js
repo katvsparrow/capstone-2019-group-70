@@ -151,7 +151,7 @@ module.exports = {
    // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByID: (id, callback) => {
       const query = `
-         SELECT title, uploader, date_of_publication, year,
+         SELECT Document.id, title, uploader, date_of_publication, year,
             original_text, translated_text, image, upload_date, edit_date,
             Language.name as language_name, Location.country as country_name, 
             Location.city as city_name, Archive.name as archive_name,

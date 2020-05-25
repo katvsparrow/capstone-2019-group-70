@@ -1,8 +1,8 @@
 import React from 'react';
 import WillAPI from "api/will";
 import { getDateTimeString } from "utils";
+import { AuthUserContext } from "contexts/Session";
 
-import { Link } from "react-router-dom";
 import * as ROUTES from "constants/routes";
 
 import PageSpinner from "components/Containers/PageSpinner";
@@ -10,13 +10,12 @@ import ModalDisplay from "components/Containers/ModalDisplay";
 import WillView from "components/Media/WillView";
 import WillContributeForm from "components/Forms/WillContributeForm";
 import ActionButton from "components/Containers/ActionButton";
-
+import RerouteButton from "components/Containers/RerouteButton";
 
 import * as Mock from "constants/placeholder";
 import * as Text from "constants/text";
 
 import {
-    Button,
     Col,
     Jumbotron,
     Container,
@@ -136,37 +135,112 @@ const TextView = ({will}) => {
 class LoadedWill extends React.Component { 
     constructor(props){
         super(props); 
-        this.will = this.props.data; 
-        
+        this.will = this.props.data;
+        this.authUser = this.props.authUser; 
+
         this.state = {
             'viewType': 'text',
             'isModalOpen': false, 
             'modalTitle': "",
-            'modalBody': ""
+            'modalBody': "",
+            'modalSize': '',
+            "favorited": false,
+            'role': null
         };
     }
 
-    toggle = (e, title, body) => {
+    // Toggle for modal display
+    toggle = (e, title, body, size) => {
         this.setState({
             isModalOpen: !this.state.isModalOpen, 
             modalTitle: title, 
-            modalBody: body
+            modalBody: body,
+            modalSize: size
         })
     }
 
-    /* Change view type depending on active class */ 
+    // Change view type of page 
     changeViewType = (e) => {
         this.state.viewType === 'text'
             ? this.setState({ 'viewType': 'media'})
             : this.setState({ 'viewType': 'text'});
     };
 
-    suggestChange = () => {
-        
+    componentDidMount() {
+        if(this.props.authUser) {
+            let favorited = this.props.authUser.favorited_wills
+                                                    .split(',')
+                                                    .map(Number)
+                                                    .includes(this.will['id']);
+
+            this.setState({
+                'favorited': favorited, 
+                'role': this.props.authUser.Role
+            });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.authUser && this.props.authUser !== prevProps.authUser) {
+            // Check to see if the user has favorited the will 
+            let favorited = this.props.authUser.favorited_wills
+                                                    .split(',')
+                                                    .map(Number)
+                                                    .includes(this.will['id']);
+
+            this.setState({
+                'favorited': favorited,
+                'role': this.props.authUser.Role
+            });
+        }
+    }
+
+    sendComment = (e) => {
+        // If a user attempts to submit a comment without an account, prompt an error
+        if(!this.props.authUser) {
+            this.toggle(
+                e, 
+                'You must be logged in to submit a comment.',
+                <RerouteButton
+                    route={ROUTES.LOGIN}
+                    buttonLabel='Take me to login'
+                />,
+                'sm'
+            );
+            return; 
+        }
+
+        // Toggle the submit modal 
+        this.toggle(
+            e, 
+            Text.WillSuggestionModalHeader  + this.will['title'],
+            <WillContributeForm />,
+            'lg'
+        );
+    }
+
+    setFavorite = (e) => { 
+        // If a user attempts to favorite without an account, prompt an error
+        if(!this.props.authUser) {
+            this.toggle(
+                e, 
+                'You must be logged in to save wills.',
+                <RerouteButton
+                    route={ROUTES.LOGIN}
+                    buttonLabel='Take me to login'
+                />,
+                'sm'
+            );
+            return; 
+        }
+
+        this.setState({
+            'favorited': !this.state.favorited
+        })
     }
 
     render() {
-        return(
+        return (
             <section>
                 <Container>
                     <Row className="mt-2 mb-2 border-bottom">
@@ -174,8 +248,11 @@ class LoadedWill extends React.Component {
                     </Row>
                     <Row>
                         <div className='action-buttons'>
-                            <ActionButton 
-                                iconClass='far fa-heart fa-2x'/>
+                            <ActionButton
+                                iconClass= {this.state.favorited === true ? 'fas fa-heart fa-2x' : 'far fa-heart fa-2x' }
+                                onClick={this.setFavorite}
+                            />
+                                
                             <ActionButton 
                                 iconClass='far fa-image fa-2x' 
                                 active={this.state.viewType === 'media'} 
@@ -183,18 +260,14 @@ class LoadedWill extends React.Component {
                             />
                             <ActionButton 
                                 iconClass='fas fa-flag fa-2x' 
-                                onClick={e =>
-                                    this.toggle(e, 
-                                        Text.WillSuggestionModalHeader  + this.will['title'],
-                                        <WillContributeForm />
-                                    )
-                                }   
+                                onClick={this.sendComment}  
                             />
                             <ModalDisplay 
                                 toggle={this.toggle}
                                 isModalOpen={this.state.isModalOpen}
                                 modalTitle={this.state.modalTitle}
                                 modalBody={this.state.modalBody}
+                                modalSize={this.state.modalSize}
                             />
                         </div>
                     </Row>
@@ -222,11 +295,10 @@ const NoWillFound = () => {
                 <Jumbotron className="text-dark">
                     <h1 className="display-3">Oops!</h1>
                     <p>No will found with the requested id</p>
-                    <Link to={ROUTES.HOME}>
-                        <Button className="bg-gradient-jww-primary text-white">
-                            Return Home 
-                        </Button>
-                    </Link>
+                    <RerouteButton 
+                        route={ROUTES.HOME}
+                        buttonLabel='Return Home'
+                    />
                 </Jumbotron>
             </Row>
         </Container>    
@@ -259,7 +331,13 @@ class Will extends React.Component {
         } else if(data.length === 0) {
             return <NoWillFound />
         } else {
-            return <LoadedWill data={data[0]} />
+            return (
+                <AuthUserContext.Consumer> 
+                    {
+                        authUser => <LoadedWill data={data[0]} authUser={authUser} />
+                    }
+                </AuthUserContext.Consumer>
+            )
         }
     }
     

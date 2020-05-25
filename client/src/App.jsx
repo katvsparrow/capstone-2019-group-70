@@ -30,7 +30,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            authUser: null, 
+            authUser: null,
+            userInfo: null,  
             loading: true
         };
     }
@@ -57,7 +58,7 @@ class App extends React.Component {
 
     render() {
         return this.state.loading === true ? null : (
-            <AuthUserContext.Provider value={this.state.authUser}>
+            <AuthUserContext.Provider value={this.state.userInfo}>
                 <BrowserRouter>
                     <MainNavbar />
                         <Switch>

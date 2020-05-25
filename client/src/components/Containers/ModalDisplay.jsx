@@ -9,7 +9,7 @@ import {
 
 const ModalDisplay = (props) => {
     return (
-        <Modal size="lg" isOpen={props.isModalOpen} toggle={props.toggle}>
+        <Modal size={props.modalSize} isOpen={props.isModalOpen} toggle={props.toggle}>
             <ModalHeader toggle={props.toggle}>
                 { props.modalTitle }
             </ModalHeader>
