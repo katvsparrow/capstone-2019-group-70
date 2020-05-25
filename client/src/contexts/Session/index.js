@@ -1,6 +1,7 @@
-import AuthUserContext from './context';
+import { AuthUserContext, UserInfoContext } from './context';
 
 
 export { 
-    AuthUserContext
+    AuthUserContext,
+    UserInfoContext
 };

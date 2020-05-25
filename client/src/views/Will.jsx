@@ -2,7 +2,7 @@ import React from 'react';
 import WillAPI from "api/will";
 import UserAPI from "api/user";
 import { getDateTimeString } from "utils";
-import { AuthUserContext } from "contexts/Session";
+import { UserInfoContext } from "contexts/Session";
 
 import * as ROUTES from "constants/routes";
 
@@ -137,7 +137,7 @@ class LoadedWill extends React.Component {
     constructor(props){
         super(props); 
         this.will = this.props.data;
-        this.authUser = this.props.authUser; 
+        this.userInfo = this.props.userInfo; 
 
         this.state = {
             'viewType': 'text',
@@ -168,37 +168,40 @@ class LoadedWill extends React.Component {
     };
 
     componentDidMount() {
-        if(this.props.authUser) {
-            let favorited = this.props.authUser.favorited_wills
+        if(this.props.userInfo && this.props.userInfo.favorited_wills) {
+            let favorited = this.props.userInfo.favorited_wills
                                                     .split(',')
                                                     .map(Number)
                                                     .includes(this.will['id']);
 
             this.setState({
                 'favorited': favorited, 
-                'role': this.props.authUser.Role
+                'role': this.props.userInfo.Role
             });
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.authUser && this.props.authUser !== prevProps.authUser) {
+        if (this.props.userInfo && this.props.userInfo !== prevProps.userInfo) {
             // Check to see if the user has favorited the will 
-            let favorited = this.props.authUser.favorited_wills
+            if(this.props.userInfo.favorited_wills) {
+                let favorited = this.props.userInfo.favorited_wills
                                                     .split(',')
                                                     .map(Number)
                                                     .includes(this.will['id']);
 
-            this.setState({
-                'favorited': favorited,
-                'role': this.props.authUser.Role
-            });
+                this.setState({
+                    'favorited': favorited,
+                    'role': this.props.userInfo.Role
+                });
+            }
+            
         }
     }
 
     sendComment = (e) => {
         // If a user attempts to submit a comment without an account, prompt an error
-        if(!this.props.authUser) {
+        if(!this.props.userInfo) {
             this.toggle(
                 e, 
                 'You must be logged in to submit a comment.',
@@ -222,7 +225,7 @@ class LoadedWill extends React.Component {
 
     setFavorite = async(e) => { 
         // If a user attempts to favorite without an account, prompt an error
-        if(!this.props.authUser) {
+        if(!this.props.userInfo) {
             this.toggle(
                 e, 
                 'You must be logged in to save wills.',
@@ -236,9 +239,9 @@ class LoadedWill extends React.Component {
         }
 
         if(this.state.favorited) {
-            await UserAPI.removeFavorite(this.props.authUser.id, this.will['id']); 
+            await UserAPI.removeFavorite(this.props.userInfo.id, this.will['id']); 
         } else {
-            await UserAPI.addFavorite(this.props.authUser.id, this.will['id']);
+            await UserAPI.addFavorite(this.props.userInfo.id, this.will['id']);
         }
 
         this.setState({
@@ -340,11 +343,11 @@ class Will extends React.Component {
             return <NoWillFound />
         } else {
             return (
-                <AuthUserContext.Consumer> 
+                <UserInfoContext.Consumer> 
                     {
-                        authUser => <LoadedWill data={data[0]} authUser={authUser} />
+                        userInfo => <LoadedWill data={data[0]} userInfo={userInfo} />
                     }
-                </AuthUserContext.Consumer>
+                </UserInfoContext.Consumer>
             )
         }
     }

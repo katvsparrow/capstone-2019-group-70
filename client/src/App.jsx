@@ -4,7 +4,7 @@ import UserAPI from "api/user";
 
 // React Context objects
 import { withFirebase } from 'contexts/Firebase';
-import { AuthUserContext } from 'contexts/Session';
+import { AuthUserContext, UserInfoContext } from 'contexts/Session';
 
 // App Page Views
 import Home from "views/Home.jsx";
@@ -58,23 +58,25 @@ class App extends React.Component {
 
     render() {
         return this.state.loading === true ? null : (
-            <AuthUserContext.Provider value={this.state.userInfo}>
-                <BrowserRouter>
-                    <MainNavbar />
-                        <Switch>
-                            <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
-                            <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
-                            <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
-                            <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
-                            <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
-                            <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
-                            <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
-                            <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                            <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />
-                            <Route component={NotFound} />
-                        </Switch>
-                    <MainFooter />
-                </BrowserRouter>
+            <AuthUserContext.Provider value={this.state.authUser}>
+                <UserInfoContext.Provider value={this.state.userInfo}>
+                    <BrowserRouter>
+                        <MainNavbar />
+                            <Switch>
+                                <Route path={ROUTES.HOME} exact render={props => <Home {...props} />} />
+                                <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
+                                <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
+                                <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
+                                <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
+                                <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
+                                <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
+                                <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
+                                <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />
+                                <Route component={NotFound} />
+                            </Switch>
+                        <MainFooter />
+                    </BrowserRouter>
+                </UserInfoContext.Provider>
             </AuthUserContext.Provider>
         );
     }

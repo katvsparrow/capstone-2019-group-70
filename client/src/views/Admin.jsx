@@ -119,8 +119,8 @@ const AdminBase = (props) => {
             {
                 /* Check Role */
                 authUser =>
-                    authUser ? <Admin contexts={props} user={authUser} />
-                             : <Redirect to={ROUTES.LOGIN} />
+                    authUser && authUser.Role === 'ADMIN' ? <Admin contexts={props} user={authUser} />
+                             : <Redirect to={ROUTES.HOME} />
             }
         </AuthUserContext.Consumer>
     )
