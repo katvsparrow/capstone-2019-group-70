@@ -1,5 +1,6 @@
 import React from 'react';
 import WillAPI from "api/will";
+import UserAPI from "api/user";
 import { getDateTimeString } from "utils";
 import { AuthUserContext } from "contexts/Session";
 
@@ -219,7 +220,7 @@ class LoadedWill extends React.Component {
         );
     }
 
-    setFavorite = (e) => { 
+    setFavorite = async(e) => { 
         // If a user attempts to favorite without an account, prompt an error
         if(!this.props.authUser) {
             this.toggle(
@@ -232,6 +233,12 @@ class LoadedWill extends React.Component {
                 'sm'
             );
             return; 
+        }
+
+        if(this.state.favorited) {
+            await UserAPI.removeFavorite(this.props.authUser.id, this.will['id']); 
+        } else {
+            await UserAPI.addFavorite(this.props.authUser.id, this.will['id']);
         }
 
         this.setState({

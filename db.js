@@ -211,6 +211,37 @@ module.exports = {
       db.query(query, values, callback);
    },
 
+   // Description: inserts favorite into database
+   addFavorite: (ids, callback) => {
+      const query = 
+         `INSERT IGNORE INTO Document_User_Favorite 
+            (document_id, user_id) 
+            VALUES (?, ?)
+         `;
+      const values = [
+         ids.document_id, 
+         ids.user_id
+      ];
+      
+      db.query(query, values, callback);
+   },
+
+   // Description: Removes favorite into database
+   removeFavorite: (ids, callback) => {
+      const query = 
+         `DELETE FROM Document_User_Favorite 
+            WHERE document_id = ? AND user_id = ?
+         `;
+      const values = [
+         ids.document_id, 
+         ids.user_id
+      ];
+
+      console.log(values);
+      
+      db.query(query, values, callback);
+   },
+
    insertArchive: (document, callback) => {
       const query = 
          'INSERT IGNORE INTO Archive (name, location_id) ' + 

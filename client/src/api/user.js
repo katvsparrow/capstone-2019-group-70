@@ -14,12 +14,40 @@ export default {
     }, 
 
     createUser: async(user_id, username) => {
-        let payload = {
+        const payload = {
             user_id: user_id, 
             username: username
         }
 
         await axios.post(`api/users/createNewUser/`, payload)
+            .then((response) => {
+                return response;
+            }, (error) => {
+                return error;
+            });
+    },
+
+    removeFavorite: async(user_id, document_id) => {
+        const payload = {
+            user_id: user_id, 
+            document_id: document_id
+        }
+
+        await axios.post(base + `api/users/removeFavorite/`, payload)
+            .then((response) => {
+                return response;
+            }, (error) => {
+                return error;
+            });
+    },
+
+    addFavorite: async(user_id, document_id) => {
+        const payload = {
+            user_id: user_id, 
+            document_id: document_id
+        }
+
+        await axios.post(base + `api/users/addFavorite/`, payload)
             .then((response) => {
                 return response;
             }, (error) => {

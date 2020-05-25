@@ -22,6 +22,50 @@ module.exports = (app) => {
         });
     });
 
+    // Add  Favorite 
+    app.post('/api/users/addFavorite', function(req, res) {
+        let fields = req.body;
+
+        let details = {
+            'user_id': fields.user_id,
+            'document_id': fields.document_id,  
+        };
+
+        db.addFavorite(details, (err) => {
+            if(err) {    
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
+
+            console.log('Finished inserting: ' + JSON.stringify(details));
+
+            return res.status(200).send('Add to favorites');
+        });
+    });
+
+    // Remove Favorite 
+    app.post('/api/users/removeFavorite', function(req, res) {
+        let fields = req.body;
+
+        let details = {
+            'user_id': fields.user_id,
+            'document_id': fields.document_id,  
+        };
+
+        db.removeFavorite(details, (err) => {
+            if(err) {    
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
+
+            console.log('Finished deleting: ' + JSON.stringify(details));
+
+            return res.status(200).send('Removed from favorites');
+        });
+    });
+
     app.get('/api/users/getUserInformation/:uid', async (req, res) => {
         const uid = req.params.uid;
         
