@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import UserAPI from "api/user";
 
 // React Context objects
 import { withFirebase } from 'contexts/Firebase';
@@ -34,22 +35,19 @@ class App extends React.Component {
         };
     }
 
-    createUserObject(response) { 
-        return {
-            'displayName': response['displayName'],
-            'email': response['email'],
-            'refreshToken': response['refreshToken'],
-            'uid': response['uid'],
-            'emailVerified': response['emailVerfieid']
-        }; 
+    getUserInformation = async() => {
+        let res = await UserAPI.getUserInformation(this.state.authUser.uid);
+        this.setState({
+            userInfo: res
+        })
     }
 
     componentDidMount() {
         this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-            console.log(authUser);
             authUser 
-                ? this.setState({ authUser: this.createUserObject(authUser), loading: false })
+                ? this.setState({ authUser: authUser, loading: false }, () => this.getUserInformation())
                 : this.setState({ authUser: null, loading: false })
+            console.log(this.state.authUser);
         });
     }
 

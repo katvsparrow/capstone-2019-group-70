@@ -131,20 +131,36 @@ module.exports = {
       db.query(query, callback);
    },
 
+   getUserInformation: (uid, callback) => {
+      const query = `
+         SELECT
+            User.id, username, Role.name AS Role,
+            GROUP_CONCAT(DUF.document_id) AS favorited_wills
+         FROM User 
+         INNER JOIN Role ON Role.id = User.role_id
+         INNER JOIN Document_User_Favorite DUF ON DUF.user_id = User.id
+         WHERE uid = ?
+      `;
+      
+      const values = [uid];
+
+      db.query(query, values, callback);
+   },
+
    // Description: retrieve document by ID
    // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByID: (id, callback) => {
       const query = `
          SELECT title, uploader, date_of_publication, year,
-         original_text, translated_text, image, upload_date, edit_date,
-         Language.name as language_name, Location.country as country_name, 
-         Location.city as city_name, Archive.name as archive_name,
-         reference
-      FROM Document 
-      INNER JOIN Language ON language_id = Language.id
-      INNER JOIN Location ON document_location_id = Location.id
-      INNER JOIN Archive on archive_id = Archive.id
-      WHERE Document.id = ?
+            original_text, translated_text, image, upload_date, edit_date,
+            Language.name as language_name, Location.country as country_name, 
+            Location.city as city_name, Archive.name as archive_name,
+            reference
+         FROM Document 
+         INNER JOIN Language ON language_id = Language.id
+         INNER JOIN Location ON document_location_id = Location.id
+         INNER JOIN Archive on archive_id = Archive.id
+         WHERE Document.id = ?
       `;
 
       const values = [id];

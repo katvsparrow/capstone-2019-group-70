@@ -6,9 +6,9 @@ export default {
         return res.data; 
     }, 
     
-    getUserInformation: async(user_id) => {
-        let res = await axios.get(`api/users/getUserInformation/${user_id}`);
-        return res.data; 
+    getUserInformation: async(uid) => {
+        let res = await axios.get(`api/users/getUserInformation/${uid}`);
+        return res.data[0]; 
     }, 
 
     createUser: async(user_id, username) => {
@@ -16,8 +16,6 @@ export default {
             user_id: user_id, 
             username: username
         }
-        
-        console.log(payload);
 
         await axios.post(`api/users/createNewUser/`, payload)
             .then((response) => {

@@ -21,4 +21,19 @@ module.exports = (app) => {
             return res.status(200).send('User created');
         });
     });
+
+    app.get('/api/users/getUserInformation/:uid', async (req, res) => {
+        const uid = req.params.uid;
+        
+        db.getUserInformation(uid, (err, user) => {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+                return;
+            }
+
+            return res.status(200).send(user);
+        });
+    });
+
 }
