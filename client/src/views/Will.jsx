@@ -259,12 +259,13 @@ class LoadedWill extends React.Component {
                                 iconClass= {this.state.favorited === true ? 'fas fa-heart fa-2x' : 'far fa-heart fa-2x' }
                                 onClick={this.setFavorite}
                             />
-                                
+                            {/*
                             <ActionButton 
                                 iconClass='far fa-image fa-2x' 
                                 active={this.state.viewType === 'media'} 
                                 onClick={this.changeViewType}
                             />
+                            */}
                             <ActionButton 
                                 iconClass='fas fa-flag fa-2x' 
                                 onClick={this.sendComment}  

@@ -1,9 +1,6 @@
 import React from 'react';
 import WillAPI from "api/will";
 
-import PageSpinner from "components/Containers/PageSpinner";
-import ActionButton from "components/Containers/ActionButton";
-
 /*
 Search functionality removed until wills inserted into db
 
@@ -21,22 +18,21 @@ const searchClient = algoliasearch('5HZO9XNZH3', '8f0e8b74cc6600ccc74527ba33fd91
 
 import {
     Button,
-    ButtonGroup,
     Container,      
     Row, 
     Col, 
     Input, 
     InputGroup,
+    InputGroupText,
     InputGroupAddon,
-    Form,
-    FormGroup,
     Label, 
     ListGroup,
     Table
 } from "reactstrap";
 
-import ResultCard from "../components/Containers/ResultCard";
-import ResultRow from "../components/Containers/ResultRow"
+import ResultCard from "components/Containers/ResultCard";
+import ResultRow from "components/Containers/ResultRow"
+import ActionButton from "components/Containers/ActionButton";
 
 class Search extends React.Component {
     state = { 
@@ -59,7 +55,8 @@ class Search extends React.Component {
     
     
     /* Change view type depending on active class */ 
-    changeViewType = () => {
+    changeViewType = (e) => {
+        console.log(e.target);
         this.state.viewType === 'table'
             ? this.setState({ 'viewType': 'card'})
             : this.setState({ 'viewType': 'table'});
@@ -72,10 +69,16 @@ class Search extends React.Component {
                     <div className="position-relative">
                         <section className="section bg-gradient-jww-primary pb-4" />
                         <section className="mb-sm">
+                            {/* Top Search Bar */}
                             <Container className = "py-sm">
                                 <Row>
                                    <Col>
                                         <InputGroup size="lg">
+                                            <InputGroupAddon addonType="prepend">
+                                            <InputGroupText>
+                                                <i className="fas fa-search fa-2x"/>
+                                            </InputGroupText>
+                                            </InputGroupAddon>
                                             <Input id="form-search" placeholder="Start searching now..." />
                                             <InputGroupAddon addonType="append">
                                                 <Button color="secondary">
@@ -86,107 +89,78 @@ class Search extends React.Component {
                                         <Label color="black" for="form-search">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
-                            </Container>
-                            <Container fluid className="mx-lg">
+                                {/*
                                 <Row>
-                                    <Col xs="3" className="pr-5 filter-border">
-                                        <Row>
-                                            <h4>Result View</h4>
-                                        </Row>
-                                        <Row>
-                                            <div className="action-buttons">
-                                                <ActionButton
-                                                    iconClass= 'fas fa-table fa-2x'
-                                                    onClick = {this.changeViewType}
-                                                    active = {this.state.viewType === 'table'}
-                                                />
-                                                <ActionButton
-                                                    iconClass = 'fas fa-poll-h fa-2x"'
-                                                    onClick= {this.changeViewType}
-                                                    active = {this.state.viewType === 'card'}
-                                                />
-                                            </div>
-                                        </Row>
-                                        <Row className="mt-3">
-                                            <h4>Refine Your Results</h4>
-                                        </Row>
-                                        <Row>
-                                            <Form>
-                                                <h5>Filter By:</h5>
-                                                    <FormGroup>
-                                                    <Label for="form-language">Country of Origin</Label>
-                                                        <Input type="select" name="country" id="form-country">
-                                                            <option></option>
-                                                            <option>Germany</option>
-                                                            <option>Israel</option>
-                                                            <option>Italy</option>
-                                                            <option>Spain</option>
-                                                        </Input>
-                                                    </FormGroup>
-                                                    <FormGroup>
-                                                        <Label for="form-language">Original Language</Label>
-                                                        <Input type="select" name="language" id="form-language">
-                                                            <option></option>
-                                                            <option>English</option>
-                                                            <option>Latin</option>
-                                                            <option>Spanish</option>
-                                                        </Input>
-                                                    </FormGroup>
-                                                    <Label for="form-year">Year of Publication</Label>
-                                                    <Row form id="form-year">
-                                                        <Col md={6}>
-                                                            <FormGroup>
-                                                                <Input type="min-year" name="text" id="form-min-year" placeholder="Min" />
-                                                            </FormGroup>
-                                                        </Col>
-                                                        <Col md={6}>
-                                                            <FormGroup>
-                                                                <Input type="max-year" name="text" id="form-max-year" placeholder="Max" />
-                                                            </FormGroup>
-                                                        </Col>
-                                                    </Row>
-                                                    <ButtonGroup>
-                                                        <Button className="m-2" color="warning">Filter</Button>
-                                                        <Button className="m-2" color="secondary">Reset</Button>
-                                                    </ButtonGroup>
-                                                </Form>
-                                        </Row>
+                                    <Col>
+                                        <FormGroup>
+                                            <Label for="form-language">Country of Origin</Label>
+                                            <Input type="select" name="country" id="form-country">
+                                                <option></option>
+                                                <option>Germany</option>
+                                                <option>Israel</option>
+                                                <option>Italy</option>
+                                                <option>Spain</option>
+                                            </Input>
+                                        </FormGroup>
                                     </Col>
-                                    <Col xs="8" className="pl-5">
-                                        {this.state.wills ?
+                                    <Col>
+                                        <FormGroup>
+                                            <Label for="form-language">Original Language</Label>
+                                            <Input type="select" name="language" id="form-language">
+                                                <option></option>
+                                                <option>English</option>
+                                                <option>Latin</option>
+                                                <option>Spanish</option>
+                                            </Input>
+                                        </FormGroup>
+                                    </Col>
+                                </Row>*/}
+                                <Row className='mt-4'>
+                                    {this.state.wills 
+                                        ?
                                             <>
-                                                <Row>
-                                                <h3>Displaying {this.state.wills.length} search results...</h3>
-                                                </Row>
-                                                <Row>
-                                                    { 
-                                                        this.state.viewType === 'card' ? (
-                                                            <ListGroup>
-                                                                {this.state.wills.map((d, i) => <ResultCard data={d} key={i} />)}
-                                                            </ListGroup>
-                                                        )
-                                                        : ( 
-                                                            <Table hover>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Will</th>
-                                                                        <th>Date of Publication</th>
-                                                                        <th>Location</th>
-                                                                        <th>Language</th>
-                                                                        <th>Archive</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {this.state.wills.map((d, i) => <ResultRow data={d} key={i} /> )}
-                                                                </tbody>
-                                                            </Table>
-                                                        )
-                                                    }
-                                                </Row>
+                                                <Col lg="9" className="pt-3">
+                                                    <h5>Displaying {this.state.wills.length} search results...</h5>
+                                                </Col>
+                                                <Col lg="3">
+                                                    <div className="action-buttons">
+                                                        <ActionButton
+                                                            iconClass= 'fas fa-table fa-2x'
+                                                            onClick = {this.changeViewType}
+                                                            active = {this.state.viewType === 'table'}
+                                                        />
+                                                        <ActionButton
+                                                            iconClass = 'fas fa-poll-h fa-2x'
+                                                            onClick= {this.changeViewType}
+                                                            active = {this.state.viewType === 'card'}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                                { 
+                                                    this.state.viewType === 'card' ? (
+                                                        <ListGroup>
+                                                            {this.state.wills.map((d, i) => <ResultCard data={d} key={i} />)}
+                                                        </ListGroup>
+                                                    )
+                                                    : ( 
+                                                        <Table hover>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Will</th>
+                                                                    <th>Date of Publication</th>
+                                                                    <th>Location</th>
+                                                                    <th>Archive</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {this.state.wills.map((d, i) => <ResultRow data={d} key={i} /> )}
+                                                            </tbody>
+                                                        </Table>
+                                                    )
+                                                }
                                             </> 
-                                            : <PageSpinner />
-                                        }
-                                    </Col>
+                                        : <div className="loader text-center" />
+                                    }
                                 </Row>
                             </Container>
                         </section>

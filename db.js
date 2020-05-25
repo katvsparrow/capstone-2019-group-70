@@ -236,8 +236,6 @@ module.exports = {
          ids.document_id, 
          ids.user_id
       ];
-
-      console.log(values);
       
       db.query(query, values, callback);
    },
