@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const base = "http://localhost:3000/";
+
 export default {
     getFavoritedWills: async(id) => {
         let res = await axios.get(`api/users/getFavoritedWillsByID/${id}`);
@@ -7,7 +9,7 @@ export default {
     }, 
     
     getUserInformation: async(uid) => {
-        let res = await axios.get(`api/users/getUserInformation/${uid}`);
+        let res = await axios.get(base + `api/users/getUserInformation/${uid}`);
         return res.data[0]; 
     }, 
 

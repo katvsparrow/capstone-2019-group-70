@@ -94,6 +94,10 @@
     white-space: pre-line;
 }
 
+.modal-textarea {
+    height: 200px !important;
+}
+
 /* Home Page */
 .welcome-banner {
     background-color: rgba(255, 255, 255, 0.3);

@@ -8,9 +8,12 @@ import * as ROUTES from "constants/routes";
 import PageSpinner from "components/Containers/PageSpinner";
 import ModalDisplay from "components/Containers/ModalDisplay";
 import WillView from "components/Media/WillView";
+import WillContributeForm from "components/Forms/WillContributeForm";
 import ActionButton from "components/Containers/ActionButton";
 
+
 import * as Mock from "constants/placeholder";
+import * as Text from "constants/text";
 
 import {
     Button,
@@ -136,8 +139,19 @@ class LoadedWill extends React.Component {
         this.will = this.props.data; 
         
         this.state = {
-            'viewType': 'text'
+            'viewType': 'text',
+            'isModalOpen': false, 
+            'modalTitle': "",
+            'modalBody': ""
         };
+    }
+
+    toggle = (e, title, body) => {
+        this.setState({
+            isModalOpen: !this.state.isModalOpen, 
+            modalTitle: title, 
+            modalBody: body
+        })
     }
 
     /* Change view type depending on active class */ 
@@ -169,9 +183,19 @@ class LoadedWill extends React.Component {
                             />
                             <ActionButton 
                                 iconClass='fas fa-flag fa-2x' 
-                                onClick={this.suggestChange}    
+                                onClick={e =>
+                                    this.toggle(e, 
+                                        Text.WillSuggestionModalHeader  + this.will['title'],
+                                        <WillContributeForm />
+                                    )
+                                }   
                             />
-                            <ModalDisplay />
+                            <ModalDisplay 
+                                toggle={this.toggle}
+                                isModalOpen={this.state.isModalOpen}
+                                modalTitle={this.state.modalTitle}
+                                modalBody={this.state.modalBody}
+                            />
                         </div>
                     </Row>
                     <Row className="mt-4">

@@ -1,28 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
 import {
-    //Button, 
     Modal, 
     ModalHeader, 
     ModalBody,
-    //ModalFooter
 } from "reactstrap";
 
 
 const ModalDisplay = (props) => {
-    const [modal, setModal] = useState(false);
-
-    const toggle = () => setModal(!modal);
-
     return (
-        <div>
-            <Modal id={props.modalId} toggle={toggle}>
-                <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-                <ModalBody>
-                    {props.modalBody}
-                </ModalBody>
-            </Modal>
-        </div>
+        <Modal size="lg" isOpen={props.isModalOpen} toggle={props.toggle}>
+            <ModalHeader toggle={props.toggle}>
+                { props.modalTitle }
+            </ModalHeader>
+            <ModalBody>
+                { props.modalBody }
+            </ModalBody>
+        </Modal>
     );
 }
 
