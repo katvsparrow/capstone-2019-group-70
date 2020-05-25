@@ -249,8 +249,11 @@ module.exports = {
 
    insertNewUser: (userDetails, callback) => {
       const query = 
-         'INSERT INTO User (username, role_id, firebase_uid) VALUES ?';
-      const values = [userDetails]
+         'INSERT INTO User (username, role_id, uid) VALUES (?, 1, ?)';
+      const values = [
+         userDetails.username,
+         userDetails.firebase_uid
+      ]
 
       db.query(query, values, callback);
    }

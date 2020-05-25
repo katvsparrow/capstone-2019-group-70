@@ -52,7 +52,7 @@ const ChangePasswordForm = (context) => (
                 <Form onSubmit={handleSubmit}>
                     {/* Current password */}
                     <FormGroup>
-                        <label for="current-password-input">Enter old password</label>
+                        <label htmlFor="current-password-input">Enter old password</label>
                         <Input
                             name="current_password"
                             id="current-password-input"
@@ -65,7 +65,7 @@ const ChangePasswordForm = (context) => (
 
                     {/* New Password */}
                     <FormGroup>
-                        <label for="new-password-input">Enter new password</label>
+                        <label htmlFor="new-password-input">Enter new password</label>
                         <Input
                             name="new_password"
                             id="new-password-input"
@@ -86,7 +86,7 @@ const ChangePasswordForm = (context) => (
                     </FormGroup>
 
                     <FormGroup>
-                        <label for="confirm-new-password-input">Enter new password</label>
+                        <label htmlFor="confirm-new-password-input">Enter new password</label>
                             <Input
                                 name="confirm_new_password"
                                 id="confirm-new-password-input"

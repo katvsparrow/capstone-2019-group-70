@@ -63,7 +63,7 @@ const SignUpForm = (context) => (
                 <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                            <i class="fas fa-user" />
+                            <i className="fas fa-user" />
                         </InputGroupText>
                     </InputGroupAddon>
                     <Input

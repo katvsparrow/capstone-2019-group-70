@@ -70,6 +70,4 @@ const RegisterBase = (props) => {
     )
 }
 
-
-
 export default RegisterBase;

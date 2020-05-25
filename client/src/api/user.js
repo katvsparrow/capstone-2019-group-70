@@ -17,7 +17,13 @@ export default {
             username: username
         }
         
-        let res = await axios.post(`api/users/createUser/`, payload)
-        return res.data; 
+        console.log(payload);
+
+        await axios.post(`api/users/createNewUser/`, payload)
+            .then((response) => {
+                return response;
+            }, (error) => {
+                return error;
+            });
     }
 }

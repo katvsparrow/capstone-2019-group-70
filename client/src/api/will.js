@@ -16,13 +16,11 @@ export default {
         console.log('Ready to send');
         console.log(payload);
 
-        let res = await axios.post(`api/documents/postNewDocument/`, payload)
-                    .then((response) => {
-                        return response;
-                    }, (error) => {
-                        return error;
-                    });
-
-        return (res.data);
+        await axios.post(`api/documents/postNewDocument/`, payload)
+            .then((response) => {
+                return response;
+            }, (error) => {
+                return error;
+            });
     }
 }
