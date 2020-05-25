@@ -138,12 +138,12 @@ class Search extends React.Component {
                                                 </Col>
                                                 { 
                                                     this.state.viewType === 'card' ? (
-                                                        <ListGroup>
+                                                        <ListGroup className="mt-3">
                                                             {this.state.wills.map((d, i) => <ResultCard data={d} key={i} />)}
                                                         </ListGroup>
                                                     )
                                                     : ( 
-                                                        <Table hover>
+                                                        <Table className="mt-3" hover>
                                                             <thead>
                                                                 <tr>
                                                                     <th>Will</th>

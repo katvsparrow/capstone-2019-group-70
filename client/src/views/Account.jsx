@@ -5,7 +5,7 @@ import { withFirebase } from "contexts/Firebase";
 import { AuthUserContext } from "contexts/Session";
 
 import * as ROUTES from "constants/routes";
-import { withRouter, Redirect } from "react-router-dom";
+import { withRouter, Redirect, Link } from "react-router-dom";
 import { compose } from "recompose";
 
 import {
@@ -20,6 +20,7 @@ import {
 
 import UpdateDisplayNameForm from "../components/Forms/UpdateDisplayNameForm";
 import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
+import { UserInfoContext } from 'contexts/Session';
 
 /**
  * Renders account details content 
@@ -27,6 +28,7 @@ import ChangePasswordForm from "../components/Forms/ChangePasswordForm";
 const AccountDetailsContent = (user) => {
     return (
         <>  
+            
             <UpdateDisplayNameForm displayName={user.displayName} />
         </>
     );
@@ -99,17 +101,9 @@ class Account extends React.Component {
                                                 Account Details
                                             </ListGroupItem>
                                             <ListGroupItem tag="a"
-                                                className={classnames({active: this.state.activeTab === '2'})}
-                                                onClick={() => {
-                                                    this.toggle('2');
-                                                }}
-                                            >
-                                                Change Password
-                                            </ListGroupItem>
-                                            <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '3'})}
                                                 onClick={() => {
-                                                    this.toggle('3');
+                                                    this.toggle('2');
                                                 }}
                                             >
                                                 Saved Wills
@@ -117,11 +111,20 @@ class Account extends React.Component {
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '4'})}
                                                 onClick={() => {
-                                                    this.toggle('4');
+                                                    this.toggle('3');
                                                 }}
                                             >
                                                 Submit Will
                                             </ListGroupItem>
+                                            {this.props.info.Role === 'ADMIN' &&
+                                                <>
+                                                    <ListGroupItem color="secondary"tag="a">
+                                                        <Link to={ROUTES.ADMIN}>
+                                                            To Admin Portal
+                                                        </Link>
+                                                    </ListGroupItem>
+                                                </>
+                                            }
                                             <ListGroupItem color="danger"tag="a"
                                                 onClick={() => {
                                                     this.signOut(this.props)
@@ -135,15 +138,15 @@ class Account extends React.Component {
                                 <div className="mt-5 py-5 border-top">
                                     <TabContent className="my-2" activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
+                                            <h4>Display name</h4>
                                             <AccountDetailsContent user={this.props.user} />
+                                            <h4 classnames="mt-4">Password Change Form</h4>
+                                            <ChangePasswordForm />
                                         </TabPane>
                                         <TabPane tabId="2">
-                                            <ChangePasswordForm />
-                                        </TabPane>  
-                                        <TabPane tabId="3">
                                             <SavedWillsContent />
                                         </TabPane>
-                                        <TabPane tabId="4">
+                                        <TabPane tabId="3">
                                             <SubmitWillContent />
                                         </TabPane>
                                     </TabContent>
@@ -166,8 +169,13 @@ const AccountBase = (props) => {
         <AuthUserContext.Consumer>
             {
                 authUser =>
-                    authUser ? <Account contexts={props} user={authUser} />
-                             : <Redirect to={ROUTES.LOGIN} />
+                    authUser 
+                        ? (
+                            <UserInfoContext.Consumer>
+                                { userInfo => userInfo && <Account contexts={props} user={authUser} info={userInfo}/> }
+                            </UserInfoContext.Consumer>
+                        ) 
+                        : <Redirect to={ROUTES.LOGIN} />
             }
         </AuthUserContext.Consumer>
     )

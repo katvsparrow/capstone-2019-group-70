@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from "classnames";
 
 import { withFirebase } from "contexts/Firebase";
-import { AuthUserContext } from "contexts/Session";
+import { AuthUserContext, UserInfoContext } from "contexts/Session";
 
 import * as ROUTES from "constants/routes";
 import { withRouter, Redirect } from "react-router-dom";
@@ -23,6 +23,30 @@ import {
 const INITIAL_STATE = {
     activeTab: '1'
 };
+
+
+class WebsiteContent extends React.Component {
+    
+    render() {
+        return(
+            <div>
+                <div>
+                    <h4>Home Page Welcome Banner</h4>
+                </div>
+                <div className='mt-4'>
+                    <h4>About Us</h4>
+                </div>
+                <div className='mt-4'>
+                    <h4>Contributing</h4>
+                </div>
+                <div className='mt-4'>
+                    <h4>Bibliography</h4>
+                </div>               
+            </div>
+        )
+    }
+}
+
 
 class Admin extends React.Component {
     constructor(props) {
@@ -68,7 +92,7 @@ class Admin extends React.Component {
                                                     this.toggle('1');
                                                 }}
                                             >
-                                                Accounts
+                                                Modify Website Content
                                             </ListGroupItem>
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '2'})}
@@ -89,9 +113,10 @@ class Admin extends React.Component {
                                         </ListGroup>
                                     </Col>
                                 </Row>
-                                <div className="mt-5 py-5 border-top text-center">
+                                <div className="mt-5 border-top">
                                     <TabContent className="my-2" activeTab={this.state.activeTab}>
                                         <TabPane tabId="1">
+                                            <WebsiteContent />
                                         </TabPane>
                                         <TabPane tabId="2">
                                             <WillSubmitForm />
@@ -113,18 +138,22 @@ class Admin extends React.Component {
 /**
  * Determine page authorization access
  */
-const AdminBase = (props) => {
+const AdminBase = (props) => {   
     return(
         <AuthUserContext.Consumer>
             {
-                /* Check Role */
                 authUser =>
-                    authUser && authUser.Role === 'ADMIN' ? <Admin contexts={props} user={authUser} />
-                             : <Redirect to={ROUTES.HOME} />
+                    authUser 
+                        ? (
+                            <UserInfoContext.Consumer>
+                                { userInfo => (userInfo && userInfo.Role === 'ADMIN') && <Admin contexts={props} user={authUser} info={userInfo}/> }
+                            </UserInfoContext.Consumer>
+                        ) 
+                        : <Redirect to={ROUTES.LOGIN} />
             }
         </AuthUserContext.Consumer>
     )
-}
+};
 
 export default compose(
     withRouter,

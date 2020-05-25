@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; 
 import * as ROUTES from "../../constants/routes";
 
-
+import Headroom from "headroom.js"
 
 // import reactstrap components
 import {
@@ -46,11 +46,16 @@ const LoginButton = () => (
 );
 
 class MainNavbar extends React.Component {
+    componentDidMount() {
+        let headroom = new Headroom(document.getElementById("navbar-main"));
+        headroom.init();
+    }
+    
     render() {
         return (
             <header className="header-global">
                 <Navbar 
-                    className = "navbar-main navbar-transparent navbar-light"
+                    className = "navbar-main navbar-transparent navbar-light headroom"
                     expand="lg"
                     id="navbar-main"
                 >
