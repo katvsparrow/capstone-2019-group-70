@@ -103,7 +103,7 @@
 .transcript-container {
     overflow: auto;
     white-space: pre-line;
-    max-height: 30%;  
+    max-height: 500px;  
 }
 
 .action-buttons button {

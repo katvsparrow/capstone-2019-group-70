@@ -2,9 +2,13 @@ import React from 'react';
 import WillAPI from "api/will";
 import { getDateTimeString } from "utils";
 
+import { Link } from "react-router-dom";
+import * as ROUTES from "constants/routes";
+
 import PageSpinner from "components/Containers/PageSpinner";
 import ModalDisplay from "components/Containers/ModalDisplay";
 import WillView from "components/Media/WillView";
+import ActionButton from "components/Containers/ActionButton";
 
 import * as Mock from "constants/placeholder";
 
@@ -19,38 +23,6 @@ import {
     CardHeader, 
     CardBody
 } from 'reactstrap';
-
-/**
- * Returns message stating requested will is not in the database
- */
-const NoWillFound = () => {
-    return (
-        <>
-        <Container className="mt-md mb-md pt-lg pb-lg">
-            <Row className="justify-content-center">
-                <Jumbotron>
-                    <h1 className="display-3">Oops!</h1>
-                    <p>No records found for requested will</p>
-                </Jumbotron>
-            </Row>
-        </Container>    
-        </>
-    )
-}
-
-/**
- * Renders all associated tags of rendered Will 
- * @param {json} tags 
- */
-const TagCard = (tags) => {
-    return (
-        <Card className="w-100">
-            <CardHeader className="text-center">Associated Tags</CardHeader>
-            <CardBody>          
-            </CardBody>
-        </Card>
-    );
-}
 
 /**
  * Renders table full of information related to the rendered will 
@@ -94,25 +66,29 @@ const DetailTable = ({details}) => {
     )
 }
 
+
 /**
  * Media view container for will 
  */
-
- const MediaView = ({will}) => {
+const MediaView = ({will}) => {
     return (
         <>
-            <Col sm="7">
+            <Col md="7">
                 <WillView />
             </Col>
-            <Col className="ml-5" sm="4">
-                <Row>
-                    <h4>Original Text</h4>
-                </Row>
-                <Row className="bg-secondary p-4 mb-3 transcript-container"></Row>
-                <Row>
-                    <h4>Translated Text</h4>
-                </Row>
-                <Row className="bg-secondary p-4 mb-3 transcript-container"></Row>
+            <Col md="5">
+                <Card>
+                    <CardHeader tag="h4">Original Text</CardHeader>
+                    <CardBody className="bg-secondary transcript-container">
+                        {Mock.original_text}
+                    </CardBody>
+                </Card>
+                <Card className="mt-4">
+                    <CardHeader tag="h4">Translated Text</CardHeader>
+                    <CardBody className="bg-secondary transcript-container">
+                        {Mock.translated_text}
+                    </CardBody>  
+                </Card>
             </Col>
             <Row className="mt-3">
                 <h4>Document Information</h4>
@@ -122,36 +98,33 @@ const DetailTable = ({details}) => {
     );
 }
 
+
 const TextView = ({will}) => {
     return (
         <>
-            <Col sm='7'>
+            <Col md='8' className='my-4'>
                 {/* Original Text */}
-                <Row>
-                    <h4>Original Text</h4>
-                </Row>
-                <Row className="bg-secondary p-4 mb-3 transcript-container">
-                    {Mock.original_text}
-                </Row>
-                <Row>
-                    <h4>Translated Text</h4>
-                </Row>
-                <Row className="bg-secondary p-4 transcript-container">
-                    {Mock.translated_text}
-                </Row>
+                <Card>
+                    <CardHeader tag="h4">Original Text</CardHeader>
+                    <CardBody className="bg-secondary transcript-container">
+                        {Mock.original_text}
+                    </CardBody>
+                </Card>
+                <Card className="mt-4">
+                    <CardHeader tag="h4">Translated Text</CardHeader>
+                    <CardBody className="bg-secondary transcript-container">
+                        {Mock.translated_text}
+                    </CardBody>  
+                </Card>
             </Col>
-            <Col className="ml-5" sm="3">
+            <Col md='4' className='my-4'>
                 {/* Document Details */}
-                <Row className="mt-3">
-                    <DetailTable details={will}/>
-                </Row>
-                <Row className="mt-3">
-                    <TagCard />
-                </Row>
+                <DetailTable details={will}/>
             </Col>
         </>
     );
 }
+
 
 /**
  * Main container for Will content
@@ -169,15 +142,9 @@ class LoadedWill extends React.Component {
 
     /* Change view type depending on active class */ 
     changeViewType = (e) => {
-        if(e.target.classList.contains('active')) {
-            this.setState({
-                'viewType': 'text'
-            });
-        } else {
-            this.setState({
-                'viewType': 'media'
-            });
-        }
+        this.state.viewType === 'text'
+            ? this.setState({ 'viewType': 'media'})
+            : this.setState({ 'viewType': 'text'});
     };
 
     render() {
@@ -189,15 +156,13 @@ class LoadedWill extends React.Component {
                     </Row>
                     <Row>
                         <div className='action-buttons'>
-                            <Button>
-                                <i className="far fa-heart fa-2x"></i>
-                            </Button>
-                            <Button onClick={this.changeViewType} active={this.state.viewType === 'media'}>
-                                <i className="far fa-image fa-2x"></i>
-                            </Button>
-                            <Button>
-                                <i className="fas fa-flag fa-2x"></i>
-                            </Button>
+                            <ActionButton iconClass='far fa-heart fa-2x'/>
+                            <ActionButton 
+                                iconClass='far fa-image fa-2x' 
+                                active={this.state.viewType === 'media'} 
+                                onClick={this.changeViewType}
+                            />
+                            <ActionButton iconClass='fas fa-flag fa-2x' />
                             <ModalDisplay />
                         </div>
                     </Row>
@@ -211,6 +176,30 @@ class LoadedWill extends React.Component {
             </section>
         );
     }
+}
+
+
+/**
+ * Returns message stating requested will is not in the database
+ */
+const NoWillFound = () => {
+    return (
+        <>
+        <Container className="my-lg py-lg">
+            <Row className="justify-content-center">
+                <Jumbotron className="text-dark">
+                    <h1 className="display-3">Oops!</h1>
+                    <p>No will found with the requested id</p>
+                    <Link to={ROUTES.HOME}>
+                        <Button className="bg-gradient-jww-primary text-white">
+                            Return Home 
+                        </Button>
+                    </Link>
+                </Jumbotron>
+            </Row>
+        </Container>    
+        </>
+    )
 }
 
 
@@ -241,7 +230,7 @@ class Will extends React.Component {
             return <LoadedWill data={data[0]} />
         }
     }
-
+    
     render() {
         return (
             <>

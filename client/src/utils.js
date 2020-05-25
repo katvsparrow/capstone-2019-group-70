@@ -2,7 +2,7 @@
 import moment from "moment";
 
 export function getDateTimeString(str) {
-    return moment(str).format('MMMM Do YYYY');
+    return moment(str).format('Do MMMM, YYYY');
 };
 
 export function formatPreview(text, limit) {

@@ -1,6 +1,8 @@
 import React from 'react';
-import WillAPI from "../api/will";
-import PageSpinner from "../components/Containers/PageSpinner";
+import WillAPI from "api/will";
+
+import PageSpinner from "components/Containers/PageSpinner";
+import ActionButton from "components/Containers/ActionButton";
 
 /*
 Search functionality removed until wills inserted into db
@@ -56,15 +58,11 @@ class Search extends React.Component {
     }
     
     
-    changeResults = (e) => {
-        if(e.target.classList.contains('active')) {
-            return; 
-        }
-
-        const clicked = e.target.id;
-        this.setState({
-            'viewType': clicked
-        });
+    /* Change view type depending on active class */ 
+    changeViewType = () => {
+        this.state.viewType === 'table'
+            ? this.setState({ 'viewType': 'card'})
+            : this.setState({ 'viewType': 'table'});
     };
 
     render () {
@@ -97,12 +95,16 @@ class Search extends React.Component {
                                         </Row>
                                         <Row>
                                             <div className="action-buttons">
-                                                <Button id="table" onClick={this.changeResults} active={this.state.viewType === 'table'}>
-                                                    <i className="fas fa-table fa-2x" />
-                                                </Button>
-                                                <Button id="card" onClick={this.changeResults} active={this.state.viewType === 'card' }>
-                                                    <i className="fas fa-poll-h fa-2x" />
-                                                </Button>
+                                                <ActionButton
+                                                    iconClass= 'fas fa-table fa-2x'
+                                                    onClick = {this.changeViewType}
+                                                    active = {this.state.viewType === 'table'}
+                                                />
+                                                <ActionButton
+                                                    iconClass = 'fas fa-poll-h fa-2x"'
+                                                    onClick= {this.changeViewType}
+                                                    active = {this.state.viewType === 'card'}
+                                                />
                                             </div>
                                         </Row>
                                         <Row className="mt-3">
