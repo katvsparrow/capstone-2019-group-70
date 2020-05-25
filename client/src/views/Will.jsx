@@ -147,6 +147,10 @@ class LoadedWill extends React.Component {
             : this.setState({ 'viewType': 'text'});
     };
 
+    suggestChange = () => {
+        
+    }
+
     render() {
         return(
             <section>
@@ -156,13 +160,17 @@ class LoadedWill extends React.Component {
                     </Row>
                     <Row>
                         <div className='action-buttons'>
-                            <ActionButton iconClass='far fa-heart fa-2x'/>
+                            <ActionButton 
+                                iconClass='far fa-heart fa-2x'/>
                             <ActionButton 
                                 iconClass='far fa-image fa-2x' 
                                 active={this.state.viewType === 'media'} 
                                 onClick={this.changeViewType}
                             />
-                            <ActionButton iconClass='fas fa-flag fa-2x' />
+                            <ActionButton 
+                                iconClass='fas fa-flag fa-2x' 
+                                onClick={this.suggestChange}    
+                            />
                             <ModalDisplay />
                         </div>
                     </Row>

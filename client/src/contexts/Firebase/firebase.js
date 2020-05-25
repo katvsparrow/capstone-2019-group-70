@@ -30,8 +30,6 @@ class Firebase {
         } catch {
             return 'Cannot create account'
         }
-        
-        
     }
         
     doSignInWithEmailAndPassword = (email, password) =>
