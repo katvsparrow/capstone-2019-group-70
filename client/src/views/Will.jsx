@@ -12,6 +12,7 @@ import WillView from "components/Media/WillView";
 import WillContributeForm from "components/Forms/WillContributeForm";
 import ActionButton from "components/Containers/ActionButton";
 import RerouteButton from "components/Containers/RerouteButton";
+import EditAction from "components/Containers/EditAction";
 
 import * as Mock from "constants/placeholder";
 import * as Text from "constants/text";
@@ -81,7 +82,9 @@ const MediaView = ({will}) => {
             </Col>
             <Col md="5">
                 <Card>
-                    <CardHeader tag="h4">Original Text</CardHeader>
+                    <CardHeader tag="h4">
+                        Original Text
+                    </CardHeader>
                     <CardBody className="bg-secondary transcript-container">
                         {Mock.original_text}
                     </CardBody>
@@ -102,20 +105,38 @@ const MediaView = ({will}) => {
 }
 
 
-const TextView = ({will}) => {
+const TextView = ({will, edits}) => {
     return (
         <>
             <Col md='8' className='my-4'>
                 {/* Original Text */}
                 <Card>
-                    <CardHeader tag="h4">Original Text</CardHeader>
-                    <CardBody className="bg-secondary transcript-container">
+                    <CardHeader tag="h4">
+                        Original Text
+                        {edits &&
+                            <>
+                                <EditAction 
+                                    targetContainer="original_text"
+                                />
+                            </>
+                        }
+                    </CardHeader>
+                    <CardBody id="original_text" className="bg-secondary transcript-container">
                         {Mock.original_text}
                     </CardBody>
                 </Card>
                 <Card className="mt-4">
-                    <CardHeader tag="h4">Translated Text</CardHeader>
-                    <CardBody className="bg-secondary transcript-container">
+                    <CardHeader tag="h4">
+                        Translated Text
+                        {edits &&
+                            <>
+                                <EditAction 
+                                    targetContainer='translated_text'
+                                />
+                            </>
+                        }
+                    </CardHeader>
+                    <CardBody id="translated_text" className="bg-secondary transcript-container">
                         {Mock.translated_text}
                     </CardBody>  
                 </Card>
@@ -146,7 +167,7 @@ class LoadedWill extends React.Component {
             'modalBody': "",
             'modalSize': '',
             "favorited": false,
-            'role': null
+            'admin': null
         };
     }
 
@@ -176,7 +197,7 @@ class LoadedWill extends React.Component {
 
             this.setState({
                 'favorited': favorited, 
-                'role': this.props.userInfo.Role
+                'admin': this.props.userInfo.Role === 'ADMIN'
             });
         }
     }
@@ -192,7 +213,7 @@ class LoadedWill extends React.Component {
 
                 this.setState({
                     'favorited': favorited,
-                    'role': this.props.userInfo.Role
+                    'admin': this.props.userInfo.Role === 'ADMIN'
                 });
             }
             
@@ -284,7 +305,7 @@ class LoadedWill extends React.Component {
                     </Row>
                     <Row className="mt-4">
                         {this.state.viewType === 'text'
-                            ? <TextView will={this.will} />
+                            ? <TextView will={this.will} edits={this.state.admin}/>
                             : <MediaView will={this.will} />
                         }
                     </Row>

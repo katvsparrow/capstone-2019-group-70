@@ -16,7 +16,9 @@ import Admin from "views/Admin.jsx";
 import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
 import Bibliography from "views/Bibliography.jsx";
+import Contribute from "views/Contribute.jsx";
 import NotFound from "views/NotFound.jsx";
+
 
 // Components
 import MainNavbar from "components/Navbars/MainNavbar.jsx";
@@ -72,6 +74,7 @@ class App extends React.Component {
                                 <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
                                 <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
                                 <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />
+                                <Route path={ROUTES.CONTRIBUTE}  render={props => <Contribute {...props}/> } />
                                 <Route component={NotFound} />
                             </Switch>
                         <MainFooter />

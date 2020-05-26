@@ -89,7 +89,7 @@ class MainNavbar extends React.Component {
                                 <NavItem>
                                     <Link className="nav-link" to={ROUTES.SEARCH}>
                                         <i className="ni ni-collection d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Search</span>
+                                        <span className="nav-link-inner--text">Search the database</span>
                                     </Link>
                                 </NavItem>
                                 <NavItem>
@@ -102,6 +102,12 @@ class MainNavbar extends React.Component {
                                     <Link className="nav-link" to={ROUTES.BIBLIOGRAPHY}>
                                         <i className="fa fa-info-circle d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">Bibliography</span>
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link className="nav-link" to={ROUTES.CONTRIBUTE}>
+                                        <i className="fa fa-info-circle d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">How to Contribute</span>
                                     </Link>
                                 </NavItem>
                             </Nav>

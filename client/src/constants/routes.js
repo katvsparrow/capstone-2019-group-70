@@ -7,3 +7,4 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const SEARCH = '/search';
 export const BIBLIOGRAPHY = '/bibliography';
+export const CONTRIBUTE = '/contribute';

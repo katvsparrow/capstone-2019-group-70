@@ -98,6 +98,11 @@
     height: 200px !important;
 }
 
+.edit-button {
+    float: right;
+    cursor: pointer;
+}
+
 /* Home Page */
 .welcome-banner {
     background-color: rgba(255, 255, 255, 0.3);
