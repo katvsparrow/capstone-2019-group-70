@@ -89,6 +89,11 @@
   }
 }
 
+.image-background { 
+    background-image: url(../img/front_page.jpg);
+}
+
+
 /* Cross-site */
 .text-container {
     white-space: pre-line;

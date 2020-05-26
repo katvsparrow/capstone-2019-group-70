@@ -98,12 +98,13 @@ class MainNavbar extends React.Component {
                                         <span className="nav-link-inner--text">About Us</span>
                                     </Link>
                                 </NavItem>
+                                {/*
                                 <NavItem>
                                     <Link className="nav-link" to={ROUTES.BIBLIOGRAPHY}>
                                         <i className="fa fa-info-circle d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">Bibliography</span>
                                     </Link>
-                                </NavItem>
+                                </NavItem>*/}
                                 <NavItem>
                                     <Link className="nav-link" to={ROUTES.CONTRIBUTE}>
                                         <i className="fa fa-info-circle d-lg-none mr-1" />

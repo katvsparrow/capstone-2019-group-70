@@ -159,7 +159,7 @@ class Search extends React.Component {
                                                     )
                                                 }
                                             </> 
-                                        : <div className="loader text-center" />
+                                        : <div className="loader text-center mb-lg" />
                                     }
                                 </Row>
                             </Container>
