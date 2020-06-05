@@ -23,6 +23,7 @@ const ChangePasswordForm = (context) => (
 
           const int_password = /(?=.*[0-9])/
           const upper_case_password = /(?=.*[A-Z])/
+
           if ((!values.new_password) || (values.new_password< 8) || (!int_password.test(values.new_password)) || (!upper_case_password.test(values.new_password))){
               errors.new_password ="Password must be 8 characters long including at least one digit [0-9] and one upper-case letter [A-Z]  ";
           }
@@ -87,6 +88,7 @@ const ChangePasswordForm = (context) => (
 
                     <FormGroup>
                         <label htmlFor="confirm-new-password-input">Enter new password</label>
+                        <label for="confirm-new-password-input">Enter new password</label>
                             <Input
                                 name="confirm_new_password"
                                 id="confirm-new-password-input"
