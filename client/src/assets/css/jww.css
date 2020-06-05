@@ -1,9 +1,5 @@
 .bg-gradient-jww-primary {
-    background: linear-gradient(87deg, #97421B 0, #5E0B15 100%) !important;
-}
-
-.bg-white {
-    background-color: #FFFFFF;
+    background: linear-gradient(#02203D,#001519) !important;
 }
 
 .page-content {
@@ -93,9 +89,23 @@
   }
 }
 
+.image-background { 
+    background-image: url(../img/front_page.jpg);
+}
+
+
 /* Cross-site */
 .text-container {
     white-space: pre-line;
+}
+
+.modal-textarea {
+    height: 200px !important;
+}
+
+.edit-button {
+    float: right;
+    cursor: pointer;
 }
 
 /* Home Page */
@@ -107,7 +117,7 @@
 .transcript-container {
     overflow: auto;
     white-space: pre-line;
-    max-height: 30%;  
+    max-height: 500px;  
 }
 
 .action-buttons button {

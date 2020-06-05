@@ -63,7 +63,7 @@ const SignUpForm = (context) => (
                 <InputGroup className="input-group-alternative mb-3">
                     <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                            <i className="ni ni-hat-3" />
+                            <i className="fas fa-user" />
                         </InputGroupText>
                     </InputGroupAddon>
                     <Input
@@ -113,7 +113,7 @@ const SignUpForm = (context) => (
                 <InputGroup className="input-group-alternative">
                     <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                        <i className="ni ni-lock-circle-open" />
+                            <i className="ni ni-lock-circle-open" />
                         </InputGroupText>
                     </InputGroupAddon>
                     <Input

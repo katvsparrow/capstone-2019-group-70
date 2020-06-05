@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; 
 import * as ROUTES from "../../constants/routes";
 
-
+import Headroom from "headroom.js"
 
 // import reactstrap components
 import {
@@ -46,11 +46,16 @@ const LoginButton = () => (
 );
 
 class MainNavbar extends React.Component {
+    componentDidMount() {
+        let headroom = new Headroom(document.getElementById("navbar-main"));
+        headroom.init();
+    }
+    
     render() {
         return (
             <header className="header-global">
                 <Navbar 
-                    className = "navbar-main navbar-transparent navbar-light"
+                    className = "navbar-main navbar-transparent navbar-light headroom"
                     expand="lg"
                     id="navbar-main"
                 >
@@ -84,13 +89,26 @@ class MainNavbar extends React.Component {
                                 <NavItem>
                                     <Link className="nav-link" to={ROUTES.SEARCH}>
                                         <i className="ni ni-collection d-lg-none mr-1" />
-                                        <span className="nav-link-inner--text">Search</span>
+                                        <span className="nav-link-inner--text">Search the database</span>
                                     </Link>
                                 </NavItem>
                                 <NavItem>
                                     <Link className="nav-link" to={ROUTES.ABOUT}>
                                         <i className="fa fa-info-circle d-lg-none mr-1" />
                                         <span className="nav-link-inner--text">About Us</span>
+                                    </Link>
+                                </NavItem>
+                                {/*
+                                <NavItem>
+                                    <Link className="nav-link" to={ROUTES.BIBLIOGRAPHY}>
+                                        <i className="fa fa-info-circle d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">Bibliography</span>
+                                    </Link>
+                                </NavItem>*/}
+                                <NavItem>
+                                    <Link className="nav-link" to={ROUTES.CONTRIBUTE}>
+                                        <i className="fa fa-info-circle d-lg-none mr-1" />
+                                        <span className="nav-link-inner--text">How to Contribute</span>
                                     </Link>
                                 </NavItem>
                             </Nav>

@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+import UserAPI from 'api/user'
 import 'firebase/auth';
 
 const config = {
@@ -17,11 +18,18 @@ class Firebase {
      * Authentication methods 
      * Reference: https://firebase.google.com/docs/reference/js/firebase.auth.AUTH
     */
-    doCreateUserWithEmailAndPassword = (email, password, username) => {
-        let cred = this.auth.createUserWithEmailAndPassword(email, password);
-        cred.user.updateProfile({
-            displayName: username
-        });
+    doCreateUserWithEmailAndPassword = async(email, password, username) => {
+        try {
+            let cred = await this.auth.createUserWithEmailAndPassword(email, password);
+            cred.user.updateProfile({
+                displayName: username
+            });
+
+            const res = await UserAPI.createUser(cred.user.uid, username);
+            return res; 
+        } catch {
+            return 'Cannot create account'
+        }
     }
         
     doSignInWithEmailAndPassword = (email, password) =>

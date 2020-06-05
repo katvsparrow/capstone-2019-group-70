@@ -36,7 +36,7 @@ class UpdateDisplayNameForm extends React.Component {
         return (
             <Form onSubmit={this.onSubmit}>
                 <FormGroup>
-                    <Label for='displayname-input'>Change display name:</Label>
+                    <Label htmlFor='displayname-input'>Change display name:</Label>
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>

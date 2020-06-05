@@ -131,20 +131,36 @@ module.exports = {
       db.query(query, callback);
    },
 
+   getUserInformation: (uid, callback) => {
+      const query = `
+         SELECT
+            User.id, username, Role.name AS Role,
+            GROUP_CONCAT(DUF.document_id) AS favorited_wills
+         FROM User 
+         INNER JOIN Role ON Role.id = User.role_id
+         INNER JOIN Document_User_Favorite DUF ON DUF.user_id = User.id
+         WHERE uid = ?
+      `;
+      
+      const values = [uid];
+
+      db.query(query, values, callback);
+   },
+
    // Description: retrieve document by ID
    // Result: document title, author, year, original text, translated text, image, upload date, language, location
    getDocumentByID: (id, callback) => {
       const query = `
-         SELECT title, uploader, date_of_publication, year,
-         original_text, translated_text, image, upload_date, edit_date,
-         Language.name as language_name, Location.country as country_name, 
-         Location.city as city_name, Archive.name as archive_name,
-         reference
-      FROM Document 
-      INNER JOIN Language ON language_id = Language.id
-      INNER JOIN Location ON document_location_id = Location.id
-      INNER JOIN Archive on archive_id = Archive.id
-      WHERE Document.id = ?
+         SELECT Document.id, title, uploader, date_of_publication, year,
+            original_text, translated_text, image, upload_date, edit_date,
+            Language.name as language_name, Location.country as country_name, 
+            Location.city as city_name, Archive.name as archive_name,
+            reference
+         FROM Document 
+         INNER JOIN Language ON language_id = Language.id
+         INNER JOIN Location ON document_location_id = Location.id
+         INNER JOIN Archive on archive_id = Archive.id
+         WHERE Document.id = ?
       `;
 
       const values = [id];
@@ -191,6 +207,35 @@ module.exports = {
       const query = 
          'INSERT IGNORE INTO Location (city, country) VALUES (?, ?)';
       const values = [city, country];
+      
+      db.query(query, values, callback);
+   },
+
+   // Description: inserts favorite into database
+   addFavorite: (ids, callback) => {
+      const query = 
+         `INSERT IGNORE INTO Document_User_Favorite 
+            (document_id, user_id) 
+            VALUES (?, ?)
+         `;
+      const values = [
+         ids.document_id, 
+         ids.user_id
+      ];
+      
+      db.query(query, values, callback);
+   },
+
+   // Description: Removes favorite into database
+   removeFavorite: (ids, callback) => {
+      const query = 
+         `DELETE FROM Document_User_Favorite 
+            WHERE document_id = ? AND user_id = ?
+         `;
+      const values = [
+         ids.document_id, 
+         ids.user_id
+      ];
       
       db.query(query, values, callback);
    },
@@ -249,8 +294,132 @@ module.exports = {
 
    insertNewUser: (userDetails, callback) => {
       const query = 
-         'INSERT INTO User (username, role_id, firebase_uid) VALUES ?';
-      const values = [userDetails]
+         'INSERT INTO User (username, role_id, uid) VALUES (?, 1, ?)';
+      const values = [
+         userDetails.username,
+         userDetails.firebase_uid
+      ]
+
+      db.query(query, values, callback);
+   },
+
+   addFavorite: (uid, documentTitle, callback) => {
+      const query = 
+         'INSERT INTO Document_User_Favorite (' +
+         '(SELECT id FROM User WHERE uid = ?),' +
+         '(SELECT id FROM Document WHERE title = ?)';
+      const values = [uid, documentTitle];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentTitle: (document_id, title, callback) => {
+      const query =
+         `UPDATE Document 
+            SET title = ? 
+            WHERE id = ?`;
+      values = [title, document_id];
+      
+      db.query(query, values, callback);
+   },
+
+   editDocumentDateOfPublication: (document_id, date, year, callback) => {
+      const query = 
+         `UPDATE Document 
+            SET date_of_publication = ?,
+                year = ?
+            WHERE id = ?`;
+      values = [date, year, document_id]
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentOriginalText: (document_id, text, callback) => {
+      const query = 
+         `UPDATE Document
+            SET original_text = ?
+            WHERE id = ?`;
+      values = [text, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentTranslatedText: (document_id, text, callback) => {
+      const query = 
+         `UPDATE Document
+            SET translated_text = ?
+            WHERE id = ?`;
+      values = [text, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentImage: (document_id, image_url, callback) => {
+      const query =
+         `UPDATE Document
+            SET image = ?
+            WHERE id = ?`;
+      values = [image_url, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentEditDate: (document_id, edit_date, callback) => {
+      const query = 
+         `UPDATE Document
+            SET edit_date = ?
+            WHERE id = ?`
+      values = [edit_date, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentLanguage: (document_id, language, callback) => {
+      const query = 
+         `UPDATE Document
+            SET language_id = (SELECT id FROM Language WHERE name = ?)
+            WHERE id = ?`
+      values = [language, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentLocation: (document_id, city, country, callback) => {
+      const query = 
+         `UPDATE Document
+            SET document_location_id = (SELECT id FROM Location WHERE city = ? AND country = ?)
+            WHERE id = ?`
+      values = [city, country, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentArchive: (document_id, archive, callback) => {
+      const query = 
+         `UPDATE Document
+            SET archive_id = (SELECT id FROM Archive WHERE name = ?)
+            WHERE id = ?`
+      values = [archive, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentReference: (document_id, reference, callback) => {
+      const query =
+         `UPDATE Document
+            SET reference = ?
+            WHERE id = ?`
+      values = [reference, document_id];
+
+      db.query(query, values, callback);
+   },
+
+   editDocumentVisibility: (document_id, value, callback) => {
+      const query = 
+         `UPDATE Document
+            SET is_enabled = ?
+            WHERE id = ?`
+      values = [value, document_id];
 
       db.query(query, values, callback);
    }
