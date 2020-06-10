@@ -80,6 +80,7 @@ module.exports = (app) => {
     // Post a new document to the site
     app.post('/api/documents/postNewDocument', function(req, res)  {
         let fields = req.body;
+        console.log(fields);
         let request_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
         let document = {
@@ -129,7 +130,7 @@ module.exports = (app) => {
                 return;
             }
 
-            return res.sendStatus(200);
+            return res.send('Document Posted');
         });
     });
 

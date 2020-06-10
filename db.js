@@ -224,9 +224,9 @@ module.exports = {
             (title, uploader, date_of_publication, year, original_text, translated_text, upload_date,
                edit_date, language_id, document_location_id, archive_id, reference)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?,
-               (SELECT Language.id from Language WHERE Language.name = ?),
-               (SELECT Location.id from Location WHERE Location.name = ?),
-               (SELECT Archive.id from Archive
+               (SELECT MAX(Language.id) from Language WHERE Language.name = ?),
+               (SELECT MAX(Location.id) from Location WHERE Location.name = ?),
+               (SELECT MAX(Archive.id) from Archive
                   JOIN Location on Location.name = ?
                   WHERE Archive.name = ?
                ),

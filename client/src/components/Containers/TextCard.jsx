@@ -10,7 +10,6 @@ import {
 
 class TextCard extends React.Component { 
     render() {
-        console.log(this.props)
         return (
             <Card>
                 <CardHeader tag="h4">

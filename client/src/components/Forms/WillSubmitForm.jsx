@@ -71,15 +71,16 @@ class WillSubmitForm extends React.Component {
                 <Row form>
                     <Col md={6}>
                         <FormGroup>
-                            <Label for="form-document-location">Document: Location of Origin</Label>
-                            <Input type="text" name="document_location" id="form-document-location" value={document_location} onChange={this.onChange} />
-                        </FormGroup>        
-                    </Col>
-                    <Col md={6}>
-                        <FormGroup>
                             <Label for="form-language">Original Language</Label>
                             <Input type="text" name="language" id="form-language" value={language} onChange={this.onChange} />
                         </FormGroup>
+                             
+                    </Col>
+                    <Col md={6}>
+                        <FormGroup>
+                            <Label for="form-document-location">Document: Location of Origin</Label>
+                            <Input type="text" name="document_location" id="form-document-location" value={document_location} onChange={this.onChange} />
+                        </FormGroup>   
                     </Col>
                 </Row>
                 <Row form>

@@ -16,11 +16,7 @@ export default {
         console.log('Posting Document');
         console.log(payload);
 
-        await axios.post(`api/documents/postNewDocument/`, payload)
-            .then((response) => {
-                return response;
-            }, (error) => {
-                return error;
-            });
+        let res = await axios.post(`api/documents/postNewDocument/`, payload)
+        return res.data;
     }
 }
