@@ -9,6 +9,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import { compose } from "recompose";
 
 import WillSubmitForm from "components/Forms/WillSubmitForm";
+import TextCard from "components/Containers/TextCard";
 
 import {
     Container, 
@@ -26,23 +27,16 @@ const INITIAL_STATE = {
 
 
 class WebsiteContent extends React.Component {
-    
     render() {
         return(
-            <div>
-                <div>
-                    <h4>Home Page Welcome Banner</h4>
-                </div>
-                <div className='mt-4'>
-                    <h4>About Us</h4>
-                </div>
-                <div className='mt-4'>
-                    <h4>Contributing</h4>
-                </div>
-                <div className='mt-4'>
-                    <h4>Bibliography</h4>
-                </div>               
-            </div>
+            <>
+                <TextCard
+                    header="Home Page Welcome Banner"
+                    enableEdit={true}
+                    targetContainer="home=page-welcome"
+                    bodyText={'fsf'}
+                />
+            </>
         )
     }
 }
@@ -100,7 +94,7 @@ class Admin extends React.Component {
                                                     this.toggle('2');
                                                 }}
                                             >
-                                                Wills
+                                                Add new will
                                             </ListGroupItem>
                                             <ListGroupItem tag="a"
                                                 className={classnames({active: this.state.activeTab === '3'})}
@@ -119,7 +113,7 @@ class Admin extends React.Component {
                                             <WebsiteContent />
                                         </TabPane>
                                         <TabPane tabId="2">
-                                            <WillSubmitForm />
+                                            <WillSubmitForm user={this.props.user}/>
                                         </TabPane>  
                                         <TabPane tabId="3">
                                         </TabPane>

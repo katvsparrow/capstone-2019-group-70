@@ -3,9 +3,11 @@ import React from "react";
 class EditAction extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log(this.props);
+        
         let id = this.props.targetContainer;
         let originalContainer = document.getElementById(id); 
+
         let style = 'width:100%; height: ' + originalContainer.clientHeight + 'px;';
 
         let editContainer = document.createElement('textarea');

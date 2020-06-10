@@ -124,6 +124,10 @@
     margin: 5px;
 }
 
+.will-submit-form { 
+    background-color: #DCDCDC;
+}
+
 /* Account Page Panel Switch */
 .list-group-horizontal {
     flex-direction: row !important;

@@ -10,9 +10,9 @@ import PageSpinner from "components/Containers/PageSpinner";
 import ModalDisplay from "components/Containers/ModalDisplay";
 import WillView from "components/Media/WillView";
 import WillContributeForm from "components/Forms/WillContributeForm";
+import TextCard from "components/Containers/TextCard";
 import ActionButton from "components/Containers/ActionButton";
 import RerouteButton from "components/Containers/RerouteButton";
-import EditAction from "components/Containers/EditAction";
 
 import * as Mock from "constants/placeholder";
 import * as Text from "constants/text";
@@ -110,36 +110,18 @@ const TextView = ({will, edits}) => {
         <>
             <Col md='8' className='my-4'>
                 {/* Original Text */}
-                <Card>
-                    <CardHeader tag="h4">
-                        Original Text
-                        {edits &&
-                            <>
-                                <EditAction 
-                                    targetContainer="original_text"
-                                />
-                            </>
-                        }
-                    </CardHeader>
-                    <CardBody id="original_text" className="bg-secondary transcript-container">
-                        {Mock.original_text}
-                    </CardBody>
-                </Card>
-                <Card className="mt-4">
-                    <CardHeader tag="h4">
-                        Translated Text
-                        {edits &&
-                            <>
-                                <EditAction 
-                                    targetContainer='translated_text'
-                                />
-                            </>
-                        }
-                    </CardHeader>
-                    <CardBody id="translated_text" className="bg-secondary transcript-container">
-                        {Mock.translated_text}
-                    </CardBody>  
-                </Card>
+                <TextCard
+                    header='Original Text'
+                    enableEdit={edits}
+                    targetContainer="original_text"
+                    bodyText={Mock.original_text}
+                />
+                <TextCard
+                    header="Translated Text"
+                    enableEdit={edits}
+                    targetContainer="translated_text"
+                    bodyText={Mock.translated_text}
+                />
             </Col>
             <Col md='4' className='my-4'>
                 {/* Document Details */}

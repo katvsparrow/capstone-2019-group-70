@@ -15,7 +15,7 @@ import Account from "views/Account.jsx";
 import Admin from "views/Admin.jsx";
 import Register from "views/Register.jsx";
 import Will from "views/Will.jsx";
-//import Bibliography from "views/Bibliography.jsx";
+import Bibliography from "views/Bibliography.jsx";
 import Contribute from "views/Contribute.jsx";
 import NotFound from "views/NotFound.jsx";
 
@@ -69,12 +69,11 @@ class App extends React.Component {
                                 <Route path={ROUTES.ABOUT} exact render={props=> <AboutUs {...props} />} />
                                 <Route path={ROUTES.SEARCH} render={props => <Search {...props} />} />
                                 <Route path={ROUTES.WILL} render={props=> <Will {...props} /> } /> 
-                                {/*
                                 <Route path={ROUTES.ACCOUNT} render={props => <Account {...props}/> } />
                                 <Route path={ROUTES.ADMIN} render={props => <Admin {...props} />} /> 
                                 <Route path={ROUTES.LOGIN} render={props=> <Login {...props} /> } />
-                                <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />
-                                <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />*/}
+                                <Route path={ROUTES.REGISTER} render={props => <Register {...props}/> } />  
+                                <Route path={ROUTES.BIBLIOGRAPHY} render={props => <Bibliography {...props}/> } />
                                 <Route path={ROUTES.CONTRIBUTE}  render={props => <Contribute {...props}/> } />
                                 <Route component={NotFound} />
                             </Switch>
