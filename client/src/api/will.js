@@ -13,7 +13,7 @@ export default {
     }, 
 
     postNewDocument: async(payload) => {
-        console.log('Ready to send');
+        console.log('Posting Document');
         console.log(payload);
 
         await axios.post(`api/documents/postNewDocument/`, payload)

@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS Language (
 
 CREATE TABLE IF NOT EXISTS Location (
    id INT AUTO_INCREMENT,
-   city VARCHAR(32),
-   country VARCHAR(32),
+   short_name VARCHAR(16),
+   name VARCHAR(32) NOT NULL,
    PRIMARY KEY (id),
-   UNIQUE KEY (city, country)
+   UNIQUE KEY (name)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS Archive (
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Archive (
 
 -- Represents a single DOCUMENT
 --
--- References: Language, Country, City
+-- References: Language, Location
 -- Associations: Tag, User
 CREATE TABLE IF NOT EXISTS Document (
    id INT AUTO_INCREMENT PRIMARY KEY,

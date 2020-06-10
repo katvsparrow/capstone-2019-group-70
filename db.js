@@ -20,9 +20,8 @@ module.exports = {
          SELECT 
             Document.id, title, uploader, date_of_publication, year,
             original_text, translated_text, image, upload_date, edit_date,
-            Language.name as language_name, Location.city as city_name, 
-            Location.country AS country_name, Archive.name as archive_name,
-            Arc_Loc.city as archive_city_name, Arc_Loc.country as archive_country_name,
+            Language.name as language_name, Location.name as location_name, 
+            Archive.name as archive_name, Arc_Loc.name as archive_location_name
             reference
          FROM Document 
          INNER JOIN Language ON language_id = Language.id
@@ -52,9 +51,8 @@ module.exports = {
          SELECT 
             Document.id, title, uploader, date_of_publication, year,
             original_text, translated_text, image, upload_date, edit_date,
-            Language.name as language_name, Location.country as country_name, 
-            Location.city as city_name, Archive.name as archive_name,
-            reference
+            Language.name as language_name, Location.name as location_name, 
+            Archive.name as archive_name, reference
          FROM Document 
          INNER JOIN Language ON language_id = Language.id
          INNER JOIN Location ON document_location_id = Location.id
@@ -67,16 +65,16 @@ module.exports = {
    // Result: document title, author, year, image, upload date, language, location
    getDocumentMinimal: callback => {
       const query = `
-      SELECT 
-         Document.id, title, uploader, date_of_publication, 
-         original_text, translated_text, image, upload_date, edit_date,
-         Language.name as language_name, Location.country as country_name, 
-         Location.city as city_name, Archive.name as archive_name
-      FROM Document 
-      INNER JOIN Language ON language_id = Language.id
-      INNER JOIN Location ON document_location_id = Location.id
-      INNER JOIN Archive on archive_id = Archive.id
-   `;
+         SELECT 
+            Document.id, title, uploader, date_of_publication, 
+            original_text, translated_text, image, upload_date, edit_date,
+            Language.name as language_name, Location.name as location_name, 
+            Archive.name as archive_name
+         FROM Document 
+         INNER JOIN Language ON language_id = Language.id
+         INNER JOIN Location ON document_location_id = Location.id
+         INNER JOIN Archive on archive_id = Archive.id
+      `;
 
       db.query(query, callback);
    },
@@ -153,9 +151,8 @@ module.exports = {
       const query = `
          SELECT Document.id, title, uploader, date_of_publication, year,
             original_text, translated_text, image, upload_date, edit_date,
-            Language.name as language_name, Location.country as country_name, 
-            Location.city as city_name, Archive.name as archive_name,
-            reference
+            Language.name as language_name, Location.name as location_name,
+            Archive.name as archive_name, reference
          FROM Document 
          INNER JOIN Language ON language_id = Language.id
          INNER JOIN Location ON document_location_id = Location.id
@@ -168,45 +165,11 @@ module.exports = {
       db.query(query, values, callback);
    },
 
-   // Description: retrieve document by tag
-   // Result: document title, author, year, original text, translated text, image, upload date, language, location
-   getDocumentByTag: (tag, callback) => {
-      const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
-         'FROM Document ' +
-         'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON document_location_id = Location.id ' +
-         'INNER JOIN Document_Tag ON Document.id = document_id ' +
-         'INNER JOIN Tag ON tag.id = tag_id ' +
-         'WHERE Tag.name = ?';
-      const values = [tag];
-      
-      db.query(query, values, callback);
-   },
-
-   // Description: retrieve document by username
-   // Result: document title, author, year, original text, translated text, image, upload date, language, location
-   getDocumentByUsername: (username, callback) => {
-      const query =
-         'SELECT title, author, year, original_text, translated_text, image, upload_date, ' +
-         'Language.name AS language_name, Location.country AS country_name, Location.city AS city_name ' +
-         'FROM Document ' +
-         'INNER JOIN Language ON language_id = Language.id ' +
-         'INNER JOIN Location ON document_location_id = Location.id ' +
-         'INNER JOIN Document_Tag ON Document.id = document_id ' +
-         'INNER JOIN Tag ON tag.id = tag_id ' +
-         'WHERE Tag.name = ?';
-      const values = [username];
-      
-      db.query(query, values, callback);
-   },
-
    // Description: add a location to the database
-   insertLocation: (city, country, callback) => {
+   insertLocation: (location_name, callback) => {
       const query = 
-         'INSERT IGNORE INTO Location (city, country) VALUES (?, ?)';
-      const values = [city, country];
+         'INSERT IGNORE INTO Location (name) VALUES (?)';
+      const values = [location_name];
       
       db.query(query, values, callback);
    },
@@ -243,12 +206,11 @@ module.exports = {
    insertArchive: (document, callback) => {
       const query = 
          'INSERT IGNORE INTO Archive (name, location_id) ' + 
-         'VALUES (?, (SELECT Location.id FROM Location WHERE Location.city = ? AND Location.country = ?))';
+         'VALUES (?, (SELECT Location.id FROM Location WHERE Location.name = ?))';
       
       const values = [
          document.archive, 
-         document.archive_city,
-         document.archive_country
+         document.archive_location
       ];
 
       db.query(query, values, callback);
@@ -261,14 +223,14 @@ module.exports = {
          INSERT INTO Document
             (title, uploader, date_of_publication, year, original_text, translated_text, upload_date,
                edit_date, language_id, document_location_id, archive_id, reference)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?,
-                  (SELECT Language.id from Language WHERE Language.name = ?),
-                  (SELECT Location.id from Location WHERE Location.city = ? AND Location.country = ?),
-                  (SELECT Archive.id from Archive
-                     JOIN Location on Location.city = ? AND Location.country = ?
-                     WHERE Archive.name = ?
-                  ),
-               ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?,
+               (SELECT Language.id from Language WHERE Language.name = ?),
+               (SELECT Location.id from Location WHERE Location.name = ?),
+               (SELECT Archive.id from Archive
+                  JOIN Location on Location.name = ?
+                  WHERE Archive.name = ?
+               ),
+            ?)
       `;
 
       const values = [
@@ -281,10 +243,8 @@ module.exports = {
          document.upload_date,
          document.edit_date,
          document.language,
-         document.document_city,
-         document.document_country,
-         document.archive_city,
-         document.archive_country,
+         document.document_location,
+         document.archive_location,
          document.archive,
          document.reference
       ];
@@ -384,12 +344,12 @@ module.exports = {
       db.query(query, values, callback);
    },
 
-   editDocumentLocation: (document_id, city, country, callback) => {
+   editDocumentLocation: (document_id, location_name, callback) => {
       const query = 
          `UPDATE Document
-            SET document_location_id = (SELECT id FROM Location WHERE city = ? AND country = ?)
+            SET document_location_id = (SELECT id FROM Location WHERE name = ?)
             WHERE id = ?`
-      values = [city, country, document_id];
+      values = [location_name, document_id];
 
       db.query(query, values, callback);
    },

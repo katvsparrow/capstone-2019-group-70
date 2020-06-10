@@ -24,7 +24,7 @@ class WillCard extends React.Component {
                     </p>
                     <div>
                         <Badge color="primary" pill className="mr-1">
-                            {this.props.data['country_name']}
+                            {this.props.data['location_name']}
                         </Badge>
                         <Badge color="dark" pill className="mr-1">
                             {this.props.data['language_name']}

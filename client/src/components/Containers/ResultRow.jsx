@@ -12,7 +12,7 @@ class ResultRow extends React.Component {
                     </Link>
                 </th>
                 <td>{getDateTimeString(this.props.data['date_of_publication'])}</td>
-                <td>{this.props.data['city_name'] + ', ' + this.props.data['country_name'] }</td>
+                <td>{this.props.data['location_name'] }</td>
                 <td>{this.props.data['archive_name']}</td>
             </tr>
         );

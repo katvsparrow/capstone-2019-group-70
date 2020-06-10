@@ -43,12 +43,7 @@ const DetailTable = ({details}) => {
                 <tr>
                     <td>Location Origin</td>
                     <td>
-                        {details.city_name && 
-                            details.city_name + ', '
-                        }
-                        {details.country_name &&
-                            details.country_name
-                        }
+                        {details.location_name}
                     </td>
                 </tr>
                 <tr>

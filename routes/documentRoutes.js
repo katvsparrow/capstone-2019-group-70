@@ -87,20 +87,18 @@ module.exports = (app) => {
             'uploader': 'Dr. Rena Lauer',
             'date_of_publication': fields.date,
             'year': extractYear(fields.date),
-            'document_city': fields.document_city, 
-            'document_country': fields.document_country,
+            'document_location': fields.document_location, 
             'original_text': fields.original_text,
             'translated_text': fields.translated_text,
             'language': fields.language,
             'archive':  fields.archive,
-            'archive_city': fields.archive_city, 
-            'archive_country': fields.archive_country,
+            'archive_location': fields.archive_location,
             'reference': fields.reference,
             'upload_date': request_time,
             'edit_date': request_time,
         }
 
-        db.insertLocation(document.document_city, document.document_country, err => {
+        db.insertLocation(document.document_location, err => {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -108,7 +106,7 @@ module.exports = (app) => {
             }
         });
 
-        db.insertLocation(document.archive_city, document.archive_country, err => {
+        db.insertLocation(document.archive_location, err => {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -181,7 +179,7 @@ module.exports = (app) => {
                 break;
 
             case "location":
-                db.insertLocation(fields.document_city, fields.document_country, err => {
+                db.insertLocation(fields.location_name, err => {
                     if (err) {
                         console.log(err);
                         res.sendStatus(500);
@@ -189,7 +187,7 @@ module.exports = (app) => {
                     }
                 });
 
-                db.editDocumentLocation(id, fields.document_city, fields.document_country, err => {
+                db.editDocumentLocation(id, fields.location_name, err => {
                     if (err) {
                         console.log(err);
                         res.sendStatus(500);
@@ -233,7 +231,7 @@ module.exports = (app) => {
                 break;
 
             case "archive":
-                db.insertLocation(fields.archive_city, fields.archive_country, err => {
+                db.insertLocation(fields.archive_location_name, err => {
                     if (err) {
                         console.log(err);
                         res.sendStatus(500);

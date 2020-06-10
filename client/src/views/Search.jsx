@@ -89,32 +89,6 @@ class Search extends React.Component {
                                         <Label color="black" for="form-search">Search for wills by keywords, location, year, language</Label>
                                     </Col>
                                 </Row>
-                                {/*
-                                <Row>
-                                    <Col>
-                                        <FormGroup>
-                                            <Label for="form-language">Country of Origin</Label>
-                                            <Input type="select" name="country" id="form-country">
-                                                <option></option>
-                                                <option>Germany</option>
-                                                <option>Israel</option>
-                                                <option>Italy</option>
-                                                <option>Spain</option>
-                                            </Input>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col>
-                                        <FormGroup>
-                                            <Label for="form-language">Original Language</Label>
-                                            <Input type="select" name="language" id="form-language">
-                                                <option></option>
-                                                <option>English</option>
-                                                <option>Latin</option>
-                                                <option>Spanish</option>
-                                            </Input>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>*/}
                                 <Row className='mt-4'>
                                     {this.state.wills 
                                         ?
