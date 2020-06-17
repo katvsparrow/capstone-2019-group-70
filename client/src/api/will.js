@@ -13,9 +13,6 @@ export default {
     }, 
 
     postNewDocument: async(payload) => {
-        console.log('Posting Document');
-        console.log(payload);
-
         let res = await axios.post(`api/documents/postNewDocument/`, payload)
         return res.data;
     }

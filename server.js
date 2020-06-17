@@ -1,31 +1,48 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const app = express();
+var express = require('express'),
+    path = require('path'), 
+    bodyParser = require('body-parser'),
+    cors = require('cors');
 
+// Create global app object
+var app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(express.static(path.join(__dirname, 'client/build')));
 
+// Env setup
 require('dotenv').config();
-require('./routes/documentRoutes')(app);
-require('./routes/userRoutes')(app);
-
+var isProduction = process.env.NODE_ENV === 'production';
 if(!('DB_HOST' in process.env) || !('DB_USER' in process.env) 
     || !('DB_PASS' in process.env) || !('DB_NAME' in process.env) ) {
   throw 'Missing credential file. Add .env file to your directory.'
 }
 
+// End point setup
+app.use(require('./routes'));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+// Error handlers
+if(!isProduction) {
+  app.use(function(err, req, res, next) {
+    console.log(err.stack);
+    res.status(err.status || 500);
+    res.json({'errors': {
+      message: err.message,
+      error: err
+    }});
+  });
+}
 
-// The "catchall" handler: for any request that doesn't
-// match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+app.use(function(err, req, res, next) {
+  // Remove trace stack on production server
+  res.status(err.status || 500);
+  res.json({'errors': {
+    message: err.message,
+    error: {}
+  }});
 });
 
-
-const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// Start Server
+var server = app.listen( process.env.PORT || 3001, function(){
+  console.log(`Listening on port ${server.address().port}`);
+});
